@@ -13,7 +13,8 @@ import {
   ChevronLeft, 
   ChevronRight,
   X,
-  Loader2
+  Loader2,
+  Globe
 } from "lucide-react";
 import { TEMPLATES_DATA, TemplateItem } from "@/lib/templates-data";
 
@@ -72,11 +73,11 @@ export function ResponsiveTabBrowser({
   return (
     <div className={`flex flex-col bg-[#0b0c10] text-zinc-100 ${isModal ? "h-full" : "rounded-2xl border border-zinc-800 overflow-hidden shadow-2xl my-8"}`}>
       
-      {/* 1. Real Browser Window Header with Tabs */}
+      {/* 1. Real Browser Window Header */}
       <div className="bg-[#16181f] border-b border-zinc-800/80 pt-2 px-3 select-none shrink-0">
         
-        {/* Top Tab Bar */}
-        <div className="flex items-center justify-between gap-2 overflow-x-auto no-scrollbar pb-1.5">
+        {/* Top Browser Bar */}
+        <div className="flex items-center justify-between gap-2 pb-1.5">
           
           {/* Browser Window Control Dots */}
           <div className="flex items-center gap-1.5 mr-2 shrink-0">
@@ -85,38 +86,19 @@ export function ResponsiveTabBrowser({
             <span className="h-3 w-3 rounded-full bg-emerald-500/90 shadow-sm" />
           </div>
 
-          {/* Browser Tabs Row */}
-          <div className="flex items-center gap-1 overflow-x-auto no-scrollbar flex-1">
-            {TEMPLATES_DATA.map((t) => {
-              const isActive = t.slug === activeSlug;
-              return (
-                <button
-                  key={t.slug}
-                  onClick={() => {
-                    setActiveSlug(t.slug);
-                    setIframeLoading(true);
-                  }}
-                  className={`group relative flex items-center gap-2 rounded-t-lg px-3 py-1.5 text-xs font-medium transition-all max-w-[170px] truncate ${
-                    isActive
-                      ? "bg-[#1f222e] text-white shadow-sm border-t border-x border-zinc-700/80 font-semibold"
-                      : "text-zinc-400 hover:bg-zinc-800/50 hover:text-zinc-200"
-                  }`}
-                >
-                  <span className={`h-1.5 w-1.5 rounded-full shrink-0 ${t.slug === "ccidcop" ? "bg-[#ff6a00]" : "bg-emerald-400"}`} />
-                  <span className="truncate">{t.slug === "ccidcop" ? "ccidcop.in" : t.title}</span>
-                  {isActive && (
-                    <span className="text-[10px] font-mono text-zinc-400 ml-1">×</span>
-                  )}
-                </button>
-              );
-            })}
+          {/* Dedicated Active Tab Only */}
+          <div className="flex items-center gap-1 flex-1">
+            <div className="flex items-center gap-2 rounded-t-lg bg-[#1f222e] text-white px-3.5 py-1.5 text-xs font-semibold border-t border-x border-zinc-700/80 shadow-sm max-w-[280px] truncate">
+              <span className={`h-2 w-2 rounded-full shrink-0 ${activeSlug === "ccidcop" ? "bg-[#ff6a00] animate-pulse" : "bg-emerald-400"}`} />
+              <span className="truncate">{activeSlug === "ccidcop" ? "ccidcop.in — Live Portfolio" : `${activeTemplate.title} — Portfolio`}</span>
+            </div>
           </div>
 
           {/* Close Modal Trigger if open in modal */}
           {onClose && (
             <button
               onClick={onClose}
-              className="rounded-lg p-1 text-zinc-400 hover:bg-zinc-800 hover:text-white shrink-0 ml-2"
+              className="rounded-lg p-1 text-zinc-400 hover:bg-zinc-800 hover:text-white shrink-0 ml-2 cursor-pointer"
               title="Close Browser View"
             >
               <X className="h-4 w-4" />
@@ -129,10 +111,10 @@ export function ResponsiveTabBrowser({
           
           {/* Back, Forward, Reload Controls */}
           <div className="flex items-center gap-1 text-zinc-400">
-            <button className="rounded p-1 hover:bg-zinc-800 hover:text-white" title="Back">
+            <button className="rounded p-1 hover:bg-zinc-800 hover:text-white cursor-pointer" title="Back">
               <ChevronLeft className="h-4 w-4" />
             </button>
-            <button className="rounded p-1 hover:bg-zinc-800 hover:text-white" title="Forward">
+            <button className="rounded p-1 hover:bg-zinc-800 hover:text-white cursor-pointer" title="Forward">
               <ChevronRight className="h-4 w-4" />
             </button>
             <button 
@@ -140,8 +122,8 @@ export function ResponsiveTabBrowser({
                 setRefreshKey(k => k + 1);
                 setIframeLoading(true);
               }}
-              className="rounded p-1 hover:bg-zinc-800 hover:text-white ml-1"
-              title="Reload live site"
+              className="rounded p-1 hover:bg-zinc-800 hover:text-white ml-1 cursor-pointer"
+              title="Reload live preview"
             >
               <RotateCcw className="h-3.5 w-3.5" />
             </button>
@@ -159,7 +141,7 @@ export function ResponsiveTabBrowser({
             <div className="flex items-center gap-1.5 shrink-0 ml-2">
               <button
                 onClick={handleCopyUrl}
-                className="rounded p-1 text-zinc-400 hover:text-white hover:bg-zinc-800"
+                className="rounded p-1 text-zinc-400 hover:text-white hover:bg-zinc-800 cursor-pointer"
                 title="Copy URL"
               >
                 {copiedUrl ? <Check className="h-3 w-3 text-emerald-400" /> : <Copy className="h-3 w-3" />}
@@ -168,7 +150,7 @@ export function ResponsiveTabBrowser({
                 href={targetLiveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded p-1 text-zinc-400 hover:text-[#ff6a00] hover:bg-zinc-800"
+                className="rounded p-1 text-zinc-400 hover:text-[#ff6a00] hover:bg-zinc-800 cursor-pointer"
                 title="Open live site in new tab"
               >
                 <ExternalLink className="h-3 w-3" />
@@ -180,7 +162,7 @@ export function ResponsiveTabBrowser({
           <div className="flex items-center gap-1.5 bg-black/40 p-1 rounded-lg border border-zinc-800 text-xs">
             <button
               onClick={() => setDevice("desktop")}
-              className={`flex items-center gap-1.5 rounded-md px-2.5 py-1 font-semibold transition-all ${
+              className={`flex items-center gap-1.5 rounded-md px-2.5 py-1 font-semibold transition-all cursor-pointer ${
                 device === "desktop"
                   ? "bg-zinc-800 text-white shadow-sm ring-1 ring-zinc-700"
                   : "text-zinc-400 hover:text-zinc-200"
@@ -193,7 +175,7 @@ export function ResponsiveTabBrowser({
 
             <button
               onClick={() => setDevice("tablet")}
-              className={`flex items-center gap-1.5 rounded-md px-2.5 py-1 font-semibold transition-all ${
+              className={`flex items-center gap-1.5 rounded-md px-2.5 py-1 font-semibold transition-all cursor-pointer ${
                 device === "tablet"
                   ? "bg-zinc-800 text-white shadow-sm ring-1 ring-zinc-700"
                   : "text-zinc-400 hover:text-zinc-200"
@@ -206,7 +188,7 @@ export function ResponsiveTabBrowser({
 
             <button
               onClick={() => setDevice("mobile")}
-              className={`flex items-center gap-1.5 rounded-md px-2.5 py-1 font-semibold transition-all ${
+              className={`flex items-center gap-1.5 rounded-md px-2.5 py-1 font-semibold transition-all cursor-pointer ${
                 device === "mobile"
                   ? "bg-zinc-800 text-white shadow-sm ring-1 ring-zinc-700"
                   : "text-zinc-400 hover:text-zinc-200"
@@ -245,7 +227,7 @@ export function ResponsiveTabBrowser({
           {iframeLoading && (
             <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-[#09090c]/90 text-zinc-400 gap-2">
               <Loader2 className="h-6 w-6 animate-spin text-[#ff6a00]" />
-              <span className="text-xs font-mono">Loading live {activeSlug === "ccidcop" ? "ccidcop.in" : activeTemplate.title}...</span>
+              <span className="text-xs font-mono">Connecting to {activeSlug === "ccidcop" ? "ccidcop.in" : activeTemplate.title}...</span>
             </div>
           )}
 
@@ -257,7 +239,7 @@ export function ResponsiveTabBrowser({
               title={`Live Preview of ${activeTemplate.title}`}
               onLoad={() => setIframeLoading(false)}
               className="h-full w-full border-0 bg-black"
-              sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+              sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals allow-downloads"
             />
           </div>
 
@@ -276,10 +258,10 @@ export function ResponsiveTabBrowser({
           <span className="text-zinc-400">Live embedded:</span>
           <strong className="text-white uppercase font-bold">{activeTemplate.title}</strong>
           <span className="rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 text-[10px] font-mono font-bold">
-            ● Live Stream
+            ● Live Connected
           </span>
           <span className="rounded bg-orange-500/10 text-[#ff6a00] border border-orange-500/20 px-2 py-0.5 text-[10px] font-bold">
-            ${activeTemplate.price} USD
+            ₹{activeTemplate.price} INR
           </span>
         </div>
 
@@ -288,15 +270,15 @@ export function ResponsiveTabBrowser({
             onClick={() => setDevice(d => d === "desktop" ? "tablet" : d === "tablet" ? "mobile" : "desktop")}
             className="rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-1.5 text-zinc-200 hover:bg-zinc-700 font-medium cursor-pointer"
           >
-            Toggle Device ({device})
+            Switch View ({device})
           </button>
 
           {onSelectForPurchase && (
             <button
               onClick={() => onSelectForPurchase(activeTemplate)}
-              className="rounded-lg bg-[#ff6a00] px-4 py-1.5 font-bold text-white shadow-md hover:bg-[#ff7a1a] cursor-pointer"
+              className="rounded-lg bg-[#ff6a00] px-4 py-1.5 font-bold text-white shadow-md hover:bg-[#ff7a1a] transition-all cursor-pointer"
             >
-              Buy Template &bull; ${activeTemplate.price}
+              Get Template — ₹{activeTemplate.price}
             </button>
           )}
         </div>

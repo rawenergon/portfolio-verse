@@ -40,9 +40,12 @@ export function TemplateCard({
         {/* Header Row */}
         <div className="flex items-start justify-between gap-4">
           <div className="flex flex-wrap items-center gap-2">
-            <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-zinc-900 dark:text-white uppercase">
+            <Link 
+              href={`/templates/${template.slug}`}
+              className="text-xl sm:text-2xl font-bold tracking-tight text-zinc-900 dark:text-white uppercase hover:text-[#ff6a00] dark:hover:text-[#ff6a00] transition-colors"
+            >
               {template.title}
-            </h2>
+            </Link>
 
             {/* Lock / Live Icon in gray rounded box */}
             <span className="flex h-5 w-5 items-center justify-center rounded bg-[#f4f4f5] text-zinc-600 dark:bg-[#27272a] dark:text-zinc-400">
@@ -117,7 +120,7 @@ export function TemplateCard({
             title={`Live Embedded Preview of ${template.title}`}
             className="h-[200%] w-[200%] origin-top-left scale-50 border-0 bg-black"
             loading="lazy"
-            sandbox="allow-scripts allow-same-origin"
+            sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals allow-downloads"
           />
         </div>
 
@@ -128,15 +131,15 @@ export function TemplateCard({
         </div>
 
         {/* Hover Quick Action Buttons */}
-        <div className="absolute inset-0 bg-black/50 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex flex-col items-center justify-center gap-3 p-4 z-20">
+        <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex flex-col items-center justify-center gap-3 p-4 z-20">
           <div className="flex items-center gap-2.5">
-            <button
-              onClick={() => onOpenLivePreview(template)}
+            <Link
+              href={`/templates/${template.slug}`}
               className="inline-flex items-center gap-1.5 rounded-lg bg-white px-3.5 py-2 text-xs font-bold text-zinc-900 shadow-md hover:bg-zinc-100 transition-all hover:scale-105 cursor-pointer"
             >
               <Eye className="h-3.5 w-3.5 text-[#ff6a00]" />
-              <span>Live Preview</span>
-            </button>
+              <span>Dedicated Page</span>
+            </Link>
 
             <button
               onClick={() => onSelectForPurchase(template)}
@@ -151,7 +154,7 @@ export function TemplateCard({
             href={`/templates/${template.slug}`}
             className="text-[11px] font-medium text-white/90 underline-offset-4 hover:underline hover:text-white"
           >
-            View Details &amp; Docs →
+            View Full Specs &amp; Responsive Preview →
           </Link>
         </div>
       </div>
@@ -162,17 +165,19 @@ export function TemplateCard({
           href={`/templates/${template.slug}`}
           className="font-medium text-zinc-600 hover:text-[#ff6a00] dark:text-zinc-400 dark:hover:text-white transition-colors"
         >
-          Details
+          View Page →
         </Link>
 
         <div className="flex items-center gap-2.5">
-          <button
-            onClick={() => onOpenLivePreview(template)}
+          <a
+            href={targetUrl}
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center gap-1 font-medium text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-200 cursor-pointer"
           >
-            <span>Preview</span>
+            <span>Live Site</span>
             <ExternalLink className="h-3 w-3" />
-          </button>
+          </a>
 
           <button
             onClick={() => onSelectForPurchase(template)}

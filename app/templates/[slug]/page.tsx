@@ -11,15 +11,12 @@ import {
   Sparkles, 
   Zap,
   Globe,
-  Monitor,
-  Tablet,
-  Smartphone,
-  ShieldCheck,
+  Layers,
   Code2,
   Cpu,
-  Layers,
   FileCode,
-  Rocket
+  ShieldCheck,
+  ChevronRight
 } from "lucide-react";
 import { TEMPLATES_DATA, TemplateItem } from "@/lib/templates-data";
 import { TopBanner } from "@/components/top-banner";
@@ -51,40 +48,58 @@ export default function TemplateDetailPage() {
   }
 
   const isCcidcop = template.slug === "ccidcop";
+  const liveTargetUrl = template.demoUrl || (isCcidcop ? "https://ccidcop.in" : `https://${template.slug}.ui-layouts.com`);
 
-  const standardFeatures = [
+  const detailsList = [
     {
       title: "Hero, About, Services & Projects",
-      desc: "Designed with all essential developer and agency sections. Fully responsive across phone, tablet, and desktop, optimized for conversions."
+      desc: "Designed with all essential agency and portfolio sections. Fully responsive, modern, and optimized for high conversion."
     },
     {
-      title: "MDX-Powered Blog & Articles",
-      desc: "Includes a complete technical writing engine built with Next.js MDX. Every post is statically pre-rendered for instant page transitions."
+      title: "MDX-Powered Blog System",
+      desc: `${template.title} includes a complete writing engine built using next-mdx. Every article is statically pre-rendered for instant page transitions.`
     },
     {
       title: "SEO Optimized with Full Metadata",
-      desc: "Every single page includes OpenGraph images, Twitter cards, structured JSON-LD data, and search-friendly markup out of the box."
+      desc: "Every single page includes metadata, OpenGraph images, Twitter cards, structured JSON-LD data, and search-friendly markup out of the box."
     },
     {
-      title: "Lenis Smooth Scroll & Motion Physics",
-      desc: "Smooth kinetic scrolling, spring-based micro-interactions, and Framer Motion transitions make the portfolio feel high-end."
+      title: "Lenis for smooth scrolling & Motion Animations",
+      desc: "Smooth kinetic motion, spring transitions, and interactive physics make the website feel ultra-fluid and premium."
     },
     {
-      title: "TailwindCSS + React 18/19 + Next.js 14",
-      desc: "Engineered on modern Next.js App Router with TypeScript. Achieves 100/100 Lighthouse performance and SEO scores."
+      title: "TailwindCSS v4 + React 19 + Next.js 14/15",
+      desc: "Built on the modern React ecosystem, guaranteeing long-term stability, developer experience, and 100/100 Lighthouse performance."
     },
     {
       title: "Static Generation — Lightning Fast",
-      desc: "Project pages, case studies, and blogs are generated at build time, guaranteeing blazing-fast sub-second response times."
+      desc: "Case studies and blog pages are generated at build time, delivering blazing-fast sub-second response times."
     },
     {
-      title: "Discord & Form Webhook Automation",
-      desc: "Includes built-in contact forms and newsletter subscriber hooks connected to Discord webhooks and email notifications."
+      title: "Code Blocks with Copy Button",
+      desc: "Technical writing pages automatically detect code syntax and provide one-click copy buttons for an elite developer experience."
     },
     {
-      title: "Production Ready — 1-Click Vercel Deploy",
-      desc: "Clean modular codebase, zero build warnings, and pre-configured Vercel and Netlify configuration files."
+      title: "Discord & Form Webhook Integration",
+      desc: `${template.title} includes built-in contact and newsletter forms connected to Discord webhooks for instant notifications.`
+    },
+    {
+      title: "Easy to Deploy & Customize",
+      desc: "Clean modular file structure, clear naming conventions, and typed components make customization effortless."
+    },
+    {
+      title: "Lifetime License & Future Updates",
+      desc: "Full source code ownership, lifetime commercial use, and free updates as the design framework evolves."
     }
+  ];
+
+  const techStackCards = [
+    { name: "TypeScript", desc: "Type-safe development with zero runtime overhead", icon: "TS" },
+    { name: "Next.js", desc: "App Router, Server Components & Static Site Generation", icon: "N" },
+    { name: "React", desc: "Modern component architecture & state hooks", icon: "⚛" },
+    { name: "TailwindCSS", desc: "Utility-first CSS framework for rapid styling", icon: "TW" },
+    { name: "Framer Motion", desc: "Spring physics, layout animations & micro-interactions", icon: "FM" },
+    { name: "Lenis", desc: "Smooth momentum scrolling for high-end web feel", icon: "LS" },
   ];
 
   return (
@@ -101,7 +116,7 @@ export default function TemplateDetailPage() {
               className="inline-flex items-center gap-2 text-xs font-semibold text-zinc-600 hover:text-[#ff6a00] dark:text-zinc-400 dark:hover:text-white"
             >
               <ArrowLeft className="h-3.5 w-3.5" />
-              <span>Back to Templates</span>
+              <span>/ Templates</span>
             </Link>
 
             <div className="flex items-center gap-2 text-xs font-mono text-zinc-500">
@@ -144,7 +159,7 @@ export default function TemplateDetailPage() {
               </p>
 
               {/* Tech Stack Pills */}
-              <div className="flex flex-wrap gap-2 pt-2">
+              <div className="flex flex-wrap items-center gap-2 pt-2">
                 {template.techStack.map((tech) => (
                   <span
                     key={tech.name}
@@ -169,13 +184,15 @@ export default function TemplateDetailPage() {
               </div>
 
               <div className="flex items-center gap-3 w-full sm:w-auto">
-                <button
-                  onClick={() => setIsPreviewOpen(true)}
+                <a
+                  href={liveTargetUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 rounded-xl border border-zinc-300 bg-white px-5 py-3 text-xs font-bold text-zinc-900 shadow-sm hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white dark:hover:bg-zinc-700 transition-all cursor-pointer"
                 >
-                  <ExternalLink className="h-4 w-4" />
                   <span>Live Preview</span>
-                </button>
+                  <ExternalLink className="h-4 w-4" />
+                </a>
 
                 <button
                   onClick={() => setIsPurchaseOpen(true)}
@@ -189,57 +206,72 @@ export default function TemplateDetailPage() {
           </div>
 
           {/* Dedicated Live Embedded Responsive Browser on Page */}
-          <div className="mt-10">
+          <div className="mt-8">
             <ResponsiveTabBrowser
               initialSlug={template.slug}
               onSelectForPurchase={() => setIsPurchaseOpen(true)}
             />
           </div>
 
-          {/* Technical Feature Breakdown Grid matching UI Layouts Pro */}
-          <div className="mt-16 space-y-6">
-            <div className="border-b border-zinc-200 dark:border-zinc-800 pb-4">
-              <h2 className="text-2xl font-black tracking-tight text-zinc-900 dark:text-white uppercase flex items-center gap-2">
-                <Zap className="h-6 w-6 text-[#ff6a00]" />
-                Template Specifications &amp; Features
+          {/* UI Layouts Pro "Details" Section */}
+          <div className="mt-16 space-y-10 border-t border-zinc-200 dark:border-zinc-800 pt-10">
+            <div>
+              <h2 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">
+                Details
               </h2>
-              <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1">
-                Everything included with your purchase of the {template.title} template.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {standardFeatures.map((feat, idx) => (
-                <div 
-                  key={feat.title}
-                  className="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-[#121214] shadow-sm space-y-2"
-                >
-                  <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#ff6a00]">
-                    <span>0{idx + 1}.</span>
-                    <span className="uppercase">{feat.title}</span>
-                  </div>
-                  <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                    {feat.desc}
+              <div className="mt-6 space-y-4">
+                {detailsList.map((item) => (
+                  <p key={item.title} className="text-sm sm:text-base leading-relaxed text-zinc-600 dark:text-zinc-400">
+                    <span className="font-semibold text-zinc-900 dark:text-zinc-100">{item.title}</span>
+                    {" — "}
+                    <span>{item.desc}</span>
                   </p>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
 
-            {/* Bottom Buy Callout Banner */}
-            <div className="mt-10 rounded-2xl border border-orange-500/30 bg-orange-500/5 p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div>
-                <h3 className="text-lg font-bold text-zinc-900 dark:text-white">
+            {/* UI Layouts Pro "Tech Stack" Section */}
+            <div className="border-t border-zinc-200 dark:border-zinc-800 pt-10">
+              <h2 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">
+                Tech Stack
+              </h2>
+              <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400 max-w-3xl leading-relaxed">
+                Our template is crafted with a robust and modern tech stack, blending trusted frameworks with innovative tools. This combination guarantees exceptional performance, scalability, and a seamless developer experience, making it the ideal foundation for your next project.
+              </p>
+
+              <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                {techStackCards.map((card) => (
+                  <div 
+                    key={card.name}
+                    className="flex items-start gap-3.5 rounded-xl border border-zinc-200 bg-zinc-50/50 p-4 dark:border-zinc-800 dark:bg-zinc-900/40"
+                  >
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 font-mono text-xs font-bold text-zinc-800 dark:text-zinc-200 shadow-sm">
+                      {card.icon}
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-bold text-zinc-900 dark:text-white">{card.name}</h3>
+                      <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5 leading-snug">{card.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Ready to Deploy Purchase CTA Banner */}
+            <div className="rounded-2xl border border-orange-500/30 bg-orange-500/5 p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+              <div className="space-y-1 text-center sm:text-left">
+                <h3 className="text-xl font-bold text-zinc-900 dark:text-white">
                   Ready to deploy {template.title}?
                 </h3>
-                <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
-                  Instant source code download (.ZIP), documentation, and lifetime license for only ₹{template.price} INR.
+                <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400">
+                  Instant source code download (.ZIP), full documentation, and lifetime commercial license for only ₹{template.price} INR.
                 </p>
               </div>
 
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 shrink-0">
                 <button
                   onClick={() => setIsPurchaseOpen(true)}
-                  className="rounded-xl bg-[#ff6a00] px-6 py-2.5 text-xs font-bold text-white shadow-md hover:bg-[#ff7a1a] transition-all cursor-pointer"
+                  className="rounded-xl bg-[#ff6a00] px-6 py-3 text-xs font-bold text-white shadow-lg shadow-orange-500/25 hover:bg-[#ff7a1a] transition-all hover:scale-105 cursor-pointer"
                 >
                   Buy Now &bull; ₹{template.price} INR
                 </button>
