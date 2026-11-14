@@ -22,6 +22,7 @@ import { NewsletterSection } from "@/components/newsletter-section";
 import { Footer } from "@/components/footer";
 import { PurchaseModal } from "@/components/purchase-modal";
 import { LivePreviewModal } from "@/components/live-preview-modal";
+import { ResponsiveTabBrowser } from "@/components/responsive-tab-browser";
 
 export default function TemplateDetailPage() {
   const params = useParams();
@@ -139,35 +140,12 @@ export default function TemplateDetailPage() {
             </div>
           </div>
 
-          {/* Large Video / Interactive Showcase */}
-          <div className="mt-10 overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-950 shadow-2xl dark:border-zinc-800 aspect-[16/9] relative group">
-            {template.videoSrc ? (
-              <video
-                autoPlay
-                loop
-                muted
-                playsInline
-                preload="metadata"
-                className="h-full w-full object-cover object-top"
-              >
-                <source src={template.videoSrc} type="video/mp4" />
-              </video>
-            ) : (
-              <div className="flex h-full w-full items-center justify-center bg-zinc-900 text-center p-8">
-                <div>
-                  <h3 className="text-2xl font-bold text-white mb-2">{template.title} Live Preview</h3>
-                  <p className="text-sm text-zinc-400 max-w-md mx-auto mb-6">
-                    Full Next.js responsive template with animated components and production code.
-                  </p>
-                  <button
-                    onClick={() => setIsPreviewOpen(true)}
-                    className="rounded-xl bg-[#f95300] px-6 py-2.5 text-xs font-bold text-white"
-                  >
-                    Open Interactive Simulation
-                  </button>
-                </div>
-              </div>
-            )}
+          {/* Live Responsive Tab Browser (Desktop, Tablet, Phone) */}
+          <div className="mt-10">
+            <ResponsiveTabBrowser
+              initialSlug={template.slug}
+              onSelectForPurchase={() => setIsPurchaseOpen(true)}
+            />
           </div>
 
           {/* Feature Breakdown & Pages Grid */}

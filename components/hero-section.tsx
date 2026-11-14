@@ -1,8 +1,13 @@
 "use client";
 
 import React from "react";
+import { Smartphone } from "lucide-react";
 
-export function HeroSection() {
+interface HeroSectionProps {
+  onOpenResponsiveBrowser?: () => void;
+}
+
+export function HeroSection({ onOpenResponsiveBrowser }: HeroSectionProps) {
   return (
     <section className="relative overflow-hidden pt-10 pb-6 md:pt-14 md:pb-10">
       <div className="relative mx-auto max-w-4xl px-4 text-center">
@@ -101,14 +106,30 @@ export function HeroSection() {
               <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 16.03L9.77 6.94h2.24l7.15 9.42c-.7.62-1.47 1.18-2.24 1.67zM6.94 17.06V6.94h1.79v10.12H6.94z"/>
             </svg>
           </a>
+
         </div>
+
+        {/* Quick Trigger to open Live Responsive Browser */}
+        {onOpenResponsiveBrowser && (
+          <div className="mt-5">
+            <button
+              onClick={onOpenResponsiveBrowser}
+              className="inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-zinc-50 px-3.5 py-1.5 text-xs font-semibold text-zinc-700 shadow-sm transition-all hover:border-[#ff6a00] hover:bg-white hover:text-[#ff6a00] dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:bg-zinc-800 dark:hover:text-white cursor-pointer"
+            >
+              <Smartphone className="h-3.5 w-3.5 text-emerald-500" />
+              <span>Open Live Responsive Browser (Phone &bull; Tablet &bull; Desktop)</span>
+              <span className="rounded bg-emerald-500/10 text-emerald-500 text-[10px] px-1.5 py-0.2 font-mono">Live</span>
+            </button>
+          </div>
+        )}
+
       </div>
 
-      {/* Exact Reference Striped Divider Band below Hero (.VrSTkyRL) */}
+      {/* 45-degree diagonal striped hatch divider band below */}
       <div 
-        className="mt-10 h-10 w-full border-y border-zinc-200 dark:border-zinc-800"
+        className="mt-8 h-8 w-full border-y border-[#e5e5e5] dark:border-[#262626] opacity-60 dark:opacity-80"
         style={{
-          backgroundImage: "repeating-linear-gradient(45deg, #f0f0f0 0, #f0f0f0 1px, transparent 1px, transparent 8px)"
+          backgroundImage: "repeating-linear-gradient(45deg, #e5e5e5, #e5e5e5 1px, transparent 0, transparent 8px)"
         }}
       />
     </section>

@@ -10,7 +10,7 @@ import { Footer } from "@/components/footer";
 import { CommandPalette } from "@/components/command-palette";
 import { PurchaseModal } from "@/components/purchase-modal";
 import { LivePreviewModal } from "@/components/live-preview-modal";
-import { TemplateItem } from "@/lib/templates-data";
+import { TemplateItem, TEMPLATES_DATA } from "@/lib/templates-data";
 
 export default function HomePage() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -30,7 +30,12 @@ export default function HomePage() {
 
         {/* Hero Section matching exact reference */}
         <main className="flex-1">
-          <HeroSection />
+          <HeroSection 
+            onOpenResponsiveBrowser={() => {
+              const ccidcop = TEMPLATES_DATA.find(t => t.slug === "ccidcop") || TEMPLATES_DATA[0];
+              setPreviewTemplate(ccidcop);
+            }}
+          />
 
           {/* Dedicated Portfolio Templates Catalog */}
           <TemplateGrid
