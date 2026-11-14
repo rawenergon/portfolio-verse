@@ -31,8 +31,13 @@ export async function GET(req: NextRequest) {
     if (contentType.includes("text/html")) {
       let html = await response.text();
 
-      // Inject base tag so scripts, styles, images resolve to the live domain
-      const baseTag = `<base href="${origin}/" />`;
+      // Remove any meta CSP or frame blockers inside HTML
+      html = html.replace(/<meta[^>]*http-equiv=["']?Content-Security-Policy["']?[^>]*>/gi, "");
+      html = html.replace(/<meta[^>]*http-equiv=["']?X-Frame-Options["']?[^>]*>/gi, "");
+
+      // Inject base tag and error suppression script so client hydration doesn't fail
+      const safetyScript = `<script>window.onerror = function() { return true; };</script>`;
+      const baseTag = `<base href="${origin}/" />${safetyScript}`;
       if (html.includes("<head>")) {
         html = html.replace("<head>", `<head>${baseTag}`);
       } else if (html.includes("<head ")) {

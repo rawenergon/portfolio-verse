@@ -11,8 +11,10 @@ export interface TemplateItem {
   title: string;
   isNew: boolean;
   isFeatured?: boolean;
-  price: number;
+  price: number; // In INR (₹)
   originalPrice: number;
+  currency: string;
+  currencySymbol: string;
   category: "Portfolio";
   subCategory: "Security & Systems" | "Agency & Studio" | "Developer & Terminal" | "Minimalist" | "Design & Creative";
   description: string;
@@ -36,8 +38,10 @@ export const TEMPLATES_DATA: TemplateItem[] = [
     slug: "certific",
     title: "Certific",
     isNew: true,
-    price: 55,
-    originalPrice: 79,
+    price: 299,
+    originalPrice: 499,
+    currency: "INR",
+    currencySymbol: "₹",
     category: "Portfolio",
     subCategory: "Agency & Studio",
     description: "A modern agency template with services, projects, MDX blog, smooth scrolling, and built-in Cal.com + Discord.",
@@ -49,7 +53,7 @@ export const TEMPLATES_DATA: TemplateItem[] = [
       { name: "Tailwind CSS", badge: "Tailwind", icon: "tailwind", color: "bg-sky-500/20 text-sky-400 border-sky-500/30" },
       { name: "Framer Motion", badge: "Motion", icon: "motion", color: "bg-purple-500/20 text-purple-400 border-purple-500/30" },
     ],
-    videoSrc: "https://d39i1r5xb1nnr0.cloudfront.net/videos/certific.mp4",
+    videoSrc: "",
     previewUrl: "/templates/certific",
     demoUrl: "https://certific.ui-layouts.com/",
     features: [
@@ -73,8 +77,10 @@ export const TEMPLATES_DATA: TemplateItem[] = [
     slug: "mvpstudio",
     title: "MVP Studio",
     isNew: true,
-    price: 35,
-    originalPrice: 49,
+    price: 199,
+    originalPrice: 299,
+    currency: "INR",
+    currencySymbol: "₹",
     category: "Portfolio",
     subCategory: "Agency & Studio",
     description: "A modern agency template with services, projects, MDX blog, smooth scrolling, and built-in Cal.com + Discord.",
@@ -85,7 +91,7 @@ export const TEMPLATES_DATA: TemplateItem[] = [
       { name: "React", badge: "React", icon: "react", color: "bg-cyan-500/20 text-cyan-400 border-cyan-500/30" },
       { name: "Tailwind CSS", badge: "Tailwind", icon: "tailwind", color: "bg-sky-500/20 text-sky-400 border-sky-500/30" },
     ],
-    videoSrc: "https://d39i1r5xb1nnr0.cloudfront.net/videos/mvpstudio.mp4",
+    videoSrc: "",
     previewUrl: "/templates/mvpstudio",
     demoUrl: "https://mvpstudio.ui-layouts.com/",
     features: [
@@ -108,8 +114,10 @@ export const TEMPLATES_DATA: TemplateItem[] = [
     title: "CCIDCOP",
     isNew: true,
     isFeatured: true,
-    price: 49,
-    originalPrice: 79,
+    price: 69, // Exactly 69 INR as requested by dj
+    originalPrice: 199,
+    currency: "INR",
+    currencySymbol: "₹",
     category: "Portfolio",
     subCategory: "Security & Systems",
     description: "The official security engineer & systems developer portfolio of Aditya Raj (@rawenergon). Minimalist dark UI with timeline, stack inspector, and technical blog.",
@@ -145,8 +153,10 @@ export const TEMPLATES_DATA: TemplateItem[] = [
     slug: "nextcodez",
     title: "NextCodez",
     isNew: false,
-    price: 75,
-    originalPrice: 99,
+    price: 399,
+    originalPrice: 599,
+    currency: "INR",
+    currencySymbol: "₹",
     category: "Portfolio",
     subCategory: "Developer & Terminal",
     description: "An elite engineer & creator portfolio with code blocks, services, projects, MDX blog, and terminal interactive widgets.",
@@ -157,7 +167,7 @@ export const TEMPLATES_DATA: TemplateItem[] = [
       { name: "React", badge: "React", icon: "react", color: "bg-cyan-500/20 text-cyan-400 border-cyan-500/30" },
       { name: "Tailwind CSS", badge: "Tailwind", icon: "tailwind", color: "bg-sky-500/20 text-sky-400 border-sky-500/30" },
     ],
-    videoSrc: "https://d39i1r5xb1nnr0.cloudfront.net/videos/nextcodez-ui-layouts.mp4",
+    videoSrc: "",
     previewUrl: "/templates/nextcodez",
     demoUrl: "https://nextcodez.ui-layouts.com/",
     features: [
@@ -179,8 +189,10 @@ export const TEMPLATES_DATA: TemplateItem[] = [
     slug: "laynite",
     title: "Laynite",
     isNew: true,
-    price: 15,
-    originalPrice: 25,
+    price: 149,
+    originalPrice: 249,
+    currency: "INR",
+    currencySymbol: "₹",
     category: "Portfolio",
     subCategory: "Minimalist",
     description: "A modern React template built with TypeScript, TailwindCSS v4, and Motion. Perfect for creating stunning web applications with smooth animations and responsive design.",
@@ -191,7 +203,7 @@ export const TEMPLATES_DATA: TemplateItem[] = [
       { name: "Tailwind CSS", badge: "Tailwind", icon: "tailwind", color: "bg-sky-500/20 text-sky-400 border-sky-500/30" },
       { name: "Motion", badge: "Motion", icon: "motion", color: "bg-purple-500/20 text-purple-400 border-purple-500/30" },
     ],
-    videoSrc: "https://d39i1r5xb1nnr0.cloudfront.net/videos/laynite.mp4",
+    videoSrc: "",
     previewUrl: "/templates/laynite",
     demoUrl: "https://laynite.ui-layouts.com/",
     features: [
@@ -213,8 +225,10 @@ export const TEMPLATES_DATA: TemplateItem[] = [
     slug: "layoutic",
     title: "Layoutic",
     isNew: true,
-    price: 25,
-    originalPrice: 39,
+    price: 199,
+    originalPrice: 299,
+    currency: "INR",
+    currencySymbol: "₹",
     category: "Portfolio",
     subCategory: "Design & Creative",
     description: "A premium React template featuring TypeScript, TailwindCSS v4, and Motion. Designed for building sophisticated web applications with advanced layouts and interactions.",
@@ -225,7 +239,7 @@ export const TEMPLATES_DATA: TemplateItem[] = [
       { name: "Tailwind CSS", badge: "Tailwind", icon: "tailwind", color: "bg-sky-500/20 text-sky-400 border-sky-500/30" },
       { name: "Motion", badge: "Motion", icon: "motion", color: "bg-purple-500/20 text-purple-400 border-purple-500/30" },
     ],
-    videoSrc: "https://d39i1r5xb1nnr0.cloudfront.net/videos/layoutic.mp4",
+    videoSrc: "",
     previewUrl: "/templates/layoutic",
     demoUrl: "https://layoutic.ui-layouts.com/",
     features: [
@@ -247,8 +261,10 @@ export const TEMPLATES_DATA: TemplateItem[] = [
     slug: "talentflow",
     title: "TalentFlow",
     isNew: true,
-    price: 35,
-    originalPrice: 55,
+    price: 249,
+    originalPrice: 399,
+    currency: "INR",
+    currencySymbol: "₹",
     category: "Portfolio",
     subCategory: "Design & Creative",
     description: "A modern talent management and recruitment template built with Next.js, Framer Motion, and TailwindCSS. Perfect for job boards, recruitment platforms, and talent showcase websites.",
@@ -259,7 +275,7 @@ export const TEMPLATES_DATA: TemplateItem[] = [
       { name: "React", badge: "React", icon: "react", color: "bg-cyan-500/20 text-cyan-400 border-cyan-500/30" },
       { name: "Tailwind CSS", badge: "Tailwind", icon: "tailwind", color: "bg-sky-500/20 text-sky-400 border-sky-500/30" },
     ],
-    videoSrc: "https://d39i1r5xb1nnr0.cloudfront.net/videos/talentflow.mp4",
+    videoSrc: "",
     previewUrl: "/templates/talentflow",
     demoUrl: "https://talentflow.ui-layouts.com/",
     features: [
@@ -280,8 +296,10 @@ export const TEMPLATES_DATA: TemplateItem[] = [
     slug: "cortext-labs",
     title: "Cortext Labs",
     isNew: true,
-    price: 30,
-    originalPrice: 45,
+    price: 299,
+    originalPrice: 449,
+    currency: "INR",
+    currencySymbol: "₹",
     category: "Portfolio",
     subCategory: "Security & Systems",
     description: "A technology research laboratory and parent company specializing in AI innovation. Clean corporate aesthetic for deep-tech.",
@@ -292,7 +310,7 @@ export const TEMPLATES_DATA: TemplateItem[] = [
       { name: "React", badge: "React", icon: "react", color: "bg-cyan-500/20 text-cyan-400 border-cyan-500/30" },
       { name: "Tailwind CSS", badge: "Tailwind", icon: "tailwind", color: "bg-sky-500/20 text-sky-400 border-sky-500/30" },
     ],
-    videoSrc: "https://d39i1r5xb1nnr0.cloudfront.net/videos/cortext-labs.mp4",
+    videoSrc: "",
     previewUrl: "/templates/cortext-labs",
     demoUrl: "https://cortext-labs.ui-layouts.com/",
     features: [

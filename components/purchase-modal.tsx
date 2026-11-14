@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { 
   X, 
   Check, 
@@ -9,9 +10,13 @@ import {
   Download, 
   Terminal, 
   Copy, 
-  ArrowRight,
   CreditCard,
-  Loader2
+  Loader2,
+  QrCode,
+  Smartphone,
+  Lock,
+  ArrowRight,
+  Shield
 } from "lucide-react";
 import confetti from "canvas-confetti";
 import { TemplateItem } from "@/lib/templates-data";
@@ -23,19 +28,26 @@ interface PurchaseModalProps {
 }
 
 export function PurchaseModal({ template, onClose }: PurchaseModalProps) {
+  const [paymentMethod, setPaymentMethod] = useState<"upi-qr" | "upi-id" | "card">("upi-qr");
   const [licenseType, setLicenseType] = useState<"single" | "unlimited">("single");
   const [coupon, setCoupon] = useState("");
   const [discountApplied, setDiscountApplied] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [copiedClone, setCopiedClone] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
   const [downloaded, setDownloaded] = useState(false);
+  const [upiIdInput, setUpiIdInput] = useState("");
 
   if (!template) return null;
 
-  const basePrice = template.price;
-  const priceBeforeDiscount = licenseType === "single" ? basePrice : basePrice + 40;
-  const finalPrice = discountApplied ? Math.round(priceBeforeDiscount * 0.8) : priceBeforeDiscount;
+  const basePrice = template.price; // in INR (₹69 for ccidcop)
+  const priceBeforeDiscount = licenseType === "single" ? basePrice : basePrice + 99;
+  const finalPrice = discountApplied ? Math.max(1, Math.round(priceBeforeDiscount * 0.8)) : priceBeforeDiscount;
+
+  // Real UPI Payment Payload URI
+  const upiUri = `upi://pay?pa=adityaraj@okhdfcbank&pn=CV.VERSE&am=${finalPrice}&cu=INR&tn=${template.slug}_template_license`;
+  const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(upiUri)}&size=200x200&color=09090b&bgcolor=ffffff`;
 
   const handleApplyCoupon = (e: React.FormEvent) => {
     e.preventDefault();
@@ -63,29 +75,33 @@ export function PurchaseModal({ template, onClose }: PurchaseModalProps) {
     }
   };
 
-  const handleCheckout = async () => {
-    setIsSuccess(true);
-    confetti({
-      particleCount: 150,
-      spread: 90,
-      origin: { y: 0.5 }
-    });
-    // Auto-trigger client-side ZIP bundle download
-    setIsDownloading(true);
-    try {
-      await downloadTemplateBundle(template, licenseType);
-      setDownloaded(true);
-    } catch (err) {
-      console.error("Failed to auto-download zip bundle:", err);
-    } finally {
-      setIsDownloading(false);
-    }
+  const handleSimulatePayment = async () => {
+    setIsProcessing(true);
+    setTimeout(async () => {
+      setIsProcessing(false);
+      setIsSuccess(true);
+      confetti({
+        particleCount: 160,
+        spread: 100,
+        origin: { y: 0.5 }
+      });
+      // Auto-trigger client-side ZIP bundle download
+      setIsDownloading(true);
+      try {
+        await downloadTemplateBundle(template, licenseType);
+        setDownloaded(true);
+      } catch (err) {
+        console.error("Failed to auto-download zip bundle:", err);
+      } finally {
+        setIsDownloading(false);
+      }
+    }, 1200);
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
       <div 
-        className="relative w-full max-w-lg overflow-hidden rounded-2xl border border-zinc-200 bg-white p-6 shadow-2xl dark:border-zinc-800 dark:bg-[#121214] text-zinc-900 dark:text-zinc-100"
+        className="relative w-full max-w-lg overflow-hidden rounded-2xl border border-zinc-200 bg-white p-5 sm:p-6 shadow-2xl dark:border-zinc-800 dark:bg-[#121214] text-zinc-900 dark:text-zinc-100 max-h-[92vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
@@ -97,145 +113,248 @@ export function PurchaseModal({ template, onClose }: PurchaseModalProps) {
         </button>
 
         {!isSuccess ? (
-          <div>
-            {/* Header */}
-            <div className="flex items-start gap-4 pb-4 border-b border-zinc-200 dark:border-zinc-800">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-orange-500/10 text-[#f95300] font-bold text-lg border border-orange-500/20">
-                {template.title.slice(0, 2).toUpperCase()}
+          <div className="space-y-4">
+            {/* Header with Title & Price */}
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="rounded bg-orange-500/10 px-2 py-0.5 text-[10px] font-bold text-[#ff6a00] border border-orange-500/20 uppercase">
+                  Instant Checkout &bull; INR
+                </span>
+                <span className="text-xs text-emerald-500 font-semibold flex items-center gap-1">
+                  <ShieldCheck className="h-3.5 w-3.5" /> 100% Verified
+                </span>
               </div>
-              <div>
-                <div className="flex items-center gap-2">
-                  <h3 className="text-xl font-bold">{template.title} Template</h3>
-                  <span className="rounded bg-zinc-100 px-2 py-0.5 text-[10px] font-semibold text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">
-                    {template.category}
-                  </span>
-                </div>
-                <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1 line-clamp-1">
-                  {template.description}
-                </p>
-              </div>
+              <h2 className="text-xl sm:text-2xl font-black mt-1 text-zinc-900 dark:text-white uppercase tracking-tight">
+                {template.title} Template
+              </h2>
+              <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
+                Full production Next.js source code, components, and lifetime license.
+              </p>
             </div>
 
-            {/* License Selection */}
-            <div className="mt-5 space-y-2.5">
-              <label className="text-xs font-semibold text-zinc-500 uppercase tracking-wider">
-                Select License
-              </label>
-
-              {/* Single Project */}
-              <div 
+            {/* License Selector */}
+            <div className="grid grid-cols-2 gap-2 text-xs">
+              <button
+                type="button"
                 onClick={() => setLicenseType("single")}
-                className={`flex items-center justify-between p-3 rounded-xl border cursor-pointer transition-all ${
+                className={`rounded-xl border p-3 text-left transition-all ${
                   licenseType === "single"
-                    ? "border-[#f95300] bg-orange-500/5 ring-1 ring-orange-500"
-                    : "border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-900"
+                    ? "border-[#ff6a00] bg-orange-500/5 ring-1 ring-orange-500/30"
+                    : "border-zinc-200 dark:border-zinc-800 hover:border-zinc-300"
                 }`}
               >
-                <div>
-                  <div className="font-semibold text-sm">Personal / Single Project</div>
-                  <div className="text-xs text-zinc-500">1 end-product or portfolio</div>
+                <div className="font-bold text-zinc-900 dark:text-white">Single Project</div>
+                <div className="text-[11px] text-zinc-500">For 1 commercial website</div>
+                <div className="mt-1.5 font-mono text-sm font-black text-[#ff6a00]">
+                  ₹{basePrice}
                 </div>
-                <div className="text-right">
-                  <span className="font-bold text-base">${basePrice}</span>
-                </div>
-              </div>
+              </button>
 
-              {/* Unlimited Commercial */}
-              <div 
+              <button
+                type="button"
                 onClick={() => setLicenseType("unlimited")}
-                className={`flex items-center justify-between p-3 rounded-xl border cursor-pointer transition-all ${
+                className={`rounded-xl border p-3 text-left transition-all ${
                   licenseType === "unlimited"
-                    ? "border-[#f95300] bg-orange-500/5 ring-1 ring-orange-500"
-                    : "border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-900"
+                    ? "border-[#ff6a00] bg-orange-500/5 ring-1 ring-orange-500/30"
+                    : "border-zinc-200 dark:border-zinc-800 hover:border-zinc-300"
                 }`}
               >
-                <div>
-                  <div className="font-semibold text-sm flex items-center gap-1.5">
-                    <span>Unlimited Commercial / Agency</span>
-                    <span className="rounded bg-emerald-500/10 text-emerald-500 text-[10px] font-bold px-1.5 py-0.2">
-                      Popular
-                    </span>
-                  </div>
-                  <div className="text-xs text-zinc-500">Unlimited client and commercial websites</div>
+                <div className="font-bold text-zinc-900 dark:text-white">Agency / Unlimited</div>
+                <div className="text-[11px] text-zinc-500">Unlimited client websites</div>
+                <div className="mt-1.5 font-mono text-sm font-black text-[#ff6a00]">
+                  ₹{basePrice + 99}
                 </div>
-                <div className="text-right">
-                  <span className="font-bold text-base">${basePrice + 40}</span>
-                </div>
-              </div>
+              </button>
             </div>
 
-            {/* Coupon Code Input */}
-            <form onSubmit={handleApplyCoupon} className="mt-4 flex gap-2">
+            {/* Payment Method Tabs */}
+            <div className="border border-zinc-200 dark:border-zinc-800 rounded-xl p-3 bg-zinc-50/60 dark:bg-zinc-900/40 space-y-3">
+              <div className="flex items-center justify-between text-xs font-semibold">
+                <span>Select Payment Method (INR):</span>
+                <span className="font-mono text-[10px] text-emerald-500 bg-emerald-500/10 px-2 py-0.5 rounded">
+                  UPI &bull; Cards &bull; QR
+                </span>
+              </div>
+
+              <div className="grid grid-cols-3 gap-1.5 text-xs font-semibold">
+                <button
+                  type="button"
+                  onClick={() => setPaymentMethod("upi-qr")}
+                  className={`flex items-center justify-center gap-1.5 rounded-lg py-2 transition-all ${
+                    paymentMethod === "upi-qr"
+                      ? "bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 shadow-sm"
+                      : "bg-white text-zinc-600 border border-zinc-200 dark:bg-zinc-800 dark:text-zinc-300 dark:border-zinc-700"
+                  }`}
+                >
+                  <QrCode className="h-3.5 w-3.5" />
+                  <span>Scan UPI QR</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setPaymentMethod("upi-id")}
+                  className={`flex items-center justify-center gap-1.5 rounded-lg py-2 transition-all ${
+                    paymentMethod === "upi-id"
+                      ? "bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 shadow-sm"
+                      : "bg-white text-zinc-600 border border-zinc-200 dark:bg-zinc-800 dark:text-zinc-300 dark:border-zinc-700"
+                  }`}
+                >
+                  <Smartphone className="h-3.5 w-3.5" />
+                  <span>UPI Apps</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setPaymentMethod("card")}
+                  className={`flex items-center justify-center gap-1.5 rounded-lg py-2 transition-all ${
+                    paymentMethod === "card"
+                      ? "bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 shadow-sm"
+                      : "bg-white text-zinc-600 border border-zinc-200 dark:bg-zinc-800 dark:text-zinc-300 dark:border-zinc-700"
+                  }`}
+                >
+                  <CreditCard className="h-3.5 w-3.5" />
+                  <span>Card / Netbanking</span>
+                </button>
+              </div>
+
+              {/* UPI QR View */}
+              {paymentMethod === "upi-qr" && (
+                <div className="flex flex-col items-center justify-center p-3 bg-white dark:bg-black rounded-lg border border-zinc-200 dark:border-zinc-800 space-y-2 text-center">
+                  <div className="p-2 bg-white rounded-lg shadow-sm border border-zinc-200">
+                    <img 
+                      src={qrCodeUrl} 
+                      alt="UPI Payment QR Code" 
+                      className="h-36 w-36 object-contain"
+                    />
+                  </div>
+                  <div>
+                    <span className="font-mono text-xs font-bold text-zinc-900 dark:text-white">
+                      Scan with any UPI App (GPay, PhonePe, Paytm, Cred)
+                    </span>
+                    <p className="font-mono text-[11px] text-zinc-500 mt-0.5">
+                      Amount: <strong className="text-[#ff6a00] font-black">₹{finalPrice} INR</strong>
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {/* UPI ID / App View */}
+              {paymentMethod === "upi-id" && (
+                <div className="space-y-2.5">
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="text"
+                      placeholder="Enter UPI ID (e.g. yourname@okhdfcbank)"
+                      value={upiIdInput}
+                      onChange={(e) => setUpiIdInput(e.target.value)}
+                      className="flex-1 rounded-lg border border-zinc-300 bg-white px-3 py-2 text-xs font-mono text-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white focus:outline-none focus:ring-1 focus:ring-[#ff6a00]"
+                    />
+                  </div>
+                  <div className="grid grid-cols-4 gap-1.5 text-[11px] font-medium text-center">
+                    {["Google Pay", "PhonePe", "Paytm", "BHIM / Cred"].map(app => (
+                      <button
+                        key={app}
+                        type="button"
+                        onClick={() => setUpiIdInput(`user@${app.toLowerCase().replace(/[^a-z]/g, '')}`)}
+                        className="rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 p-1.5 hover:border-[#ff6a00] text-zinc-700 dark:text-zinc-300"
+                      >
+                        {app}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Card / Netbanking View */}
+              {paymentMethod === "card" && (
+                <div className="space-y-2 text-xs">
+                  <input
+                    type="text"
+                    placeholder="Card Number (Visa / Mastercard / RuPay)"
+                    defaultValue="4532 •••• •••• 8821"
+                    className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 font-mono dark:border-zinc-700 dark:bg-zinc-800"
+                  />
+                  <div className="grid grid-cols-2 gap-2">
+                    <input
+                      type="text"
+                      placeholder="MM/YY"
+                      defaultValue="12/28"
+                      className="rounded-lg border border-zinc-300 bg-white px-3 py-2 font-mono dark:border-zinc-700 dark:bg-zinc-800"
+                    />
+                    <input
+                      type="password"
+                      placeholder="CVV"
+                      defaultValue="•••"
+                      className="rounded-lg border border-zinc-300 bg-white px-3 py-2 font-mono dark:border-zinc-700 dark:bg-zinc-800"
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Coupon Code Section */}
+            <form onSubmit={handleApplyCoupon} className="flex gap-2">
               <input
                 type="text"
-                placeholder="Promo Code (Try PORTFOLIO20)"
+                placeholder="Discount Code (CVVERSE20)"
                 value={coupon}
                 onChange={(e) => setCoupon(e.target.value)}
-                disabled={discountApplied}
-                className="flex-1 rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-1.5 text-xs text-zinc-900 placeholder:text-zinc-400 focus:border-[#f95300] focus:outline-none dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 uppercase font-mono"
+                className="flex-1 rounded-xl border border-zinc-200 bg-zinc-50 px-3 py-2 text-xs font-mono dark:border-zinc-800 dark:bg-zinc-900"
               />
               <button
                 type="submit"
-                disabled={discountApplied}
-                className="rounded-lg bg-zinc-900 px-3 py-1.5 text-xs font-semibold text-white hover:bg-zinc-800 disabled:opacity-50 dark:bg-zinc-100 dark:text-zinc-900"
+                className="rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800 px-4 py-2 text-xs font-semibold hover:bg-zinc-200 dark:hover:bg-zinc-700"
               >
-                {discountApplied ? "Applied!" : "Apply"}
+                Apply
               </button>
             </form>
-
             {discountApplied && (
-              <p className="mt-1.5 text-xs text-emerald-500 font-medium flex items-center gap-1">
-                <Check className="h-3.5 w-3.5" />
-                20% discount applied successfully!
-              </p>
+              <span className="block text-xs font-semibold text-emerald-500">
+                🎉 20% discount applied!
+              </span>
             )}
 
-            {/* Checklist */}
-            <div className="mt-4 space-y-1.5 rounded-xl bg-zinc-50 p-3 dark:bg-zinc-900/60 text-xs text-zinc-600 dark:text-zinc-400">
-              <div className="flex items-center gap-2">
-                <Check className="h-3.5 w-3.5 text-emerald-500" />
-                <span>Full Next.js 14 + TypeScript source code</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Check className="h-3.5 w-3.5 text-emerald-500" />
-                <span>Free lifetime updates &amp; Discord community support</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Check className="h-3.5 w-3.5 text-emerald-500" />
-                <span>Commercial usage rights with royalty-free assets</span>
-              </div>
-            </div>
-
-            {/* Total and Checkout CTA */}
-            <div className="mt-5 flex items-center justify-between pt-4 border-t border-zinc-200 dark:border-zinc-800">
+            {/* Total Due & Pay Button */}
+            <div className="flex items-center justify-between pt-3 border-t border-zinc-200 dark:border-zinc-800">
               <div>
-                <span className="text-xs text-zinc-500">Total Due Today</span>
-                <div className="flex items-baseline gap-2">
+                <span className="text-[11px] text-zinc-500">Total Amount Payable</span>
+                <div className="flex items-baseline gap-1">
                   <span className="text-2xl font-black text-zinc-900 dark:text-white">
-                    ${finalPrice}
+                    ₹{finalPrice}
                   </span>
-                  <span className="text-xs font-mono text-zinc-400">USD</span>
+                  <span className="text-xs font-mono text-zinc-400">INR</span>
                 </div>
               </div>
 
               <button
-                onClick={handleCheckout}
-                className="inline-flex items-center gap-2 rounded-xl bg-[#f95300] px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-orange-500/25 hover:bg-[#ff6a1a] transition-all hover:scale-[1.02]"
+                type="button"
+                onClick={handleSimulatePayment}
+                disabled={isProcessing}
+                className="inline-flex items-center gap-2 rounded-xl bg-[#ff6a00] px-6 py-2.5 text-sm font-bold text-white shadow-lg shadow-orange-500/25 hover:bg-[#ff7a1a] transition-all hover:scale-[1.02] cursor-pointer"
               >
-                <CreditCard className="h-4 w-4" />
-                <span>Complete Checkout</span>
+                {isProcessing ? (
+                  <>
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    <span>Verifying UPI...</span>
+                  </>
+                ) : (
+                  <>
+                    <Lock className="h-4 w-4" />
+                    <span>Pay ₹{finalPrice} &amp; Download</span>
+                  </>
+                )}
               </button>
             </div>
           </div>
         ) : (
-          /* Success Screen */
+          /* Payment Success & Source Code Download Screen */
           <div className="py-4 text-center space-y-4">
             <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-500 ring-8 ring-emerald-500/5">
               <ShieldCheck className="h-8 w-8" />
             </div>
 
             <div>
-              <h3 className="text-xl font-bold">You&apos;re All Set!</h3>
+              <h3 className="text-xl font-bold">Payment Verified &bull; ₹{finalPrice} INR</h3>
               <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
                 Access granted for <strong className="text-zinc-900 dark:text-zinc-100">{template.title} Template</strong> ({licenseType} license).
               </p>
@@ -245,7 +364,7 @@ export function PurchaseModal({ template, onClose }: PurchaseModalProps) {
             <div className="rounded-xl bg-zinc-950 p-3.5 text-left border border-zinc-800">
               <div className="flex items-center justify-between text-[11px] text-zinc-400 pb-2 border-b border-zinc-800">
                 <span className="flex items-center gap-1.5 font-mono">
-                  <Terminal className="h-3.5 w-3.5 text-[#f95300]" />
+                  <Terminal className="h-3.5 w-3.5 text-[#ff6a00]" />
                   CLI Quickstart
                 </span>
                 <button
@@ -254,7 +373,7 @@ export function PurchaseModal({ template, onClose }: PurchaseModalProps) {
                     setCopiedClone(true);
                     setTimeout(() => setCopiedClone(false), 2000);
                   }}
-                  className="hover:text-white flex items-center gap-1"
+                  className="hover:text-white flex items-center gap-1 cursor-pointer"
                 >
                   {copiedClone ? <Check className="h-3 w-3 text-emerald-400" /> : <Copy className="h-3 w-3" />}
                   <span>{copiedClone ? "Copied" : "Copy"}</span>
@@ -271,7 +390,7 @@ export function PurchaseModal({ template, onClose }: PurchaseModalProps) {
                 type="button"
                 onClick={handleDownload}
                 disabled={isDownloading}
-                className="flex-1 flex items-center justify-center gap-2 rounded-xl bg-[#f95300] py-2.5 text-xs font-bold text-white shadow hover:bg-[#ff6a1a] disabled:opacity-75 transition-all"
+                className="flex-1 flex items-center justify-center gap-2 rounded-xl bg-[#ff6a00] py-2.5 text-xs font-bold text-white shadow hover:bg-[#ff7a1a] disabled:opacity-75 transition-all cursor-pointer"
               >
                 {isDownloading ? (
                   <>
@@ -294,7 +413,7 @@ export function PurchaseModal({ template, onClose }: PurchaseModalProps) {
               <button
                 type="button"
                 onClick={onClose}
-                className="rounded-xl border border-zinc-300 dark:border-zinc-700 px-4 py-2.5 text-xs font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
+                className="rounded-xl border border-zinc-300 dark:border-zinc-700 px-4 py-2.5 text-xs font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors cursor-pointer"
               >
                 Done
               </button>
