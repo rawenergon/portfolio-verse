@@ -10,10 +10,12 @@ import {
   Terminal, 
   Copy, 
   ArrowRight,
-  CreditCard
+  CreditCard,
+  Loader2
 } from "lucide-react";
 import confetti from "canvas-confetti";
 import { TemplateItem } from "@/lib/templates-data";
+import { downloadTemplateBundle } from "@/lib/template-exporter";
 
 interface PurchaseModalProps {
   template: TemplateItem | null;
@@ -26,6 +28,8 @@ export function PurchaseModal({ template, onClose }: PurchaseModalProps) {
   const [discountApplied, setDiscountApplied] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [copiedClone, setCopiedClone] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
+  const [downloaded, setDownloaded] = useState(false);
 
   if (!template) return null;
 
@@ -45,13 +49,36 @@ export function PurchaseModal({ template, onClose }: PurchaseModalProps) {
     }
   };
 
-  const handleCheckout = () => {
+  const handleDownload = async () => {
+    if (!template) return;
+    setIsDownloading(true);
+    try {
+      await downloadTemplateBundle(template, licenseType);
+      setDownloaded(true);
+    } catch (err) {
+      console.error("Failed to generate zip bundle:", err);
+    } finally {
+      setIsDownloading(false);
+    }
+  };
+
+  const handleCheckout = async () => {
     setIsSuccess(true);
     confetti({
       particleCount: 150,
       spread: 90,
       origin: { y: 0.5 }
     });
+    // Auto-trigger client-side ZIP bundle download
+    setIsDownloading(true);
+    try {
+      await downloadTemplateBundle(template, licenseType);
+      setDownloaded(true);
+    } catch (err) {
+      console.error("Failed to auto-download zip bundle:", err);
+    } finally {
+      setIsDownloading(false);
+    }
   };
 
   return (
@@ -240,19 +267,33 @@ export function PurchaseModal({ template, onClose }: PurchaseModalProps) {
             {/* Download Button */}
             <div className="flex gap-2.5 pt-2">
               <button
-                onClick={() => {
-                  alert(`Downloading ${template.slug}-template-v1.0.zip bundle!`);
-                  onClose();
-                }}
-                className="flex-1 flex items-center justify-center gap-2 rounded-xl bg-[#f95300] py-2.5 text-xs font-bold text-white shadow hover:bg-[#ff6a1a]"
+                type="button"
+                onClick={handleDownload}
+                disabled={isDownloading}
+                className="flex-1 flex items-center justify-center gap-2 rounded-xl bg-[#f95300] py-2.5 text-xs font-bold text-white shadow hover:bg-[#ff6a1a] disabled:opacity-75 transition-all"
               >
-                <Download className="h-4 w-4" />
-                <span>Download .ZIP Bundle</span>
+                {isDownloading ? (
+                  <>
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    <span>Generating .ZIP Bundle...</span>
+                  </>
+                ) : downloaded ? (
+                  <>
+                    <Check className="h-4 w-4" />
+                    <span>Download Again (.ZIP)</span>
+                  </>
+                ) : (
+                  <>
+                    <Download className="h-4 w-4" />
+                    <span>Download .ZIP Bundle</span>
+                  </>
+                )}
               </button>
 
               <button
+                type="button"
                 onClick={onClose}
-                className="rounded-xl border border-zinc-300 dark:border-zinc-700 px-4 py-2.5 text-xs font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800"
+                className="rounded-xl border border-zinc-300 dark:border-zinc-700 px-4 py-2.5 text-xs font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
               >
                 Done
               </button>

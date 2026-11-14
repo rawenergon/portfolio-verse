@@ -39,7 +39,7 @@ export function TemplateGrid({
       if (sortBy === "price-asc") return a.price - b.price;
       if (sortBy === "price-desc") return b.price - a.price;
       if (sortBy === "newest") return (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0);
-      return (b.isFeatured ? 1 : 0) - (a.isFeatured ? 1 : 0); // Featured first
+      return 0; // Natural curated order: CERTIFIC first, MVP STUDIO second, CCIDCOP third
     });
   }, [selectedSubCategory, searchQuery, sortBy]);
 
