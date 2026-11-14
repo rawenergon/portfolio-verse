@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TopBanner } from "@/components/top-banner";
 import { Navbar } from "@/components/navbar";
 import { HeroSection } from "@/components/hero-section";
@@ -18,6 +18,18 @@ export default function HomePage() {
   const [isBookCallOpen, setIsBookCallOpen] = useState(false);
   const [purchaseTemplate, setPurchaseTemplate] = useState<TemplateItem | null>(null);
   const [previewTemplate, setPreviewTemplate] = useState<TemplateItem | null>(null);
+
+  // Global Ctrl+K / Cmd+K listener to toggle command palette
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setIsSearchOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   return (
     <div className="min-h-screen bg-[repeating-linear-gradient(45deg,#f0f0f0_0_1px,#0000_1px_8px)] dark:bg-[repeating-linear-gradient(45deg,#161616_0_1px,#0000_1px_8px)] text-zinc-900 dark:text-zinc-100 transition-colors">

@@ -56,6 +56,22 @@ export function PurchaseModal({ template, onClose }: PurchaseModalProps) {
     }
   }, []);
 
+  // Lock body scroll and handle Escape key dismiss
+  useEffect(() => {
+    if (!template) return;
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [template, onClose]);
+
   if (!template) return null;
 
   const basePrice = template.price; // in INR (₹69 for ccidcop)
@@ -253,9 +269,12 @@ export function PurchaseModal({ template, onClose }: PurchaseModalProps) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md animate-in fade-in duration-200">
+    <div 
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md animate-in fade-in duration-200 cursor-pointer"
+      onClick={onClose}
+    >
       <div 
-        className="relative w-full max-w-lg overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-2xl dark:border-zinc-800 dark:bg-[#111216] text-zinc-900 dark:text-zinc-100 max-h-[94vh] flex flex-col"
+        className="relative w-full max-w-lg overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-2xl dark:border-zinc-800 dark:bg-[#111216] text-zinc-900 dark:text-zinc-100 max-h-[94vh] flex flex-col cursor-default"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header Bar */}
