@@ -6,8 +6,7 @@ import { usePathname } from "next/navigation";
 import { 
   Search, 
   Moon, 
-  Sun,
-  Calendar
+  Sun
 } from "lucide-react";
 import { Logo } from "./logo";
 
@@ -49,19 +48,6 @@ export function Navbar({ onOpenSearch, onOpenBookCall }: NavbarProps) {
 
         {/* Right Actions */}
         <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
-          {/* Book Call Button (₹100) */}
-          {onOpenBookCall && (
-            <button
-              onClick={onOpenBookCall}
-              className="inline-flex items-center gap-1 sm:gap-1.5 rounded-lg bg-[#ff751f] px-2 sm:px-3 py-1.5 text-xs font-bold text-white shadow-sm hover:bg-[#ea6412] transition-all shrink-0 cursor-pointer"
-              title="Book a 1:1 call with Aditya Raj on Cal.com (₹100)"
-            >
-              <Calendar className="h-3.5 w-3.5" />
-              <span className="hidden sm:inline">Book Call</span>
-              <span className="rounded bg-black/20 px-1 py-0.2 font-mono text-[10px] font-bold">₹100</span>
-            </button>
-          )}
-
           {/* Search Trigger Button matching reference Ctrl+K */}
           <button
             onClick={onOpenSearch}
