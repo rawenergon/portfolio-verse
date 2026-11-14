@@ -8,9 +8,10 @@ export function Footer() {
   const footerLinks = [
     { name: "Templates", href: "/" },
     { name: "Live Preview", href: "/templates/ccidcop" },
+    { name: "License", href: "/license" },
+    { name: "Terms of Service", href: "/terms" },
+    { name: "Contact & Support", href: "/contact" },
     { name: "Substack Newsletter", href: "https://substack.com/@rawenergon", external: true },
-    { name: "License & Terms", href: "#" },
-    { name: "Contact & Support", href: "mailto:support@cvverse.com" },
   ];
 
   return (
@@ -39,6 +40,25 @@ export function Footer() {
               )}
             </React.Fragment>
           ))}
+        </div>
+
+        {/* Direct Contact Line */}
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-xs text-zinc-500 dark:text-zinc-400">
+          <a 
+            href="https://wa.me/918766207219" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="hover:text-emerald-500 transition-colors inline-flex items-center gap-1 font-mono"
+          >
+            <span>WhatsApp: +91 87662 07219</span>
+          </a>
+          <span>•</span>
+          <a 
+            href="mailto:devadibxr@gmail.com" 
+            className="hover:text-[#ff751f] transition-colors inline-flex items-center gap-1 font-mono"
+          >
+            <span>Email: devadibxr@gmail.com</span>
+          </a>
         </div>
 
         {/* Stylized Wordmark Display */}
