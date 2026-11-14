@@ -34,7 +34,7 @@ export function HeroSection({ onOpenResponsiveBrowser }: HeroSectionProps) {
         </div>
 
         {/* Clean Headline with CV.VERSE */}
-        <h1 className="mx-auto max-w-2xl text-center text-3xl sm:text-4xl md:text-[2.65rem] font-bold tracking-tight text-zinc-900 dark:text-white leading-[1.2]">
+        <h1 className="mx-auto max-w-2xl text-center text-2xl sm:text-4xl md:text-[2.65rem] font-bold tracking-tight text-zinc-900 dark:text-white leading-[1.2]">
           <span className="block">Stop Wasting Time on Boilerplate</span>
           <span className="block mt-1">Build Faster with CV.VERSE Templates.</span>
         </h1>

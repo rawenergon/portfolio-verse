@@ -80,19 +80,19 @@ export function TemplateGrid({
         </div>
 
         {/* Search and Sort controls */}
-        <div className="flex items-center gap-2.5">
-          <div className="relative">
+        <div className="flex items-center gap-2.5 w-full sm:w-auto justify-between sm:justify-start">
+          <div className="relative flex-1 sm:flex-none">
             <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-zinc-400" />
             <input
               type="text"
               placeholder="Search portfolio templates..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="h-8 rounded border border-zinc-200 bg-white pl-8 pr-3 text-xs text-zinc-900 placeholder:text-zinc-400 focus:border-[#ff6a00] focus:outline-none focus:ring-1 focus:ring-[#ff6a00] dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 w-44 sm:w-56"
+              className="h-8 w-full sm:w-56 rounded border border-zinc-200 bg-white pl-8 pr-3 text-xs text-zinc-900 placeholder:text-zinc-400 focus:border-[#ff6a00] focus:outline-none focus:ring-1 focus:ring-[#ff6a00] dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100"
             />
           </div>
 
-          <div className="flex items-center gap-1 rounded border border-zinc-200 bg-white px-2 py-1 text-xs text-zinc-700 shadow-sm dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300">
+          <div className="flex items-center gap-1 rounded border border-zinc-200 bg-white px-2 py-1 text-xs text-zinc-700 shadow-sm dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300 shrink-0">
             <ArrowUpDown className="h-3 w-3 text-zinc-400" />
             <select
               value={sortBy}
