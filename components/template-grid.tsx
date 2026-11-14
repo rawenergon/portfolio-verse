@@ -68,7 +68,7 @@ export function TemplateGrid({
   };
 
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16">
+    <div id="templates" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16">
       
       {/* Category Pills & Sort Controls Bar */}
       <div className="mb-6 flex flex-col gap-4 border-b border-zinc-200 pb-5 dark:border-zinc-800">

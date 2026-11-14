@@ -6,6 +6,7 @@ import { Navbar } from "@/components/navbar";
 import { HeroSection } from "@/components/hero-section";
 import { TemplateGrid } from "@/components/template-grid";
 import { NewsletterSection } from "@/components/newsletter-section";
+import { SeoSection } from "@/components/seo-section";
 import { Footer } from "@/components/footer";
 import { CommandPalette } from "@/components/command-palette";
 import { PurchaseModal } from "@/components/purchase-modal";
@@ -59,6 +60,9 @@ export default function HomePage() {
             onSelectForPurchase={(template) => setPurchaseTemplate(template)}
             onOpenLivePreview={(template) => setPreviewTemplate(template)}
           />
+
+          {/* SEO Rich Value Section */}
+          <SeoSection />
 
           {/* Newsletter Callout */}
           <NewsletterSection onOpenBookCall={() => setIsBookCallOpen(true)} />

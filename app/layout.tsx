@@ -21,13 +21,16 @@ export const metadata: Metadata = {
     template: "%s | CV.VERSE",
   },
   description:
-    "Stop wasting time on boilerplate. Build faster with production-ready developer, security, and agency portfolio templates by Aditya Raj. Built with Next.js, Tailwind CSS, and React.",
+    "Why start from scratch when you can deploy in minutes? Our premium collection of Next.js, Tailwind CSS, and React templates is engineered specifically for developers, security professionals, and digital agencies.",
   keywords: [
     "portfolio templates",
     "nextjs templates",
     "tailwind templates",
+    "react templates",
+    "developer portfolios",
+    "security templates",
+    "agency websites",
     "cv verse",
-    "developer portfolio",
     "ccidcop",
     "syntax overlord",
     "aditya raj",
@@ -50,7 +53,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "CV.VERSE — Modern Portfolio & Developer Templates",
     description:
-      "Stop wasting time on boilerplate. Production-ready developer and security portfolio templates by Aditya Raj.",
+      "Why start from scratch when you can deploy in minutes? Production-ready Next.js, Tailwind CSS, and React templates for developers, security professionals, and agencies.",
     url: siteUrl,
     siteName: "CV.VERSE",
     locale: "en_US",
@@ -68,7 +71,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "CV.VERSE — Modern Portfolio & Developer Templates",
     description:
-      "Stop wasting time on boilerplate. Production-ready developer and security portfolio templates by Aditya Raj.",
+      "Why start from scratch when you can deploy in minutes? Production-ready Next.js, Tailwind CSS, and React templates for developers, security professionals, and agencies.",
     creator: "@adibxr",
     images: [`${siteUrl}/logo.png`],
   },
@@ -115,7 +118,7 @@ const organizationStructuredData = {
       url: siteUrl,
       name: "CV.VERSE",
       description:
-        "Production-ready developer and security portfolio templates built with Next.js, Tailwind CSS, and React.",
+        "Why start from scratch when you can deploy in minutes? Our premium collection of Next.js, Tailwind CSS, and React templates is engineered specifically for developers, security professionals, and digital agencies.",
       publisher: {
         "@id": `${siteUrl}/#organization`,
       },
