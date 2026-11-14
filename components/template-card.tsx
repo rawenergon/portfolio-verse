@@ -49,7 +49,7 @@ export function TemplateCard({
 
             {/* Lock / Live Icon in gray rounded box */}
             <span className="flex h-5 w-5 items-center justify-center rounded bg-[#f4f4f5] text-zinc-600 dark:bg-[#27272a] dark:text-zinc-400">
-              {isCcidcop ? (
+              {template.demoUrl ? (
                 <Globe className="h-3 w-3 text-[#ff6a00]" />
               ) : (
                 <Lock className="h-3 w-3" />
@@ -127,7 +127,11 @@ export function TemplateCard({
         {/* Live URL Pill in corner of card sandbox */}
         <div className="absolute top-2.5 left-2.5 z-10 flex items-center gap-1.5 rounded-md bg-black/80 px-2 py-0.5 font-mono text-[10px] text-zinc-300 border border-white/10 backdrop-blur-sm pointer-events-none">
           <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-          <span>{isCcidcop ? "ccidcop.in" : `${template.slug}.ui-layouts.com`}</span>
+          <span>
+            {template.demoUrl 
+              ? template.demoUrl.replace(/^https?:\/\//, '').replace(/\/$/, '') 
+              : `${template.slug}.ui-layouts.com`}
+          </span>
         </div>
 
         {/* Hover Quick Action Buttons */}

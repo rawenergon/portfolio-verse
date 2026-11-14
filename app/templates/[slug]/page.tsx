@@ -140,9 +140,9 @@ export default function TemplateDetailPage() {
                     (New Release)
                   </span>
                 )}
-                {isCcidcop && (
+                {template.demoUrl && (
                   <span className="text-xs font-bold text-[#ff6a00] bg-orange-500/10 px-2 py-0.5 rounded border border-orange-500/20 font-mono">
-                    ccidcop.in
+                    {template.demoUrl.replace(/^https?:\/\//, '').replace(/\/$/, '')}
                   </span>
                 )}
                 <span className="text-xs text-zinc-400 font-mono">

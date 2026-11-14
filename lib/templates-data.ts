@@ -72,5 +72,46 @@ export const TEMPLATES_DATA: TemplateItem[] = [
     salesCount: 420,
     previewGradient: "from-orange-500/25 via-zinc-900 to-black",
     previewAccent: "#f95300"
+  },
+  {
+    id: "2",
+    slug: "syntax-overlord",
+    title: "Syntax Overlord",
+    isNew: true,
+    isFeatured: true,
+    price: 100, // Exactly 100 INR as requested by dj
+    originalPrice: 249,
+    currency: "INR",
+    currencySymbol: "₹",
+    category: "Portfolio",
+    subCategory: "Developer & Terminal",
+    description: "An elite full-stack developer portfolio and interactive command center by Aditya Raj. Features GSAP smooth animations, Ctrl+K command palette, and dark/light modes.",
+    longDescription: "Syntax Overlord (syntax-overlord.me) is an ultra-fast, high-aesthetic developer portfolio and command hub by Aditya Raj. Features buttery GSAP ScrollTrigger reveal animations, retro-modern terminal styling, a full-featured keyboard-driven command palette (Ctrl+K), curated dev logs, interactive project cards, and minimalist aesthetics.",
+    techStack: [
+      { name: "JavaScript", badge: "JS", icon: "js", color: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30" },
+      { name: "GSAP Motion", badge: "GSAP", icon: "gsap", color: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30" },
+      { name: "ScrollTrigger", badge: "Scroll", icon: "scroll", color: "bg-green-500/20 text-green-400 border-green-500/30" },
+      { name: "Geist Typography", badge: "Geist", icon: "geist", color: "bg-zinc-800 text-zinc-200 border-zinc-700" },
+      { name: "CSS3 Variables", badge: "CSS", icon: "css", color: "bg-blue-500/20 text-blue-400 border-blue-500/30" },
+    ],
+    videoSrc: "",
+    previewUrl: "/templates/syntax-overlord",
+    demoUrl: "https://syntax-overlord.me/",
+    features: [
+      "Official live portfolio of Aditya Raj at syntax-overlord.me",
+      "Interactive Command Palette with Ctrl+K shortcut navigation",
+      "GSAP 3.12 & ScrollTrigger buttery smooth reveal animations",
+      "Complete Projects, Blog, Bookmarks & System Dashboard modules",
+      "Persistent Dark / Light theme switch with localStorage sync",
+      "Geist & Geist Mono typographic hierarchy",
+      "Minimalist quote band & custom cat mascot footer animation",
+      "Ultra-lightweight zero-dependency architecture for instant 100/100 Lighthouse performance"
+    ],
+    pages: ["Home", "Projects", "Blog", "Bookmarks", "Dashboard", "Command Palette"],
+    updatedAt: "Live on syntax-overlord.me",
+    rating: 4.99,
+    salesCount: 230,
+    previewGradient: "from-emerald-500/25 via-zinc-900 to-black",
+    previewAccent: "#10b981"
   }
 ];
