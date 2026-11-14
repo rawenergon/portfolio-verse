@@ -25,7 +25,7 @@ export function TemplateGrid({
     { name: "Developer & Terminal", count: TEMPLATES_DATA.filter(t => t.subCategory === "Developer & Terminal").length },
     { name: "Minimalist", count: TEMPLATES_DATA.filter(t => t.subCategory === "Minimalist").length },
     { name: "Design & Creative", count: TEMPLATES_DATA.filter(t => t.subCategory === "Design & Creative").length },
-  ];
+  ].filter(c => c.count > 0);
 
   const filteredTemplates = useMemo(() => {
     return TEMPLATES_DATA.filter((template) => {
