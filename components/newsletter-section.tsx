@@ -125,7 +125,7 @@ export function NewsletterSection({ onOpenBookCall }: NewsletterSectionProps = {
               <Calendar className="h-4 w-4 text-[#ff751f] transition-transform group-hover:scale-110" />
               <span>Book a Class (1:1 with Aditya)</span>
               <span className="rounded bg-orange-500/15 text-[#ff751f] px-1.5 py-0.5 font-mono text-[11px] font-bold">
-                ₹100
+                ₹100 / $2.49
               </span>
             </button>
           </div>

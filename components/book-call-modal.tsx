@@ -12,9 +12,16 @@ import {
   Video, 
   ShieldCheck, 
   MessageCircle,
-  Sparkles
+  Sparkles,
+  Globe,
+  ChevronDown
 } from "lucide-react";
 import confetti from "canvas-confetti";
+import { 
+  SupportedCurrency, 
+  CURRENCIES, 
+  formatCurrencyPrice 
+} from "@/lib/currency";
 
 interface BookCallModalProps {
   isOpen: boolean;
@@ -36,6 +43,29 @@ export function BookCallModal({ isOpen, onClose }: BookCallModalProps) {
   const [isSuccess, setIsSuccess] = useState(false);
   const [paymentId, setPaymentId] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+
+  // Country & Currency State
+  const [currency, setCurrency] = useState<SupportedCurrency>("INR");
+  const [countryCode, setCountryCode] = useState<string>("IN");
+  const [showCurrencyDropdown, setShowCurrencyDropdown] = useState(false);
+
+  // Auto-detect country and currency on mount
+  useEffect(() => {
+    try {
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
+      fetch(`/api/geo?tz=${encodeURIComponent(tz)}`)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data && data.currency && CURRENCIES[data.currency as SupportedCurrency]) {
+            setCurrency(data.currency as SupportedCurrency);
+            setCountryCode(data.countryCode || "US");
+          }
+        })
+        .catch((err) => console.warn("Country detection fallback in book call:", err));
+    } catch (e) {
+      console.warn("Timezone resolution:", e);
+    }
+  }, []);
 
   const calUrl = `https://cal.com/rawenergon${
     name || email 
@@ -71,6 +101,10 @@ export function BookCallModal({ isOpen, onClose }: BookCallModalProps) {
 
   if (!isOpen) return null;
 
+  const currencyConfig = CURRENCIES[currency] || CURRENCIES.INR;
+  const callPrice = currencyConfig.tier100;
+  const isInternational = currency !== "INR";
+
   const handlePayment = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage("");
@@ -88,7 +122,7 @@ export function BookCallModal({ isOpen, onClose }: BookCallModalProps) {
     setIsProcessing(true);
 
     try {
-      // 1. Create order on backend
+      // 1. Create order on backend with localized currency & country
       const res = await fetch("/api/razorpay/create-order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -96,7 +130,9 @@ export function BookCallModal({ isOpen, onClose }: BookCallModalProps) {
           templateId: "cal_consultation",
           templateSlug: "cal-consultation",
           title: "1:1 Strategy Call (Cal.com)",
-          price: 100, // 100 INR
+          price: callPrice,
+          currency: currency,
+          country: countryCode,
           customerEmail: email.trim(),
           customerPhone: phone.trim(),
           licenseType: "consultation",
@@ -112,16 +148,20 @@ export function BookCallModal({ isOpen, onClose }: BookCallModalProps) {
       // 2. Configure Razorpay checkout
       const options = {
         key: orderData.key || "rzp_live_Tzwme978z4OZoj",
-        amount: orderData.amount || 10000,
-        currency: "INR",
+        amount: orderData.amount,
+        currency: orderData.currency || currency,
         name: "CV.VERSE",
-        description: "1:1 Consultation with Aditya Raj",
+        description: `1:1 Consultation with Aditya Raj (${orderData.currency || currency})`,
         image: "/logo.png",
         order_id: orderData.orderId,
         prefill: {
           name: name.trim(),
           email: email.trim(),
-          contact: phone.trim(),
+          contact: phone.trim() || undefined,
+        },
+        notes: {
+          currency: orderData.currency || currency,
+          country: countryCode,
         },
         theme: {
           color: "#ff751f",
@@ -221,10 +261,58 @@ export function BookCallModal({ isOpen, onClose }: BookCallModalProps) {
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
+            {/* Currency Selector Pill */}
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setShowCurrencyDropdown((prev) => !prev)}
+                className="flex items-center gap-1 rounded-lg border border-zinc-200 bg-zinc-100 px-2 py-1 text-xs font-bold text-zinc-800 hover:bg-zinc-200 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-200 dark:hover:bg-zinc-700 transition-colors"
+                title="Change Currency"
+              >
+                <span>{currencyConfig.flag}</span>
+                <span className="font-mono">{currency}</span>
+                <ChevronDown className="h-3 w-3 text-zinc-400" />
+              </button>
+
+              {showCurrencyDropdown && (
+                <div className="absolute right-0 mt-1.5 w-44 rounded-xl border border-zinc-200 bg-white py-1.5 shadow-xl dark:border-zinc-700 dark:bg-zinc-900 z-50 text-xs">
+                  <div className="px-3 py-1 text-[10px] font-bold text-zinc-400 uppercase tracking-wider">
+                    Select Currency
+                  </div>
+                  {(Object.keys(CURRENCIES) as SupportedCurrency[]).map((cur) => {
+                    const c = CURRENCIES[cur];
+                    const active = cur === currency;
+                    return (
+                      <button
+                        key={cur}
+                        type="button"
+                        onClick={() => {
+                          setCurrency(cur);
+                          setShowCurrencyDropdown(false);
+                        }}
+                        className={`w-full flex items-center justify-between px-3 py-1.5 text-left transition-colors ${
+                          active
+                            ? "bg-orange-500/10 text-[#ff751f] font-bold"
+                            : "text-zinc-700 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-800"
+                        }`}
+                      >
+                        <span className="flex items-center gap-2">
+                          <span>{c.flag}</span>
+                          <span>{c.code} ({c.symbol})</span>
+                        </span>
+                        {active && <Check className="h-3.5 w-3.5" />}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+
             <span className="text-xl font-black text-zinc-900 dark:text-white font-mono">
-              ₹100
+              {formatCurrencyPrice(callPrice, currency)}
             </span>
+
             <button
               onClick={onClose}
               className="rounded-lg p-1.5 text-zinc-400 hover:bg-zinc-200 hover:text-zinc-700 dark:hover:bg-zinc-800 dark:hover:text-zinc-200 cursor-pointer transition-colors"
@@ -240,6 +328,16 @@ export function BookCallModal({ isOpen, onClose }: BookCallModalProps) {
           {!isSuccess ? (
             <form onSubmit={handlePayment} className="space-y-4">
               
+              {/* International Payment Active Notice */}
+              {isInternational && (
+                <div className="flex items-center gap-2 rounded-xl border border-blue-500/30 bg-blue-500/10 px-3.5 py-2 text-xs font-semibold text-blue-600 dark:border-blue-500/20 dark:bg-blue-500/15 dark:text-blue-400">
+                  <Globe className="h-4 w-4 shrink-0" />
+                  <span>
+                    International booking active. Pay securely in <strong>{currency} ({currencyConfig.symbol})</strong> with any global debit or credit card.
+                  </span>
+                </div>
+              )}
+
               {/* Session Perks Box */}
               <div className="rounded-xl border border-orange-500/20 bg-orange-500/5 p-4 text-xs space-y-2 dark:border-orange-500/15 dark:bg-orange-500/10">
                 <div className="font-bold text-[#ff751f] flex items-center gap-1.5">
@@ -307,7 +405,7 @@ export function BookCallModal({ isOpen, onClose }: BookCallModalProps) {
                 </label>
                 <input
                   type="tel"
-                  placeholder="+91 98765 43210"
+                  placeholder={isInternational ? "+1 (555) 000-0000" : "+91 98765 43210"}
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   className="h-10 w-full rounded-xl border border-zinc-200 bg-white px-3.5 text-xs text-zinc-900 shadow-sm placeholder:text-zinc-400 focus:border-[#ff751f] focus:outline-none focus:ring-1 focus:ring-[#ff751f] dark:border-zinc-800 dark:bg-zinc-900/90 dark:text-zinc-100 font-mono"
@@ -344,7 +442,7 @@ export function BookCallModal({ isOpen, onClose }: BookCallModalProps) {
                   ) : (
                     <>
                       <Lock className="h-4 w-4" />
-                      <span>Pay ₹100 &amp; Schedule on Cal.com</span>
+                      <span>Pay {formatCurrencyPrice(callPrice, currency)} &amp; Schedule on Cal.com</span>
                     </>
                   )}
                 </button>
@@ -354,7 +452,7 @@ export function BookCallModal({ isOpen, onClose }: BookCallModalProps) {
               <div className="flex items-center justify-between text-[11px] text-zinc-500 dark:text-zinc-400 pt-2 border-t border-zinc-100 dark:border-zinc-800">
                 <span className="flex items-center gap-1 font-mono">
                   <ShieldCheck className="h-3.5 w-3.5 text-emerald-500" />
-                  <span>Razorpay Live 256-Bit SSL</span>
+                  <span>Razorpay Global 256-Bit SSL</span>
                 </span>
                 <span className="font-mono text-zinc-400">cal.com/rawenergon</span>
               </div>

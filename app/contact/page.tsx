@@ -186,7 +186,7 @@ export default function ContactPage() {
                   </div>
                   <span className="inline-flex items-center gap-1 rounded-full bg-orange-500/10 px-2.5 py-0.5 text-[11px] font-bold text-[#ff751f] border border-orange-500/20">
                     <Sparkles className="h-3 w-3" />
-                    ₹100 INR &bull; 30 Min
+                    ₹100 / $2.49 &bull; 30 Min
                   </span>
                 </div>
 
@@ -211,7 +211,7 @@ export default function ContactPage() {
                   className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-[#ff751f] px-4 py-2.5 font-semibold text-xs sm:text-sm text-white shadow-md hover:bg-[#ea6412] transition-all cursor-pointer"
                 >
                   <Calendar className="h-4 w-4" />
-                  <span>Book Call (₹100)</span>
+                  <span>Book Call (₹100 / $2.49)</span>
                   <ExternalLink className="h-3.5 w-3.5 opacity-80" />
                 </button>
               </div>

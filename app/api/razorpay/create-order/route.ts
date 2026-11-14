@@ -10,6 +10,8 @@ export async function POST(req: NextRequest) {
       templateId, 
       templateSlug, 
       price = 69, 
+      currency = "INR",
+      country = "IN",
       title = "Template",
       customerEmail = "",
       customerPhone = "",
@@ -31,12 +33,15 @@ export async function POST(req: NextRequest) {
       key_secret,
     });
 
-    const amountInPaise = Math.round(Number(price) * 100);
+    const targetCurrency = String(currency || "INR").toUpperCase().trim();
+    // In all Razorpay-supported currencies (INR in paise, USD/EUR/GBP/CAD/AUD/SGD in cents),
+    // subunits = amount * 100
+    const amountInSubunits = Math.round(Number(price) * 100);
 
-    const options = {
-      amount: amountInPaise,
-      currency: "INR",
-      receipt: `rcpt_${(templateSlug || "cv").slice(0, 8)}_${Date.now().toString().slice(-6)}`,
+    const options: any = {
+      amount: amountInSubunits,
+      currency: targetCurrency,
+      receipt: `rcpt_${targetCurrency.toLowerCase()}_${(templateSlug || "cv").slice(0, 6)}_${Date.now().toString().slice(-6)}`,
       notes: {
         templateId: String(templateId || "1"),
         templateSlug: String(templateSlug || "ccidcop"),
@@ -44,13 +49,40 @@ export async function POST(req: NextRequest) {
         customerEmail: String(customerEmail),
         customerPhone: String(customerPhone),
         licenseType: String(licenseType),
+        currency: targetCurrency,
+        country: String(country || "IN"),
         platform: "CV.VERSE PRO",
       },
     };
 
-    const order = await instance.orders.create(options);
+    let order;
+    try {
+      order = await instance.orders.create(options);
+    } catch (orderErr: any) {
+      console.warn(`Direct order in ${targetCurrency} failed, trying fallback:`, orderErr?.message);
+      // Fallback: If merchant account lacks multi-currency activation for a specific currency,
+      // create INR order with converted equivalent so payment can still succeed with international card
+      if (targetCurrency !== "INR") {
+        const inrEquivalent = Math.round(Number(price) * 88 * 100); // approximate conversion
+        const fallbackOptions = {
+          ...options,
+          amount: inrEquivalent,
+          currency: "INR",
+          notes: {
+            ...options.notes,
+            fallbackFromCurrency: targetCurrency,
+            originalPrice: String(price),
+          },
+        };
+        order = await instance.orders.create(fallbackOptions);
+      } else {
+        throw orderErr;
+      }
+    }
 
-    console.log(`[Razorpay Order Created] ID: ${order.id} | Email: ${customerEmail} | Phone: ${customerPhone} | Amount: ₹${price}`);
+    console.log(
+      `[Razorpay Order Created] ID: ${order.id} | Email: ${customerEmail} | Currency: ${order.currency} | Amount: ${Number(order.amount) / 100} | Country: ${country}`
+    );
 
     return NextResponse.json({
       success: true,

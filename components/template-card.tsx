@@ -64,9 +64,14 @@ export function TemplateCard({
             )}
           </div>
 
-          {/* Price in INR (₹) */}
-          <div className="text-xl sm:text-2xl font-bold text-zinc-900 dark:text-white shrink-0">
-            ₹{template.price}
+          {/* Price in INR with international USD indicator */}
+          <div className="text-right shrink-0">
+            <div className="text-xl sm:text-2xl font-bold text-zinc-900 dark:text-white leading-tight">
+              ₹{template.price}
+            </div>
+            <div className="text-[10px] font-mono font-medium text-zinc-400 dark:text-zinc-500">
+              {template.price >= 100 ? "$2.49 USD" : "$1.99 USD"}
+            </div>
           </div>
         </div>
 
