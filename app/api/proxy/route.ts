@@ -67,6 +67,13 @@ async function handleProxy(req: NextRequest) {
       html = html.replace(/<meta[^>]*http-equiv=["']?Content-Security-Policy["']?[^>]*>/gi, "");
       html = html.replace(/<meta[^>]*http-equiv=["']?X-Frame-Options["']?[^>]*>/gi, "");
 
+      // Rewrite root-relative asset URLs so they resolve to upstream target domain,
+      // avoiding any image optimization or chunk leaking to host Next.js server
+      html = html.replace(/(src|href|action)=["']\/(?!\/)([^"']*)["']/gi, (match, attr, path) => {
+        if (path.startsWith("api/proxy")) return match;
+        return `${attr}="${origin}/${path}"`;
+      });
+
       // Robust client-side protection script:
       // 1. Sets no-referrer so external media/CDN doesn't reject with ERR_EMPTY_RESPONSE
       // 2. Suppresses client errors, unhandled rejections, and frame-busting

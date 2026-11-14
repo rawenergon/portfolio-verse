@@ -2,12 +2,19 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: [
-      'images.unsplash.com',
-      'assets.aceternity.com',
-      'pro.ui-layouts.com',
-      'd39i1r5xb1nnr0.cloudfront.net'
+    unoptimized: true,
+    remotePatterns: [
+      { protocol: "https", hostname: "**" },
+      { protocol: "http", hostname: "**" }
     ],
+  },
+  async rewrites() {
+    return [
+      {
+        source: "/images/:path*",
+        destination: "https://ccidcop.in/images/:path*",
+      },
+    ];
   },
 };
 
