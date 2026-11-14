@@ -6,20 +6,19 @@ import { Logo } from "./logo";
 
 export function Footer() {
   const footerLinks = [
-    { name: "Installation", href: "#get-started" },
-    { name: "Components", href: "#components" },
-    { name: "Blocks", href: "#blocks" },
     { name: "Templates", href: "/" },
-    { name: "Pricing", href: "#pricing" },
+    { name: "Live Preview", href: "#" },
+    { name: "License & Terms", href: "#" },
+    { name: "Contact & Support", href: "mailto:support@portfolioverse.com" },
   ];
 
   return (
-    <footer className="relative overflow-hidden border-t border-zinc-200/80 bg-white pt-12 pb-16 dark:border-zinc-800/80 dark:bg-[#09090b]">
+    <footer className="relative overflow-hidden border-t border-zinc-200 bg-white pt-12 pb-16 dark:border-zinc-800 dark:bg-[#09090b]">
       {/* Background Subtle Gradient */}
       <div 
         className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 h-64 w-[900px] opacity-15 blur-3xl"
         style={{
-          background: "radial-gradient(circle, #f95300 0%, transparent 70%)"
+          background: "radial-gradient(circle, #ff6a00 0%, transparent 70%)"
         }}
       />
 
@@ -36,7 +35,7 @@ export function Footer() {
             <React.Fragment key={link.name}>
               <Link 
                 href={link.href}
-                className="transition-colors hover:text-[#f95300] dark:hover:text-white"
+                className="transition-colors hover:text-[#ff6a00] dark:hover:text-white"
               >
                 {link.name}
               </Link>
@@ -47,15 +46,15 @@ export function Footer() {
           ))}
         </div>
 
-        {/* Massive Stylized Wordmark Display matching pro.ui-layouts */}
-        <div className="mt-14 select-none overflow-hidden opacity-[0.06] dark:opacity-[0.08] transition-opacity hover:opacity-[0.14] dark:hover:opacity-[0.12]">
+        {/* Massive Stylized Wordmark Display matching reference */}
+        <div className="mt-12 select-none overflow-hidden opacity-[0.05] dark:opacity-[0.08] transition-opacity hover:opacity-[0.10]">
           <span className="block font-black tracking-tighter text-6xl sm:text-8xl md:text-9xl text-zinc-900 dark:text-white uppercase leading-none">
             PortfolioVerse
           </span>
         </div>
 
         {/* Copyright */}
-        <div className="mt-8 pt-6 border-t border-zinc-100 dark:border-zinc-900 text-xs text-zinc-500 dark:text-zinc-500">
+        <div className="mt-8 pt-6 border-t border-zinc-100 dark:border-zinc-900 text-xs text-zinc-500">
           <p>Copyright © 2026 Portfolio Verse. All rights reserved.</p>
         </div>
       </div>

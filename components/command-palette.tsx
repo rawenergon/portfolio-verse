@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Search, X, Layout, Layers, FileCode, ArrowRight, Sparkles, ExternalLink } from "lucide-react";
+import { Search, X, Layout, ArrowRight, Globe } from "lucide-react";
 import { TEMPLATES_DATA, TemplateItem } from "@/lib/templates-data";
 
 interface CommandPaletteProps {
@@ -33,19 +33,9 @@ export function CommandPalette({ isOpen, onClose, onSelectTemplate }: CommandPal
 
   const filteredTemplates = TEMPLATES_DATA.filter((t) =>
     t.title.toLowerCase().includes(query.toLowerCase()) ||
-    t.category.toLowerCase().includes(query.toLowerCase()) ||
+    t.subCategory.toLowerCase().includes(query.toLowerCase()) ||
     t.description.toLowerCase().includes(query.toLowerCase())
   );
-
-  const blockCategories = [
-    { name: "Hero Blocks", count: 26 },
-    { name: "Newsletter Blocks", count: 7 },
-    { name: "Pricing Blocks", count: 24 },
-    { name: "Testimonials Blocks", count: 22 },
-    { name: "Feature Blocks", count: 11 },
-    { name: "Footer Blocks", count: 63 },
-    { name: "Experience Blocks", count: 13 },
-  ];
 
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-24 px-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
@@ -59,7 +49,7 @@ export function CommandPalette({ isOpen, onClose, onSelectTemplate }: CommandPal
           <input
             type="text"
             autoFocus
-            placeholder="Search blocks, templates, pages, and docs..."
+            placeholder="Search portfolio templates by name, style, or stack..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             className="w-full bg-transparent text-sm sm:text-base outline-none placeholder:text-zinc-400 text-zinc-900 dark:text-zinc-100"
@@ -73,79 +63,49 @@ export function CommandPalette({ isOpen, onClose, onSelectTemplate }: CommandPal
         </div>
 
         {/* Stats Pill Strip */}
-        <div className="flex items-center gap-3 border-b border-zinc-200/80 bg-zinc-50 px-4 py-2 text-xs font-medium text-zinc-600 dark:border-zinc-800/80 dark:bg-zinc-900/50 dark:text-zinc-400">
+        <div className="flex items-center justify-between border-b border-zinc-200/80 bg-zinc-50 px-4 py-2 text-xs font-medium text-zinc-600 dark:border-zinc-800/80 dark:bg-zinc-900/50 dark:text-zinc-400">
           <span className="flex items-center gap-1.5">
-            <Layers className="h-3.5 w-3.5 text-[#f95300]" />
-            <strong className="text-zinc-900 dark:text-zinc-200">234</strong> Blocks
+            <Layout className="h-3.5 w-3.5 text-[#ff6a00]" />
+            <strong className="text-zinc-900 dark:text-zinc-200">{filteredTemplates.length}</strong> Portfolio Templates
           </span>
-          <span>•</span>
-          <span className="flex items-center gap-1.5">
-            <Layout className="h-3.5 w-3.5 text-emerald-500" />
-            <strong className="text-zinc-900 dark:text-zinc-200">11</strong> Templates
-          </span>
+          <span className="text-[11px] font-mono text-zinc-400">Esc to close</span>
         </div>
 
         {/* 2-Column Command Body */}
-        <div className="grid grid-cols-1 md:grid-cols-12 min-h-[380px] max-h-[480px]">
+        <div className="grid grid-cols-1 md:grid-cols-12 min-h-[360px] max-h-[460px]">
           
-          {/* Left Column: Lists */}
-          <div className="md:col-span-7 overflow-y-auto border-r border-zinc-200 p-2 dark:border-zinc-800 space-y-4">
-            
-            {/* Templates Section */}
-            <div>
-              <div className="px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider text-zinc-400">
-                Templates ({filteredTemplates.length})
-              </div>
-              <div className="space-y-1">
-                {filteredTemplates.map((item) => (
-                  <button
-                    key={item.id}
-                    onClick={() => {
-                      setActiveItem(item);
-                    }}
-                    onDoubleClick={() => {
-                      onSelectTemplate(item);
-                      onClose();
-                    }}
-                    className={`flex w-full items-center justify-between rounded-xl px-3 py-2 text-left text-xs transition-colors ${
-                      activeItem?.id === item.id
-                        ? "bg-orange-500/10 text-[#f95300] font-semibold dark:bg-orange-500/15"
-                        : "hover:bg-zinc-100 dark:hover:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300"
-                    }`}
-                  >
-                    <div className="flex items-center gap-2.5">
-                      <Layout className="h-3.5 w-3.5 text-zinc-400" />
-                      <span>{item.title}</span>
-                      {item.isNew && (
-                        <span className="text-[10px] italic text-emerald-500 font-bold">(New)</span>
-                      )}
-                    </div>
-                    <span className="font-mono text-zinc-400">${item.price}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Blocks Section */}
-            <div>
-              <div className="px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider text-zinc-400">
-                Component Blocks
-              </div>
-              <div className="space-y-1">
-                {blockCategories.map((cat) => (
-                  <div
-                    key={cat.name}
-                    className="flex items-center justify-between rounded-xl px-3 py-2 text-xs text-zinc-600 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-800/80"
-                  >
-                    <div className="flex items-center gap-2">
-                      <Layers className="h-3.5 w-3.5 text-zinc-400" />
-                      <span>{cat.name}</span>
-                    </div>
-                    <span className="text-[10px] text-zinc-400">{cat.count} blocks</span>
-                  </div>
-                ))}
-              </div>
-            </div>
+          {/* Left Column: Templates List */}
+          <div className="md:col-span-7 overflow-y-auto border-r border-zinc-200 p-2 dark:border-zinc-800 space-y-1">
+            {filteredTemplates.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => setActiveItem(item)}
+                onDoubleClick={() => {
+                  onSelectTemplate(item);
+                  onClose();
+                }}
+                className={`flex w-full items-center justify-between rounded-xl px-3 py-2 text-left text-xs transition-colors ${
+                  activeItem?.id === item.id
+                    ? "bg-orange-500/10 text-[#ff6a00] font-semibold dark:bg-orange-500/15"
+                    : "hover:bg-zinc-100 dark:hover:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300"
+                }`}
+              >
+                <div className="flex items-center gap-2.5">
+                  {item.slug === "ccidcop" ? (
+                    <Globe className="h-3.5 w-3.5 text-[#ff6a00]" />
+                  ) : (
+                    <Layout className="h-3.5 w-3.5 text-zinc-400" />
+                  )}
+                  <span>{item.title}</span>
+                  {item.isFeatured ? (
+                    <span className="text-[9px] bg-orange-500/15 text-[#ff6a00] px-1.5 py-0.2 rounded font-bold">Live</span>
+                  ) : item.isNew && (
+                    <span className="text-[10px] italic text-[#22c55e] font-bold">(New)</span>
+                  )}
+                </div>
+                <span className="font-mono text-zinc-400">${item.price}</span>
+              </button>
+            ))}
           </div>
 
           {/* Right Column: Live Preview & Action */}
@@ -154,7 +114,7 @@ export function CommandPalette({ isOpen, onClose, onSelectTemplate }: CommandPal
               <div className="space-y-4">
                 <div className="aspect-[16/10] w-full rounded-xl bg-zinc-950 p-4 border border-zinc-200 dark:border-zinc-800 flex flex-col justify-between relative overflow-hidden">
                   <div className="flex items-center justify-between text-[10px] text-zinc-400 border-b border-white/10 pb-1.5">
-                    <span>{activeItem.category}</span>
+                    <span>{activeItem.subCategory}</span>
                     <span className="text-emerald-400 font-semibold">${activeItem.price} USD</span>
                   </div>
                   <div className="text-center my-auto">
@@ -169,9 +129,9 @@ export function CommandPalette({ isOpen, onClose, onSelectTemplate }: CommandPal
                 </div>
 
                 <div>
-                  <h3 className="text-base font-bold text-zinc-900 dark:text-white">{activeItem.title} Template</h3>
+                  <h3 className="text-base font-bold text-zinc-900 dark:text-white">{activeItem.title}</h3>
                   <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1 leading-relaxed">
-                    {activeItem.longDescription.slice(0, 110)}...
+                    {activeItem.longDescription.slice(0, 120)}...
                   </p>
                 </div>
               </div>
@@ -186,9 +146,9 @@ export function CommandPalette({ isOpen, onClose, onSelectTemplate }: CommandPal
                   onClose();
                 }
               }}
-              className="w-full flex items-center justify-center gap-2 rounded-xl bg-[#f95300] py-2.5 text-xs font-bold text-white shadow-lg shadow-orange-500/20 hover:bg-[#ff6a1a] transition-all"
+              className="w-full flex items-center justify-center gap-2 rounded-xl bg-[#ff6a00] py-2.5 text-xs font-bold text-white shadow-lg shadow-orange-500/20 hover:bg-[#ff7a1a] transition-all"
             >
-              <span>Open result</span>
+              <span>Buy This Template</span>
               <ArrowRight className="h-3.5 w-3.5" />
             </button>
           </div>

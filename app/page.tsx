@@ -18,29 +18,33 @@ export default function HomePage() {
   const [previewTemplate, setPreviewTemplate] = useState<TemplateItem | null>(null);
 
   return (
-    <div className="flex min-h-screen flex-col bg-white dark:bg-[#09090b] text-zinc-900 dark:text-zinc-100">
+    <div className="min-h-screen bg-[repeating-linear-gradient(45deg,#f0f0f0_0_1px,#0000_1px_8px)] dark:bg-[repeating-linear-gradient(45deg,#161616_0_1px,#0000_1px_8px)] text-zinc-900 dark:text-zinc-100 transition-colors">
+      
       {/* Top Banner with Promo Code */}
       <TopBanner />
 
-      {/* Navigation Header */}
-      <Navbar onOpenSearch={() => setIsSearchOpen(true)} />
+      {/* Main Container with borders against diagonal striped margins */}
+      <div className="mx-auto max-w-[1440px] border-x border-[#e5e5e5] bg-white dark:border-[#262626] dark:bg-[#09090b] shadow-2xl">
+        {/* Navigation Header */}
+        <Navbar onOpenSearch={() => setIsSearchOpen(true)} />
 
-      {/* Hero Section */}
-      <main className="flex-1">
-        <HeroSection />
+        {/* Hero Section matching exact reference */}
+        <main className="flex-1">
+          <HeroSection />
 
-        {/* Templates Catalog Grid */}
-        <TemplateGrid
-          onSelectForPurchase={(template) => setPurchaseTemplate(template)}
-          onOpenLivePreview={(template) => setPreviewTemplate(template)}
-        />
+          {/* Dedicated Portfolio Templates Catalog */}
+          <TemplateGrid
+            onSelectForPurchase={(template) => setPurchaseTemplate(template)}
+            onOpenLivePreview={(template) => setPreviewTemplate(template)}
+          />
 
-        {/* Newsletter Callout */}
-        <NewsletterSection />
-      </main>
+          {/* Newsletter Callout */}
+          <NewsletterSection />
+        </main>
 
-      {/* Site Footer */}
-      <Footer />
+        {/* Site Footer */}
+        <Footer />
+      </div>
 
       {/* Interactive Command Palette Modal (Ctrl + K) */}
       <CommandPalette
