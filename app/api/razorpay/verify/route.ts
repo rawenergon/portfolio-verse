@@ -10,7 +10,10 @@ export async function POST(req: NextRequest) {
       razorpay_order_id, 
       razorpay_payment_id, 
       razorpay_signature,
-      templateSlug 
+      templateSlug,
+      customerEmail = "",
+      customerPhone = "",
+      licenseType = "single"
     } = body;
 
     const key_secret = process.env.RAZORPAY_KEY_SECRET || "FRJRWIUo3Uzyf8WnGztE9K4x";
@@ -38,12 +41,16 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    console.log(`[Payment Verified] Order: ${razorpay_order_id} | Payment: ${razorpay_payment_id} | Customer: ${customerEmail} (${customerPhone}) | Template: ${templateSlug}`);
+
     return NextResponse.json({
       success: true,
       verified: true,
       paymentId: razorpay_payment_id,
       orderId: razorpay_order_id,
-      message: "Payment successfully verified by Razorpay Live",
+      customerEmail,
+      customerPhone,
+      message: `Payment verified. Template bundle prepared for ${customerEmail || "customer"}.`,
     });
   } catch (err: any) {
     console.error("Payment verification error:", err);
