@@ -129,20 +129,6 @@ export function NewsletterSection({ onOpenBookCall }: NewsletterSectionProps = {
               </span>
             </button>
           </div>
-
-          <div className="pt-2 flex flex-wrap items-center justify-center gap-3 text-[11px] text-zinc-500 dark:text-zinc-400">
-            <span>Powered by Substack</span>
-            <span>•</span>
-            <a 
-              href={substackUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 hover:text-[#ff751f] transition-colors"
-            >
-              <span>View publication on substack.com/@rawenergon</span>
-              <ExternalLink className="h-3 w-3" />
-            </a>
-          </div>
         </div>
       </div>
     </section>
