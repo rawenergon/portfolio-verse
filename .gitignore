@@ -34,3 +34,5 @@ next-env.d.ts
 
 # temp research
 temp_research/
+
+.vercel
