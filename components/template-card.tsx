@@ -107,12 +107,18 @@ export function TemplateCard({
         </p>
       </div>
 
-      {/* Media Preview Container running direct interactive miniature portfolio */}
+      {/* Media Preview Container directly embedding the live site */}
       <div className="relative mt-5 aspect-[16/10] w-full overflow-hidden rounded-lg border border-[#e5e5e5] bg-zinc-950 dark:border-zinc-800 shadow-inner">
         
-        {/* Directly runs the interactive portfolio preview */}
-        <div className="h-full w-full">
-          <PortfolioPreview slug={template.slug} />
+        {/* Directly embeds live site via reverse proxy with 50% high-res scaling */}
+        <div className="h-full w-full pointer-events-none select-none overflow-hidden bg-black">
+          <iframe
+            src={`/api/proxy?url=${encodeURIComponent(template.demoUrl || (template.slug === "ccidcop" ? "https://ccidcop.in" : `https://${template.slug}.ui-layouts.com`))}`}
+            title={`Live Embedded Preview of ${template.title}`}
+            className="h-[200%] w-[200%] origin-top-left scale-50 border-0 bg-black"
+            loading="lazy"
+            sandbox="allow-scripts allow-same-origin"
+          />
         </div>
 
         {/* Hover Quick Action Buttons */}
