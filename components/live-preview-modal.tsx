@@ -157,7 +157,7 @@ export function LivePreviewModal({
             </div>
             <div className="mx-auto rounded bg-black/50 px-6 py-0.5 font-mono text-[11px] text-zinc-300 border border-white/5 truncate max-w-sm flex items-center gap-1.5">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
-              <span>{isCcidcop ? "https://ccidcop.in" : `https://${template.slug}.portfolioverse.dev`}</span>
+              <span>{isCcidcop ? "https://ccidcop.in" : `https://${template.slug}.cvverse.dev`}</span>
             </div>
           </div>
 

@@ -39,7 +39,8 @@ export function PurchaseModal({ template, onClose }: PurchaseModalProps) {
 
   const handleApplyCoupon = (e: React.FormEvent) => {
     e.preventDefault();
-    if (coupon.trim().toUpperCase() === "PORTFOLIO20" || coupon.trim().toUpperCase() === "UILAYOUTS20") {
+    const c = coupon.trim().toUpperCase();
+    if (c === "CVVERSE20" || c === "PORTFOLIO20" || c === "UILAYOUTS20") {
       setDiscountApplied(true);
       confetti({
         particleCount: 80,
@@ -249,7 +250,7 @@ export function PurchaseModal({ template, onClose }: PurchaseModalProps) {
                 </span>
                 <button
                   onClick={() => {
-                    navigator.clipboard.writeText(`npx portfolio-verse init ${template.slug}`);
+                    navigator.clipboard.writeText(`npx cv-verse init ${template.slug}`);
                     setCopiedClone(true);
                     setTimeout(() => setCopiedClone(false), 2000);
                   }}
@@ -260,7 +261,7 @@ export function PurchaseModal({ template, onClose }: PurchaseModalProps) {
                 </button>
               </div>
               <code className="block mt-2 font-mono text-xs text-emerald-400">
-                npx portfolio-verse init {template.slug}
+                npx cv-verse init {template.slug}
               </code>
             </div>
 

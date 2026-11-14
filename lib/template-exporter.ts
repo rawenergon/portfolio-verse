@@ -127,7 +127,7 @@ The fastest way to deploy is with [Vercel](https://vercel.com):
 
 ---
 
-Crafted with precision from **Portfolio Verse**.
+Crafted with precision from **CV.VERSE**.
 `;
   zip.file("README.md", readmeMd);
 

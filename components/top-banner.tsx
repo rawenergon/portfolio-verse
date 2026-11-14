@@ -5,7 +5,7 @@ import { Check, Copy, Sparkles } from "lucide-react";
 
 export function TopBanner() {
   const [copied, setCopied] = useState(false);
-  const code = "PORTFOLIO20";
+  const code = "CVVERSE20";
 
   const handleCopy = () => {
     navigator.clipboard.writeText(code);

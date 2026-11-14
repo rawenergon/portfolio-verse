@@ -5,50 +5,33 @@ import React from "react";
 export function HeroSection() {
   return (
     <section className="relative overflow-hidden pt-10 pb-6 md:pt-14 md:pb-10">
-      
-      {/* Exact Radial Peach / Orange Glow from reference styles */}
-      <div 
-        className="pointer-events-none absolute inset-x-0 top-0 h-[380px] w-full"
-        style={{
-          WebkitMaskImage: "radial-gradient(45% 80% at 50% 0%, #fff, transparent)",
-          maskImage: "radial-gradient(45% 80% at 50% 0%, #fff, transparent)",
-        }}
-      >
-        <div 
-          className="absolute inset-0 opacity-60 dark:opacity-40"
-          style={{
-            backgroundImage: "radial-gradient(circle at top, #ff6a00, transparent 65%)"
-          }}
-        />
-      </div>
-
       <div className="relative mx-auto max-w-4xl px-4 text-center">
         
-        {/* Exact Reference Badge: [ ◫ ] Templates */}
-        <div className="mx-auto mb-4 flex w-fit items-center justify-center gap-2 rounded px-3 py-1 text-sm font-medium border relative overflow-hidden shadow-sm bg-gradient-to-r from-white via-white to-[#f8c4ae] border-[#f8c4ae] text-zinc-900 dark:bg-gradient-to-r dark:from-black dark:via-black dark:to-[#ff6a00] dark:border-[#262626] dark:text-zinc-100">
+        {/* CV.VERSE Badge - clean without AI blobs */}
+        <div className="mx-auto mb-4 flex w-fit items-center justify-center gap-2 rounded-md px-3 py-1 text-sm font-medium border shadow-sm bg-zinc-50 border-zinc-200 text-zinc-900 dark:bg-zinc-900 dark:border-zinc-800 dark:text-zinc-100">
           <svg 
             xmlns="http://www.w3.org/2000/svg" 
-            width="16" 
-            height="16" 
+            width="15" 
+            height="15" 
             viewBox="0 0 24 24" 
             fill="none" 
             stroke="currentColor" 
             strokeWidth="2" 
             strokeLinecap="round" 
             strokeLinejoin="round" 
-            className="text-zinc-700 dark:text-zinc-300"
+            className="text-[#ff6a00]"
           >
             <rect width="18" height="18" x="3" y="3" rx="2"></rect>
             <path d="M3 9h18"></path>
             <path d="M9 21V9"></path>
           </svg>
-          <span className="text-xs font-semibold tracking-tight">Templates</span>
+          <span className="text-xs font-bold tracking-tight">CV.VERSE</span>
         </div>
 
-        {/* Exact Reference Headline: 2 clean centered lines, NO subtitle */}
+        {/* Clean Headline with CV.VERSE */}
         <h1 className="mx-auto max-w-2xl text-center text-3xl sm:text-4xl md:text-[2.65rem] font-bold tracking-tight text-zinc-900 dark:text-white leading-[1.2]">
           <span className="block">Stop Wasting Time on Boilerplate</span>
-          <span className="block mt-1">Build Faster with Better Templates.</span>
+          <span className="block mt-1">Build Faster with CV.VERSE Templates.</span>
         </h1>
 
         {/* Exact Reference 4-Icon Strip: 48px square boxes, NO text labels */}

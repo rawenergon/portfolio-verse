@@ -20,15 +20,6 @@ export function NewsletterSection() {
   return (
     <section className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
       <div className="relative overflow-hidden rounded-3xl border border-zinc-200 bg-gradient-to-b from-zinc-50 to-zinc-100 p-8 sm:p-12 text-center shadow-sm dark:border-zinc-800/80 dark:from-[#131316] dark:to-[#0c0c0e]">
-        
-        {/* Amber Spotlight Glow behind box */}
-        <div 
-          className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-72 w-96 rounded-full opacity-30 blur-3xl dark:opacity-20"
-          style={{
-            background: "radial-gradient(circle, #f95300 0%, #ff8800 40%, transparent 70%)"
-          }}
-        />
-
         {/* Diagonal hatch pattern */}
         <div 
           className="pointer-events-none absolute inset-0 opacity-[0.02] dark:opacity-[0.05]"

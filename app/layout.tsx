@@ -5,14 +5,19 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Portfolio verse — Modern Portfolio & SaaS Templates",
-  description: "Stop wasting time on boilerplate. Build faster with production-ready SaaS, portfolio, and agency templates built with Next.js, Tailwind CSS, and Framer Motion.",
-  keywords: ["portfolio templates", "nextjs templates", "tailwind templates", "ui layouts", "framer motion templates", "react portfolio"],
+  title: "CV.VERSE — Modern Portfolio Templates",
+  description: "Stop wasting time on boilerplate. Build faster with production-ready developer, security, and agency portfolio templates built with Next.js, Tailwind CSS, and React.",
+  keywords: ["portfolio templates", "nextjs templates", "tailwind templates", "cv verse", "developer portfolio", "ccidcop"],
+  icons: {
+    icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
+  },
   openGraph: {
-    title: "Portfolio verse — Modern Portfolio & SaaS Templates",
-    description: "Stop wasting time on boilerplate. Build faster with production-ready SaaS, portfolio, and agency templates.",
-    url: "https://portfolio-verse.vercel.app",
-    siteName: "Portfolio verse",
+    title: "CV.VERSE — Modern Portfolio Templates",
+    description: "Stop wasting time on boilerplate. Build faster with production-ready portfolio templates.",
+    url: "https://portfolio-verse-bice.vercel.app",
+    siteName: "CV.VERSE",
     type: "website",
   },
 };

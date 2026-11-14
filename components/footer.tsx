@@ -9,19 +9,11 @@ export function Footer() {
     { name: "Templates", href: "/" },
     { name: "Live Preview", href: "#" },
     { name: "License & Terms", href: "#" },
-    { name: "Contact & Support", href: "mailto:support@portfolioverse.com" },
+    { name: "Contact & Support", href: "mailto:support@cvverse.com" },
   ];
 
   return (
     <footer className="relative overflow-hidden border-t border-zinc-200 bg-white pt-12 pb-16 dark:border-zinc-800 dark:bg-[#09090b]">
-      {/* Background Subtle Gradient */}
-      <div 
-        className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 h-64 w-[900px] opacity-15 blur-3xl"
-        style={{
-          background: "radial-gradient(circle, #ff6a00 0%, transparent 70%)"
-        }}
-      />
-
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
         
         {/* Brand logo in footer */}
@@ -46,16 +38,16 @@ export function Footer() {
           ))}
         </div>
 
-        {/* Massive Stylized Wordmark Display matching reference */}
+        {/* Stylized Wordmark Display */}
         <div className="mt-12 select-none overflow-hidden opacity-[0.05] dark:opacity-[0.08] transition-opacity hover:opacity-[0.10]">
           <span className="block font-black tracking-tighter text-6xl sm:text-8xl md:text-9xl text-zinc-900 dark:text-white uppercase leading-none">
-            PortfolioVerse
+            CV.VERSE
           </span>
         </div>
 
         {/* Copyright */}
         <div className="mt-8 pt-6 border-t border-zinc-100 dark:border-zinc-900 text-xs text-zinc-500">
-          <p>Copyright © 2026 Portfolio Verse. All rights reserved.</p>
+          <p>Copyright © 2026 CV.VERSE. All rights reserved.</p>
         </div>
       </div>
     </footer>

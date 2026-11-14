@@ -43,19 +43,9 @@ export function Navbar({ onOpenSearch }: NavbarProps) {
     <header className="sticky top-0 z-40 w-full border-b border-zinc-200 bg-white/95 backdrop-blur-md dark:border-zinc-800 dark:bg-[#09090b]/95 transition-colors">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         
-        {/* Logo */}
-        <div className="flex items-center gap-8">
+        {/* Brand Logo */}
+        <div className="flex items-center">
           <Logo />
-
-          {/* Desktop Navigation - ONLY Templates as requested */}
-          <nav className="hidden md:flex items-center gap-1.5 text-sm">
-            <Link
-              href="/"
-              className="relative flex items-center gap-1.5 rounded-lg px-4 py-1.5 text-sm font-medium transition-all bg-[#ff6a00]/10 text-[#ff6a00] dark:bg-[#ff6a00]/15 dark:text-[#ff7a1a] shadow-sm border border-[#ff6a00]/30"
-            >
-              <span>Templates</span>
-            </Link>
-          </nav>
         </div>
 
         {/* Right Actions */}
