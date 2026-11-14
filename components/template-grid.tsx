@@ -36,10 +36,13 @@ export function TemplateGrid({
         template.techStack.some(t => t.name.toLowerCase().includes(searchQuery.toLowerCase()));
       return matchesCategory && matchesSearch;
     }).sort((a, b) => {
+      // Pin CCIDCOP at top
+      if (a.slug === "ccidcop") return -1;
+      if (b.slug === "ccidcop") return 1;
       if (sortBy === "price-asc") return a.price - b.price;
       if (sortBy === "price-desc") return b.price - a.price;
       if (sortBy === "newest") return (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0);
-      return 0; // Natural curated order: CERTIFIC first, MVP STUDIO second, CCIDCOP third
+      return 0; // Natural curated order: CCIDCOP pinned first
     });
   }, [selectedSubCategory, searchQuery, sortBy]);
 
