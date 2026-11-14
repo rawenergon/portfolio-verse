@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Search, X, Layout, ArrowRight, Globe } from "lucide-react";
+import Link from "next/link";
+import { Search, X, Layout, ArrowRight, Globe, Eye } from "lucide-react";
 import { TEMPLATES_DATA, TemplateItem } from "@/lib/templates-data";
 
 interface CommandPaletteProps {
@@ -103,7 +104,7 @@ export function CommandPalette({ isOpen, onClose, onSelectTemplate }: CommandPal
                     <span className="text-[10px] italic text-[#22c55e] font-bold">(New)</span>
                   )}
                 </div>
-                <span className="font-mono text-zinc-400">${item.price}</span>
+                <span className="font-mono text-zinc-400 font-semibold">₹{item.price}</span>
               </button>
             ))}
           </div>
@@ -115,7 +116,7 @@ export function CommandPalette({ isOpen, onClose, onSelectTemplate }: CommandPal
                 <div className="aspect-[16/10] w-full rounded-xl bg-zinc-950 p-4 border border-zinc-200 dark:border-zinc-800 flex flex-col justify-between relative overflow-hidden">
                   <div className="flex items-center justify-between text-[10px] text-zinc-400 border-b border-white/10 pb-1.5">
                     <span>{activeItem.subCategory}</span>
-                    <span className="text-emerald-400 font-semibold">${activeItem.price} USD</span>
+                    <span className="text-emerald-400 font-semibold font-mono">₹{activeItem.price} INR</span>
                   </div>
                   <div className="text-center my-auto">
                     <h4 className="text-lg font-bold text-white uppercase">{activeItem.title}</h4>
@@ -139,18 +140,31 @@ export function CommandPalette({ isOpen, onClose, onSelectTemplate }: CommandPal
               <div className="text-center my-auto text-xs text-zinc-400">Select an item to view preview</div>
             )}
 
-            <button
-              onClick={() => {
-                if (activeItem) {
-                  onSelectTemplate(activeItem);
-                  onClose();
-                }
-              }}
-              className="w-full flex items-center justify-center gap-2 rounded-xl bg-[#ff6a00] py-2.5 text-xs font-bold text-white shadow-lg shadow-orange-500/20 hover:bg-[#ff7a1a] transition-all"
-            >
-              <span>Buy This Template</span>
-              <ArrowRight className="h-3.5 w-3.5" />
-            </button>
+            <div className="flex flex-col gap-2 pt-4">
+              {activeItem && (
+                <Link
+                  href={`/templates/${activeItem.slug}`}
+                  onClick={onClose}
+                  className="w-full flex items-center justify-center gap-2 rounded-xl border border-zinc-200 bg-white py-2 text-xs font-semibold text-zinc-700 shadow-sm hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:bg-zinc-800 transition-all"
+                >
+                  <Eye className="h-3.5 w-3.5 text-zinc-500" />
+                  <span>View Dedicated Page</span>
+                </Link>
+              )}
+
+              <button
+                onClick={() => {
+                  if (activeItem) {
+                    onSelectTemplate(activeItem);
+                    onClose();
+                  }
+                }}
+                className="w-full flex items-center justify-center gap-2 rounded-xl bg-[#ff6a00] py-2.5 text-xs font-bold text-white shadow-lg shadow-orange-500/20 hover:bg-[#ff7a1a] transition-all cursor-pointer"
+              >
+                <span>Buy Template (₹{activeItem?.price || 69})</span>
+                <ArrowRight className="h-3.5 w-3.5" />
+              </button>
+            </div>
           </div>
         </div>
       </div>
