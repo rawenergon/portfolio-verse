@@ -49,7 +49,7 @@ export default function HomePage() {
           />
 
           {/* Newsletter Callout */}
-          <NewsletterSection />
+          <NewsletterSection onOpenBookCall={() => setIsBookCallOpen(true)} />
         </main>
 
         {/* Site Footer */}

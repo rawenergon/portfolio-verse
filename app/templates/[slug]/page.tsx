@@ -285,7 +285,7 @@ export default function TemplateDetailPage() {
         </div>
 
         {/* Newsletter Section */}
-        <NewsletterSection />
+        <NewsletterSection onOpenBookCall={() => setIsBookCallOpen(true)} />
       </main>
 
       {/* Footer */}

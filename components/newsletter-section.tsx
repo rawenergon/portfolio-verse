@@ -1,9 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
-import { Mail, Check, ArrowRight, ExternalLink } from "lucide-react";
+import { Mail, Check, ArrowRight, ExternalLink, Calendar } from "lucide-react";
 
-export function NewsletterSection() {
+interface NewsletterSectionProps {
+  onOpenBookCall?: () => void;
+}
+
+export function NewsletterSection({ onOpenBookCall }: NewsletterSectionProps = {}) {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
@@ -106,6 +110,25 @@ export function NewsletterSection() {
               Redirected to Substack to confirm your subscription!
             </p>
           )}
+
+          {/* Book a Class CTA Button below Substack Subscribe */}
+          <div className="pt-3 flex flex-col items-center justify-center gap-2 max-w-md mx-auto">
+            <span className="text-[11px] font-semibold text-zinc-400 dark:text-zinc-500 uppercase tracking-wider">
+              or
+            </span>
+            <button
+              type="button"
+              onClick={onOpenBookCall || (() => window.open("https://cal.com/rawenergon", "_blank"))}
+              className="w-full inline-flex items-center justify-center gap-2 rounded-xl border border-zinc-300 bg-white px-5 py-2.5 text-xs sm:text-sm font-bold text-zinc-900 shadow-sm hover:border-[#ff751f] hover:text-[#ff751f] hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:hover:border-[#ff751f] dark:hover:text-[#ff751f] transition-all cursor-pointer group"
+              title="Book a 1:1 Class & Strategy Call with Aditya Raj on Cal.com (₹100)"
+            >
+              <Calendar className="h-4 w-4 text-[#ff751f] transition-transform group-hover:scale-110" />
+              <span>Book a Class (1:1 with Aditya)</span>
+              <span className="rounded bg-orange-500/15 text-[#ff751f] px-1.5 py-0.5 font-mono text-[11px] font-bold">
+                ₹100
+              </span>
+            </button>
+          </div>
 
           <div className="pt-2 flex flex-wrap items-center justify-center gap-3 text-[11px] text-zinc-500 dark:text-zinc-400">
             <span>Powered by Substack</span>

@@ -190,14 +190,14 @@ export function BookCallModal({ isOpen, onClose }: BookCallModalProps) {
             <div>
               <div className="flex items-center gap-1.5">
                 <span className="font-bold text-sm tracking-tight text-zinc-900 dark:text-white">
-                  1:1 Consultation Call
+                  1:1 Class &amp; Consultation
                 </span>
                 <span className="rounded bg-emerald-500/10 px-1.5 py-0.2 text-[10px] font-mono font-bold text-emerald-500">
                   Cal.com
                 </span>
               </div>
               <p className="text-[11px] text-zinc-500 dark:text-zinc-400">
-                with Aditya Raj (@rawenergon) &bull; 30 Minutes
+                Private Class &amp; Strategy Call with Aditya Raj &bull; 30 Mins
               </p>
             </div>
           </div>
