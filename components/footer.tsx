@@ -42,24 +42,6 @@ export function Footer() {
           ))}
         </div>
 
-        {/* Direct Contact Line */}
-        <div className="mt-6 flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-xs text-zinc-500 dark:text-zinc-400">
-          <a 
-            href="https://wa.me/918766207219" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="hover:text-emerald-500 transition-colors inline-flex items-center gap-1 font-mono"
-          >
-            <span>WhatsApp: +91 87662 07219</span>
-          </a>
-          <span>•</span>
-          <a 
-            href="mailto:devadibxr@gmail.com" 
-            className="hover:text-[#ff751f] transition-colors inline-flex items-center gap-1 font-mono"
-          >
-            <span>Email: devadibxr@gmail.com</span>
-          </a>
-        </div>
 
         {/* Stylized Wordmark Display */}
         <div className="mt-12 select-none overflow-hidden opacity-[0.05] dark:opacity-[0.08] transition-opacity hover:opacity-[0.10]">

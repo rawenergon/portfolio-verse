@@ -25,6 +25,7 @@ import { NewsletterSection } from "@/components/newsletter-section";
 import { Footer } from "@/components/footer";
 import { PurchaseModal } from "@/components/purchase-modal";
 import { LivePreviewModal } from "@/components/live-preview-modal";
+import { BookCallModal } from "@/components/book-call-modal";
 import { ResponsiveTabBrowser } from "@/components/responsive-tab-browser";
 
 export default function TemplateDetailPage() {
@@ -34,6 +35,7 @@ export default function TemplateDetailPage() {
 
   const [isPurchaseOpen, setIsPurchaseOpen] = useState(false);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+  const [isBookCallOpen, setIsBookCallOpen] = useState(false);
 
   if (!template) {
     return (
@@ -105,7 +107,7 @@ export default function TemplateDetailPage() {
   return (
     <div className="flex min-h-screen flex-col bg-white dark:bg-[#09090b] text-zinc-900 dark:text-zinc-100 font-sans">
       <TopBanner />
-      <Navbar onOpenSearch={() => {}} />
+      <Navbar onOpenSearch={() => {}} onOpenBookCall={() => setIsBookCallOpen(true)} />
 
       <main className="flex-1 pb-16">
         {/* Floating Breadcrumb / Back Bar */}
@@ -303,6 +305,12 @@ export default function TemplateDetailPage() {
       <PurchaseModal
         template={isPurchaseOpen ? template : null}
         onClose={() => setIsPurchaseOpen(false)}
+      />
+
+      {/* 1:1 Consultation / Strategy Call Booking Modal (₹100 INR) */}
+      <BookCallModal
+        isOpen={isBookCallOpen}
+        onClose={() => setIsBookCallOpen(false)}
       />
     </div>
   );

@@ -10,10 +10,12 @@ import { Footer } from "@/components/footer";
 import { CommandPalette } from "@/components/command-palette";
 import { PurchaseModal } from "@/components/purchase-modal";
 import { LivePreviewModal } from "@/components/live-preview-modal";
+import { BookCallModal } from "@/components/book-call-modal";
 import { TemplateItem, TEMPLATES_DATA } from "@/lib/templates-data";
 
 export default function HomePage() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isBookCallOpen, setIsBookCallOpen] = useState(false);
   const [purchaseTemplate, setPurchaseTemplate] = useState<TemplateItem | null>(null);
   const [previewTemplate, setPreviewTemplate] = useState<TemplateItem | null>(null);
 
@@ -26,7 +28,10 @@ export default function HomePage() {
       {/* Main Container with borders against diagonal striped margins */}
       <div className="mx-auto max-w-[1440px] border-x border-[#e5e5e5] bg-white dark:border-[#262626] dark:bg-[#09090b] shadow-2xl">
         {/* Navigation Header */}
-        <Navbar onOpenSearch={() => setIsSearchOpen(true)} />
+        <Navbar 
+          onOpenSearch={() => setIsSearchOpen(true)} 
+          onOpenBookCall={() => setIsBookCallOpen(true)}
+        />
 
         {/* Hero Section matching exact reference */}
         <main className="flex-1">
@@ -69,6 +74,12 @@ export default function HomePage() {
         template={previewTemplate}
         onClose={() => setPreviewTemplate(null)}
         onSelectForPurchase={(template) => setPurchaseTemplate(template)}
+      />
+
+      {/* 1:1 Consultation / Strategy Call Booking Modal (₹100 INR) */}
+      <BookCallModal
+        isOpen={isBookCallOpen}
+        onClose={() => setIsBookCallOpen(false)}
       />
     </div>
   );

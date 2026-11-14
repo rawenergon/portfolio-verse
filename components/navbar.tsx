@@ -6,15 +6,17 @@ import { usePathname } from "next/navigation";
 import { 
   Search, 
   Moon, 
-  Sun
+  Sun,
+  Calendar
 } from "lucide-react";
 import { Logo } from "./logo";
 
 interface NavbarProps {
   onOpenSearch: () => void;
+  onOpenBookCall?: () => void;
 }
 
-export function Navbar({ onOpenSearch }: NavbarProps) {
+export function Navbar({ onOpenSearch, onOpenBookCall }: NavbarProps) {
   const pathname = usePathname();
   const [isDark, setIsDark] = useState(false); // Can toggle between light and dark
 
@@ -46,7 +48,20 @@ export function Navbar({ onOpenSearch }: NavbarProps) {
         </div>
 
         {/* Right Actions */}
-        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+        <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+          {/* Book Call Button (₹100) */}
+          {onOpenBookCall && (
+            <button
+              onClick={onOpenBookCall}
+              className="inline-flex items-center gap-1 sm:gap-1.5 rounded-lg bg-[#ff751f] px-2 sm:px-3 py-1.5 text-xs font-bold text-white shadow-sm hover:bg-[#ea6412] transition-all shrink-0 cursor-pointer"
+              title="Book a 1:1 call with Aditya Raj on Cal.com (₹100)"
+            >
+              <Calendar className="h-3.5 w-3.5" />
+              <span className="hidden sm:inline">Book Call</span>
+              <span className="rounded bg-black/20 px-1 py-0.2 font-mono text-[10px] font-bold">₹100</span>
+            </button>
+          )}
+
           {/* Search Trigger Button matching reference Ctrl+K */}
           <button
             onClick={onOpenSearch}
