@@ -7,7 +7,8 @@ import { Logo } from "./logo";
 export function Footer() {
   const footerLinks = [
     { name: "Templates", href: "/" },
-    { name: "Live Preview", href: "#" },
+    { name: "Live Preview", href: "/templates/ccidcop" },
+    { name: "Substack Newsletter", href: "https://substack.com/@rawenergon", external: true },
     { name: "License & Terms", href: "#" },
     { name: "Contact & Support", href: "mailto:support@cvverse.com" },
   ];
@@ -27,7 +28,9 @@ export function Footer() {
             <React.Fragment key={link.name}>
               <Link 
                 href={link.href}
-                className="transition-colors hover:text-[#ff6a00] dark:hover:text-white"
+                target={link.external ? "_blank" : undefined}
+                rel={link.external ? "noopener noreferrer" : undefined}
+                className="transition-colors hover:text-[#ff751f] dark:hover:text-white"
               >
                 {link.name}
               </Link>
