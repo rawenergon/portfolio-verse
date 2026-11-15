@@ -57,3 +57,35 @@ body {
   background-color: #f95300;
   color: #ffffff;
 }
+
+/* Micro-interaction active press scale */
+button:active:not(:disabled),
+a.interactive:active,
+.active-scale:active {
+  transform: scale(0.992);
+  transition: transform 75ms ease;
+}
+
+/* Reduced Motion Guard */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Section heading for editorial design system */
+.section-heading {
+  font-family: var(--font-serif, ui-serif, Georgia, Cambria, "Times New Roman", Times, serif);
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
