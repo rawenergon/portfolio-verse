@@ -1,13 +1,8 @@
 "use client";
 
 import React from "react";
-import { Smartphone } from "lucide-react";
 
-interface HeroSectionProps {
-  onOpenResponsiveBrowser?: () => void;
-}
-
-export function HeroSection({ onOpenResponsiveBrowser }: HeroSectionProps) {
+export function HeroSection() {
   return (
     <section className="relative overflow-hidden pt-10 pb-6 md:pt-14 md:pb-10">
       <div className="relative mx-auto max-w-4xl px-4 text-center">
@@ -108,20 +103,6 @@ export function HeroSection({ onOpenResponsiveBrowser }: HeroSectionProps) {
           </a>
 
         </div>
-
-        {/* Quick Trigger to open Live Responsive Browser */}
-        {onOpenResponsiveBrowser && (
-          <div className="mt-5">
-            <button
-              onClick={onOpenResponsiveBrowser}
-              className="inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-zinc-50 px-3.5 py-1.5 text-xs font-semibold text-zinc-700 shadow-sm transition-all hover:border-[#ff6a00] hover:bg-white hover:text-[#ff6a00] dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:bg-zinc-800 dark:hover:text-white cursor-pointer"
-            >
-              <Smartphone className="h-3.5 w-3.5 text-emerald-500" />
-              <span>Open Live Responsive Browser (Phone &bull; Tablet &bull; Desktop)</span>
-              <span className="rounded bg-emerald-500/10 text-emerald-500 text-[10px] px-1.5 py-0.2 font-mono">Live</span>
-            </button>
-          </div>
-        )}
 
       </div>
 

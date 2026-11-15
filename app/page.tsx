@@ -47,12 +47,7 @@ export default function HomePage() {
 
         {/* Hero Section matching exact reference */}
         <main className="flex-1">
-          <HeroSection 
-            onOpenResponsiveBrowser={() => {
-              const ccidcop = TEMPLATES_DATA.find(t => t.slug === "ccidcop") || TEMPLATES_DATA[0];
-              setPreviewTemplate(ccidcop);
-            }}
-          />
+          <HeroSection />
 
           {/* Dedicated Portfolio Templates Catalog */}
           <TemplateGrid

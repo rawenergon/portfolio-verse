@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { Search, X, Layout, ArrowRight, Globe, Eye } from "lucide-react";
 import { TEMPLATES_DATA, TemplateItem } from "@/lib/templates-data";
+import { useUserCurrency } from "@/lib/use-user-currency";
 
 interface CommandPaletteProps {
   isOpen: boolean;
@@ -12,6 +13,7 @@ interface CommandPaletteProps {
 }
 
 export function CommandPalette({ isOpen, onClose, onSelectTemplate }: CommandPaletteProps) {
+  const { formatPrice } = useUserCurrency();
   const [query, setQuery] = useState("");
   const [activeItem, setActiveItem] = useState<TemplateItem>(TEMPLATES_DATA[0]);
 
@@ -148,7 +150,7 @@ export function CommandPalette({ isOpen, onClose, onSelectTemplate }: CommandPal
                   className="w-full flex items-center justify-center gap-2 rounded-xl border border-zinc-200 bg-white py-2 text-xs font-semibold text-zinc-700 shadow-sm hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:bg-zinc-800 transition-all"
                 >
                   <Eye className="h-3.5 w-3.5 text-zinc-500" />
-                  <span>View Dedicated Page</span>
+                  <span>View</span>
                 </Link>
               )}
 
@@ -161,7 +163,7 @@ export function CommandPalette({ isOpen, onClose, onSelectTemplate }: CommandPal
                 }}
                 className="w-full flex items-center justify-center gap-2 rounded-xl bg-[#ff6a00] py-2.5 text-xs font-bold text-white shadow-lg shadow-orange-500/20 hover:bg-[#ff7a1a] transition-all cursor-pointer"
               >
-                <span>Buy Template (₹{activeItem?.price || 69})</span>
+                <span>Buy Template ({formatPrice(activeItem?.price || 69)})</span>
                 <ArrowRight className="h-3.5 w-3.5" />
               </button>
             </div>

@@ -4,10 +4,9 @@ import Image from "next/image";
 
 interface LogoProps {
   className?: string;
-  showBadge?: boolean;
 }
 
-export function Logo({ className = "", showBadge = true }: LogoProps) {
+export function Logo({ className = "" }: LogoProps) {
   return (
     <Link 
       href="/" 
@@ -34,13 +33,6 @@ export function Logo({ className = "", showBadge = true }: LogoProps) {
           VERSE
         </span>
       </div>
-
-      {/* PRO Badge */}
-      {showBadge && (
-        <span className="rounded-md bg-[#ff751f] px-1.5 py-0.5 sm:px-2.5 sm:py-0.5 text-[10px] sm:text-xs font-black uppercase tracking-wider text-white shadow-sm shrink-0">
-          PRO
-        </span>
-      )}
     </Link>
   );
 }

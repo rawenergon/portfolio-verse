@@ -24,8 +24,12 @@ async function handleProxy(req: NextRequest) {
     targetUrl = "https://ccidcop.in";
   }
 
-  // Ensure targetUrl has protocol
-  if (!targetUrl.startsWith("http://") && !targetUrl.startsWith("https://")) {
+  // Ensure targetUrl has protocol or resolve relative routes
+  if (targetUrl.startsWith("/")) {
+    const host = req.headers.get("x-forwarded-host") || req.headers.get("host") || "cvverse.recolabs.in";
+    const proto = req.headers.get("x-forwarded-proto") || "https";
+    targetUrl = `${proto}://${host}${targetUrl}`;
+  } else if (!targetUrl.startsWith("http://") && !targetUrl.startsWith("https://")) {
     targetUrl = `https://${targetUrl}`;
   }
 
@@ -78,6 +82,9 @@ async function handleProxy(req: NextRequest) {
       // 1. Sets no-referrer so external media/CDN doesn't reject with ERR_EMPTY_RESPONSE
       // 2. Suppresses client errors, unhandled rejections, and frame-busting
       // 3. Guards audio & sound effects from breaking on blocked requests
+      // 4. Intercepts link clicks so same-domain navigation stays proxied without X-Frame-Options errors,
+      //    in-page anchors scroll smoothly, and external links open safely in a new tab.
+      // 5. Intercepts fetch/XHR so client-side routing stays functional.
       const safetyHead = `
         <meta name="referrer" content="no-referrer" />
         <base href="${origin}/" />
@@ -108,6 +115,67 @@ async function handleProxy(req: NextRequest) {
                     }
                   };
                   return a;
+                };
+              }
+            } catch(e) {}
+
+            // Intercept internal & external link clicks
+            document.addEventListener('click', function(e) {
+              var el = e.target;
+              while (el && el.tagName !== 'A') {
+                el = el.parentElement;
+              }
+              if (!el || !el.href) return;
+
+              var rawHref = el.getAttribute('href') || '';
+              if (rawHref.startsWith('javascript:') || rawHref === '#') return;
+
+              // Smooth scroll for hash links
+              if (rawHref.startsWith('#')) {
+                var targetId = rawHref.slice(1);
+                var elem = document.getElementById(targetId) || document.querySelector('[name="' + targetId + '"]');
+                if (elem) {
+                  e.preventDefault();
+                  elem.scrollIntoView({ behavior: 'smooth' });
+                }
+                return;
+              }
+
+              try {
+                var resolved = new URL(el.href, window.location.href);
+                var originUrl = "${origin}";
+                if (resolved.origin === originUrl) {
+                  // Internal navigation on proxied domain: keep within proxy
+                  e.preventDefault();
+                  e.stopPropagation();
+                  window.location.href = '/api/proxy?url=' + encodeURIComponent(resolved.href);
+                } else if (!resolved.protocol.startsWith('http')) {
+                  // mailto, tel, etc.
+                  return;
+                } else {
+                  // External link: open in separate tab
+                  e.preventDefault();
+                  e.stopPropagation();
+                  window.open(resolved.href, '_blank', 'noopener,noreferrer');
+                }
+              } catch(err) {}
+            }, true);
+
+            // Intercept fetch to proxy same-origin API / Next data requests
+            try {
+              var origFetch = window.fetch;
+              if (origFetch) {
+                window.fetch = function(input, init) {
+                  try {
+                    if (typeof input === 'string') {
+                      if (input.startsWith('/') && !input.startsWith('/api/proxy')) {
+                        input = '/api/proxy?url=' + encodeURIComponent('${origin}' + input);
+                      } else if (input.startsWith('${origin}')) {
+                        input = '/api/proxy?url=' + encodeURIComponent(input);
+                      }
+                    }
+                  } catch(e) {}
+                  return origFetch.call(this, input, init);
                 };
               }
             } catch(e) {}

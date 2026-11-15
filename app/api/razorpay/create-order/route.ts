@@ -51,7 +51,7 @@ export async function POST(req: NextRequest) {
         licenseType: String(licenseType),
         currency: targetCurrency,
         country: String(country || "IN"),
-        platform: "CV.VERSE PRO",
+        platform: "CV.VERSE",
       },
     };
 

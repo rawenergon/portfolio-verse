@@ -201,7 +201,7 @@ export function PurchaseModal({ template, onClose }: PurchaseModalProps) {
         key: data.key || "rzp_live_Tzwme978z4OZoj",
         amount: data.amount,
         currency: data.currency || currency,
-        name: "CV.VERSE PRO",
+        name: "CV.VERSE",
         description: `${template.title} Source Code & License (${data.currency || currency})`,
         image: "/logo.png",
         order_id: data.orderId,

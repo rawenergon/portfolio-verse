@@ -17,6 +17,7 @@ import {
   Globe
 } from "lucide-react";
 import { TEMPLATES_DATA, TemplateItem } from "@/lib/templates-data";
+import { useUserCurrency } from "@/lib/use-user-currency";
 
 interface ResponsiveTabBrowserProps {
   initialSlug?: string;
@@ -31,6 +32,7 @@ export function ResponsiveTabBrowser({
   onClose,
   isModal = false
 }: ResponsiveTabBrowserProps) {
+  const { formatPrice } = useUserCurrency();
   const [activeSlug, setActiveSlug] = useState<string>(initialSlug);
   const [device, setDevice] = useState<"desktop" | "tablet" | "mobile">("desktop");
   const [refreshKey, setRefreshKey] = useState(0);
@@ -40,7 +42,9 @@ export function ResponsiveTabBrowser({
   const activeTemplate = TEMPLATES_DATA.find(t => t.slug === activeSlug) || TEMPLATES_DATA[0];
 
   const targetLiveUrl = activeTemplate.demoUrl || (activeSlug === "ccidcop" ? "https://ccidcop.in" : `https://${activeSlug}.ui-layouts.com`);
-  const proxyEmbedUrl = `/api/proxy?url=${encodeURIComponent(targetLiveUrl)}`;
+  const proxyEmbedUrl = targetLiveUrl.startsWith("/") 
+    ? targetLiveUrl 
+    : `/api/proxy?url=${encodeURIComponent(targetLiveUrl)}`;
 
   const handleCopyUrl = () => {
     navigator.clipboard.writeText(targetLiveUrl);
@@ -239,7 +243,7 @@ export function ResponsiveTabBrowser({
               title={`Live Preview of ${activeTemplate.title}`}
               onLoad={() => setIframeLoading(false)}
               className="h-full w-full border-0 bg-black"
-              sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals allow-downloads"
+              sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation allow-modals allow-downloads"
             />
           </div>
 
@@ -260,8 +264,8 @@ export function ResponsiveTabBrowser({
           <span className="rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 text-[10px] font-mono font-bold">
             ● Live Connected
           </span>
-          <span className="rounded bg-orange-500/10 text-[#ff6a00] border border-orange-500/20 px-2 py-0.5 text-[10px] font-bold">
-            ₹{activeTemplate.price} INR
+          <span className="rounded bg-orange-500/10 text-[#ff6a00] border border-orange-500/20 px-2 py-0.5 text-[10px] font-bold font-mono">
+            {formatPrice(activeTemplate.price)}
           </span>
         </div>
 
@@ -278,7 +282,7 @@ export function ResponsiveTabBrowser({
               onClick={() => onSelectForPurchase(activeTemplate)}
               className="rounded-lg bg-[#ff6a00] px-4 py-1.5 font-bold text-white shadow-md hover:bg-[#ff7a1a] transition-all cursor-pointer"
             >
-              Get Template — ₹{activeTemplate.price}
+              Get Template — {formatPrice(activeTemplate.price)}
             </button>
           )}
         </div>

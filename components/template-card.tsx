@@ -10,6 +10,7 @@ import {
   Globe
 } from "lucide-react";
 import { TemplateItem } from "@/lib/templates-data";
+import { useUserCurrency } from "@/lib/use-user-currency";
 
 interface TemplateCardProps {
   template: TemplateItem;
@@ -22,6 +23,7 @@ export function TemplateCard({
   onSelectForPurchase, 
   onOpenLivePreview 
 }: TemplateCardProps) {
+  const { formatPrice } = useUserCurrency();
   const isCcidcop = template.slug === "ccidcop";
   const targetUrl = template.demoUrl || (isCcidcop ? "https://ccidcop.in" : `https://${template.slug}.ui-layouts.com`);
 
@@ -66,13 +68,10 @@ export function TemplateCard({
             )}
           </div>
 
-          {/* Price in INR with international USD indicator */}
+          {/* Price formatted according to detected user region */}
           <div className="text-right shrink-0">
-            <div className="text-xl sm:text-2xl font-bold text-zinc-900 dark:text-white leading-tight">
-              ₹{template.price}
-            </div>
-            <div className="text-[10px] font-mono font-medium text-zinc-400 dark:text-zinc-500">
-              {template.price >= 100 ? "$2.49 USD" : "$1.99 USD"}
+            <div className="text-xl sm:text-2xl font-bold font-mono text-zinc-900 dark:text-white leading-tight">
+              {formatPrice(template.price)}
             </div>
           </div>
         </div>
@@ -123,7 +122,7 @@ export function TemplateCard({
         {/* Direct Live Embed Iframe scaled to 50% for high-DPI desktop view */}
         <div className="h-full w-full pointer-events-none select-none overflow-hidden bg-black">
           <iframe
-            src={`/api/proxy?url=${encodeURIComponent(targetUrl)}`}
+            src={targetUrl.startsWith("/") ? targetUrl : `/api/proxy?url=${encodeURIComponent(targetUrl)}`}
             title={`Live Embedded Preview of ${template.title}`}
             className="h-[200%] w-[200%] origin-top-left scale-50 border-0 bg-black"
             loading="lazy"
@@ -149,7 +148,7 @@ export function TemplateCard({
               className="inline-flex items-center gap-1.5 rounded-lg bg-white px-3.5 py-2 text-xs font-bold text-zinc-900 shadow-md hover:bg-zinc-100 transition-all hover:scale-105 cursor-pointer"
             >
               <Eye className="h-3.5 w-3.5 text-[#ff6a00]" />
-              <span>Dedicated Page</span>
+              <span>View</span>
             </Link>
 
             <button
@@ -157,7 +156,7 @@ export function TemplateCard({
               className="inline-flex items-center gap-1.5 rounded-lg bg-[#ff6a00] px-3.5 py-2 text-xs font-bold text-white shadow-md shadow-orange-500/30 hover:bg-[#ff7a1a] transition-all hover:scale-105 cursor-pointer"
             >
               <ShoppingCart className="h-3.5 w-3.5" />
-              <span>Buy - ₹{template.price}</span>
+              <span>Buy - {formatPrice(template.price)}</span>
             </button>
           </div>
 
@@ -176,7 +175,7 @@ export function TemplateCard({
           href={`/templates/${template.slug}`}
           className="font-medium text-zinc-600 hover:text-[#ff6a00] dark:text-zinc-400 dark:hover:text-white transition-colors"
         >
-          View Page →
+          View →
         </Link>
 
         <div className="flex items-center gap-2.5">
@@ -194,7 +193,7 @@ export function TemplateCard({
             onClick={() => onSelectForPurchase(template)}
             className="rounded bg-zinc-900 px-3 py-1 font-semibold text-white shadow-sm hover:bg-[#ff6a00] dark:bg-zinc-800 dark:hover:bg-[#ff6a00] transition-colors cursor-pointer"
           >
-            Buy - ₹{template.price}
+            Buy - {formatPrice(template.price)}
           </button>
         </div>
       </div>

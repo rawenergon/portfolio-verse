@@ -18,6 +18,7 @@ import {
   ChevronRight
 } from "lucide-react";
 import { TemplateItem } from "@/lib/templates-data";
+import { useUserCurrency } from "@/lib/use-user-currency";
 import { TopBanner } from "@/components/top-banner";
 import { Navbar } from "@/components/navbar";
 import { NewsletterSection } from "@/components/newsletter-section";
@@ -32,6 +33,7 @@ interface TemplateDetailViewProps {
 }
 
 export function TemplateDetailView({ template }: TemplateDetailViewProps) {
+  const { formatPrice, currency } = useUserCurrency();
   const [isPurchaseOpen, setIsPurchaseOpen] = useState(false);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [isBookCallOpen, setIsBookCallOpen] = useState(false);
@@ -160,16 +162,16 @@ export function TemplateDetailView({ template }: TemplateDetailViewProps) {
               </div>
             </div>
 
-            {/* Price in INR (₹) and Quick CTA Buttons */}
+            {/* Price formatted according to detected region */}
             <div className="flex flex-col sm:flex-row md:flex-col items-start sm:items-center md:items-end gap-3 shrink-0">
               <div className="flex items-baseline gap-2">
                 <span className="text-sm text-zinc-400 line-through font-mono">
-                  ₹{template.originalPrice}
+                  {formatPrice(template.originalPrice)}
                 </span>
-                <span className="text-3xl sm:text-4xl font-black text-zinc-900 dark:text-white">
-                  ₹{template.price}
+                <span className="text-3xl sm:text-4xl font-black text-zinc-900 dark:text-white font-mono">
+                  {formatPrice(template.price)}
                 </span>
-                <span className="text-xs font-mono text-zinc-400">INR</span>
+                <span className="text-xs font-mono text-zinc-400">{currency}</span>
               </div>
 
               <div className="flex items-center gap-3 w-full sm:w-auto">
@@ -188,7 +190,7 @@ export function TemplateDetailView({ template }: TemplateDetailViewProps) {
                   className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 rounded-xl bg-[#ff6a00] px-6 py-3 text-xs font-bold text-white shadow-lg shadow-orange-500/25 hover:bg-[#ff7a1a] transition-all hover:scale-[1.02] cursor-pointer"
                 >
                   <ShoppingCart className="h-4 w-4" />
-                  <span>Purchase - ₹{template.price}</span>
+                  <span>Purchase - {formatPrice(template.price)}</span>
                 </button>
               </div>
             </div>
