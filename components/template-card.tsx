@@ -40,12 +40,14 @@ export function TemplateCard({
         {/* Header Row */}
         <div className="flex items-start justify-between gap-4">
           <div className="flex flex-wrap items-center gap-2">
-            <Link 
-              href={`/templates/${template.slug}`}
-              className="text-xl sm:text-2xl font-bold tracking-tight text-zinc-900 dark:text-white uppercase hover:text-[#ff6a00] dark:hover:text-[#ff6a00] transition-colors"
-            >
-              {template.title}
-            </Link>
+            <h2 className="text-xl sm:text-2xl font-serif font-normal tracking-tight text-zinc-900 dark:text-white uppercase">
+              <Link 
+                href={`/templates/${template.slug}`}
+                className="hover:text-[#ff6a00] dark:hover:text-[#ff6a00] transition-colors"
+              >
+                {template.title}
+              </Link>
+            </h2>
 
             {/* Lock / Live Icon in gray rounded box */}
             <span className="flex h-5 w-5 items-center justify-center rounded bg-[#f4f4f5] text-zinc-600 dark:bg-[#27272a] dark:text-zinc-400">

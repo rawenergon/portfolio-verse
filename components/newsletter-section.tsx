@@ -53,8 +53,8 @@ export function NewsletterSection({ onOpenBookCall }: NewsletterSectionProps = {
             <ExternalLink className="h-3 w-3 opacity-60 transition-transform group-hover:translate-x-0.5" />
           </a>
 
-          <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
-            Subscribe to our newsletter
+          <h2 className="text-3xl sm:text-4xl font-normal font-serif tracking-tight text-zinc-900 dark:text-white">
+            <span className="italic">Subscribe</span> to our newsletter
           </h2>
 
           <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 max-w-xl mx-auto leading-relaxed">
