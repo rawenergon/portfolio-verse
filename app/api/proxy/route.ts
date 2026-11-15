@@ -67,37 +67,80 @@ async function handleProxy(req: NextRequest) {
     if (contentType.includes("text/html")) {
       let html = await response.text();
 
-      // Strip Content-Security-Policy & X-Frame-Options meta tags
+      // Strip Content-Security-Policy & X-Frame-Options meta tags & canonical link
       html = html.replace(/<meta[^>]*http-equiv=["']?Content-Security-Policy["']?[^>]*>/gi, "");
       html = html.replace(/<meta[^>]*http-equiv=["']?X-Frame-Options["']?[^>]*>/gi, "");
+      html = html.replace(/<link[^>]*rel=["']?canonical["']?[^>]*>/gi, "");
+      html = html.replace(/<base[^>]*>/gi, "");
 
-      // Rewrite root-relative asset URLs so they resolve to upstream target domain,
-      // avoiding any image optimization or chunk leaking to host Next.js server
-      html = html.replace(/(src|href|action)=["']\/(?!\/)([^"']*)["']/gi, (match, attr, path) => {
-        if (path.startsWith("api/proxy")) return match;
-        return `${attr}="${origin}/${path}"`;
+      const escapedOrigin = origin.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+      // 1. Rewrite assets: <link href="/..."> and <script/img/video src="/..."> to absolute origin URLs
+      html = html.replace(/(<link\s+[^>]*href=["'])\/(?!\/)([^"']*)(["'])/gi, (m, p1, p2, p3) => {
+        return p1 + origin + "/" + p2 + p3;
+      });
+      html = html.replace(/(src=["'])\/(?!\/)([^"']*)(["'])/gi, (m, p1, p2, p3) => {
+        return p1 + origin + "/" + p2 + p3;
+      });
+      html = html.replace(/(action=["'])\/(?!\/)([^"']*)(["'])/gi, (m, p1, p2, p3) => {
+        return p1 + origin + "/" + p2 + p3;
+      });
+
+      // 2. Rewrite anchors: internal relative hrefs to proxy URLs, preserving in-page hashes
+      html = html.replace(/(<a\s+[^>]*href=["'])\/(?!\/)([^"']*)(["'])/gi, (m, p1, p2, p3) => {
+        if (p2.startsWith("#")) return p1 + p2 + p3;
+        return p1 + "/api/proxy?url=" + encodeURIComponent(origin + "/" + p2) + p3;
+      });
+
+      // 3. Rewrite anchors: internal absolute hrefs pointing to origin to proxy URLs
+      html = html.replace(new RegExp("(<a\\s+[^>]*href=[\"'])" + escapedOrigin + "([^\"']*)([\"'])", "gi"), (m, p1, p2, p3) => {
+        if (p2.startsWith("/#") || p2.startsWith("#")) return p1 + p2.replace(/^\//, "") + p3;
+        return p1 + "/api/proxy?url=" + encodeURIComponent(origin + p2) + p3;
       });
 
       // Robust client-side protection script:
       // 1. Sets no-referrer so external media/CDN doesn't reject with ERR_EMPTY_RESPONSE
       // 2. Suppresses client errors, unhandled rejections, and frame-busting
       // 3. Guards audio & sound effects from breaking on blocked requests
-      // 4. Intercepts link clicks so same-domain navigation stays proxied without X-Frame-Options errors,
-      //    in-page anchors scroll smoothly, and external links open safely in a new tab.
-      // 5. Intercepts fetch/XHR so client-side routing stays functional.
+      // 4. Traps location.replace & location.assign so Next.js hydration never navigates out of the proxy
+      // 5. Intercepts link clicks so same-domain navigation stays proxied, in-page anchors scroll,
+      //    and external links open safely in a new tab without frame blocks.
       const safetyHead = `
         <meta name="referrer" content="no-referrer" />
-        <base href="${origin}/" />
         <script>
           (function() {
             window.onerror = function() { return true; };
             window.onunhandledrejection = function(e) { if(e && e.preventDefault) e.preventDefault(); return true; };
+
+            // Trap location.replace and location.assign to keep Next.js router inside proxy
             try {
-              if (window.top !== window.self) {
-                // Prevent iframe busting
-                Object.defineProperty(window, 'top', { get: function() { return window.self; } });
+              var targetOrigin = "${origin}";
+              var origReplace = window.location.replace;
+              if (origReplace) {
+                window.location.replace = function(url) {
+                  try {
+                    var u = new URL(url, targetOrigin);
+                    if (u.origin === targetOrigin) {
+                      return origReplace.call(window.location, window.location.origin + '/api/proxy?url=' + encodeURIComponent(u.href));
+                    }
+                  } catch(e) {}
+                  return origReplace.call(window.location, url);
+                };
+              }
+              var origAssign = window.location.assign;
+              if (origAssign) {
+                window.location.assign = function(url) {
+                  try {
+                    var u = new URL(url, targetOrigin);
+                    if (u.origin === targetOrigin) {
+                      return origAssign.call(window.location, window.location.origin + '/api/proxy?url=' + encodeURIComponent(u.href));
+                    }
+                  } catch(e) {}
+                  return origAssign.call(window.location, url);
+                };
               }
             } catch(e) {}
+
             try {
               var origAudio = window.Audio;
               if (origAudio) {
@@ -125,10 +168,10 @@ async function handleProxy(req: NextRequest) {
               while (el && el.tagName !== 'A') {
                 el = el.parentElement;
               }
-              if (!el || !el.href) return;
+              if (!el) return;
 
               var rawHref = el.getAttribute('href') || '';
-              if (rawHref.startsWith('javascript:') || rawHref === '#') return;
+              if (!rawHref || rawHref.startsWith('javascript:')) return;
 
               // Smooth scroll for hash links
               if (rawHref.startsWith('#')) {
@@ -142,18 +185,21 @@ async function handleProxy(req: NextRequest) {
               }
 
               try {
+                var targetOrigin = "${origin}";
                 var resolved = new URL(el.href, window.location.href);
-                var originUrl = "${origin}";
-                if (resolved.origin === originUrl) {
-                  // Internal navigation on proxied domain: keep within proxy
+
+                if (resolved.origin === targetOrigin) {
+                  // Internal navigation on target domain: keep within proxy
                   e.preventDefault();
                   e.stopPropagation();
-                  window.location.href = '/api/proxy?url=' + encodeURIComponent(resolved.href);
+                  window.location.href = window.location.origin + '/api/proxy?url=' + encodeURIComponent(resolved.href);
+                } else if (resolved.pathname.startsWith('/api/proxy')) {
+                  // Already a proxy link: allow it to load within this frame
+                  return;
                 } else if (!resolved.protocol.startsWith('http')) {
-                  // mailto, tel, etc.
                   return;
                 } else {
-                  // External link: open in separate tab
+                  // External link (e.g. GitHub, Twitter): open safely in new tab
                   e.preventDefault();
                   e.stopPropagation();
                   window.open(resolved.href, '_blank', 'noopener,noreferrer');
@@ -196,6 +242,7 @@ async function handleProxy(req: NextRequest) {
         headers: {
           "Content-Type": "text/html; charset=utf-8",
           "X-Frame-Options": "ALLOWALL",
+          "Content-Security-Policy": "frame-ancestors *",
           ...CORS_HEADERS,
         },
       });
