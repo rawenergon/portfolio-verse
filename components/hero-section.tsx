@@ -4,7 +4,7 @@ import React from "react";
 
 export function HeroSection() {
   return (
-    <section className="relative overflow-hidden pt-10 pb-6 md:pt-14 md:pb-10">
+    <section className="relative overflow-hidden pt-7 pb-4 md:pt-9 md:pb-6">
       <div className="relative mx-auto max-w-4xl px-4 text-center">
         
         {/* CV.VERSE Badge - clean without AI blobs */}
