@@ -40,7 +40,7 @@ export function HeroSection() {
           Production-grade Next.js &amp; Tailwind CSS portfolios built for developers who ship. Clone clean architecture, skip the repetitive grind, and launch your site today.
         </p>
 
-        {/* 4-Icon Strip: TypeScript, Next.js, Tailwind CSS, React */}
+        {/* 4-Icon Strip: TypeScript, React, Tailwind CSS, Motion dev */}
         <div className="mx-auto mt-6 flex w-fit items-center justify-center gap-2.5 sm:gap-3">
           
           {/* 1. TypeScript */}
@@ -64,20 +64,25 @@ export function HeroSection() {
             </svg>
           </a>
 
-          {/* 2. Next.js */}
+          {/* 2. React */}
           <a
-            href="https://nextjs.org/"
+            href="https://react.dev/"
             target="_blank"
             rel="noopener noreferrer"
-            title="Next.js"
+            title="React"
             className="grid h-12 w-12 sm:h-13 sm:w-13 place-items-center rounded-xl border border-zinc-200/80 bg-zinc-100/90 p-2.5 transition-all hover:bg-white hover:border-zinc-300 hover:scale-105 dark:border-zinc-800 dark:bg-[#18181b] dark:hover:bg-[#27272a] dark:hover:border-zinc-700 shadow-xs group"
           >
             <svg 
-              viewBox="0 0 24 24" 
-              className="h-6 w-6 fill-current text-zinc-950 dark:text-white transition-transform group-hover:scale-110"
-              aria-label="Next.js"
+              viewBox="-11.5 -10.23174 23 20.46348" 
+              className="h-6 w-6 text-[#00D8FF] dark:text-[#58C4DC] transition-transform group-hover:scale-110"
+              aria-label="React"
             >
-              <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 16.03L9.77 6.94h2.24l7.15 9.42c-.7.62-1.47 1.18-2.24 1.67zM6.94 17.06V6.94h1.79v10.12H6.94z"/>
+              <circle cx="0" cy="0" r="2.05" fill="currentColor"/>
+              <g stroke="currentColor" strokeWidth="1" fill="none">
+                <ellipse rx="11" ry="4.2"/>
+                <ellipse rx="11" ry="4.2" transform="rotate(60)"/>
+                <ellipse rx="11" ry="4.2" transform="rotate(120)"/>
+              </g>
             </svg>
           </a>
 
@@ -98,25 +103,20 @@ export function HeroSection() {
             </svg>
           </a>
 
-          {/* 4. React */}
+          {/* 4. Motion dev */}
           <a
-            href="https://react.dev/"
+            href="https://motion.dev/"
             target="_blank"
             rel="noopener noreferrer"
-            title="React"
+            title="Motion dev"
             className="grid h-12 w-12 sm:h-13 sm:w-13 place-items-center rounded-xl border border-zinc-200/80 bg-zinc-100/90 p-2.5 transition-all hover:bg-white hover:border-zinc-300 hover:scale-105 dark:border-zinc-800 dark:bg-[#18181b] dark:hover:bg-[#27272a] dark:hover:border-zinc-700 shadow-xs group"
           >
             <svg 
-              viewBox="-11.5 -10.23174 23 20.46348" 
-              className="h-6 w-6 text-[#00D8FF] dark:text-[#58C4DC] transition-transform group-hover:scale-110"
-              aria-label="React"
+              viewBox="0 0 24 24" 
+              className="h-6 w-6 fill-current text-[#F59E0B] transition-transform group-hover:scale-110"
+              aria-label="Motion dev"
             >
-              <circle cx="0" cy="0" r="2.05" fill="currentColor"/>
-              <g stroke="currentColor" strokeWidth="1" fill="none">
-                <ellipse rx="11" ry="4.2"/>
-                <ellipse rx="11" ry="4.2" transform="rotate(60)"/>
-                <ellipse rx="11" ry="4.2" transform="rotate(120)"/>
-              </g>
+              <path d="M4 0h16v8h-8zM4 8h8l8 8H4zM4 16h8v8z"/>
             </svg>
           </a>
 
