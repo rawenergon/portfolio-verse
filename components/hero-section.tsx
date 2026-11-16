@@ -2,36 +2,51 @@
 
 import React from "react";
 
-export function HeroSection() {
+interface HeroSectionProps {
+  onOpenInspirational?: () => void;
+}
+
+export function HeroSection({ onOpenInspirational }: HeroSectionProps) {
   return (
     <section className="relative overflow-hidden pt-7 pb-4 md:pt-9 md:pb-6">
       <div className="relative mx-auto max-w-4xl px-4 text-center">
         
-        {/* CV.VERSE Badge - clean without AI blobs */}
-        <div className="mx-auto mb-4 flex w-fit items-center justify-center gap-2 rounded-md px-3 py-1 text-sm font-medium border shadow-sm bg-zinc-50 border-zinc-200 text-zinc-900 dark:bg-zinc-900 dark:border-zinc-800 dark:text-zinc-100">
-          <svg 
-            xmlns="http://www.w3.org/2000/svg" 
-            width="15" 
-            height="15" 
-            viewBox="0 0 24 24" 
-            fill="none" 
-            stroke="currentColor" 
-            strokeWidth="2" 
-            strokeLinecap="round" 
-            strokeLinejoin="round" 
-            className="text-[#ff6a00]"
-          >
-            <rect width="18" height="18" x="3" y="3" rx="2"></rect>
-            <path d="M3 9h18"></path>
-            <path d="M9 21V9"></path>
-          </svg>
-          <span className="text-xs font-bold tracking-tight">CV.VERSE</span>
+        {/* CV.VERSE Free Badge */}
+        <div className="mx-auto mb-4 flex flex-wrap items-center justify-center gap-2">
+          <div className="flex items-center justify-center gap-2 rounded-md px-3 py-1 text-sm font-medium border shadow-sm bg-zinc-50 border-zinc-200 text-zinc-900 dark:bg-zinc-900 dark:border-zinc-800 dark:text-zinc-100">
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              width="15" 
+              height="15" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              stroke="currentColor" 
+              strokeWidth="2" 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              className="text-[#ff6a00]"
+            >
+              <rect width="18" height="18" x="3" y="3" rx="2"></rect>
+              <path d="M3 9h18"></path>
+              <path d="M9 21V9"></path>
+            </svg>
+            <span className="text-xs font-bold tracking-tight">CV.VERSE · 100% FREE</span>
+          </div>
+
+          {onOpenInspirational && (
+            <button
+              onClick={onOpenInspirational}
+              className="flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-semibold border border-orange-500/30 bg-orange-500/10 text-[#ff6a00] hover:bg-orange-500/20 transition-all cursor-pointer"
+            >
+              <span>Inspirational Portfolios →</span>
+            </button>
+          )}
         </div>
 
         {/* Clean Headline with CV.VERSE */}
         <h1 className="mx-auto max-w-2xl text-center text-3xl sm:text-5xl md:text-6xl font-normal font-serif tracking-tight text-zinc-900 dark:text-white leading-[1.1]">
-          <span className="block">Stop Wasting Time on Boilerplate</span>
-          <span className="block mt-1 italic text-zinc-700 dark:text-zinc-300">Build Faster with CV.VERSE Templates.</span>
+          <span className="block">Inspirational Developer Portfolios</span>
+          <span className="block mt-1 italic text-zinc-700 dark:text-zinc-300">100% Free &amp; Open Source on GitHub.</span>
         </h1>
 
         {/* Exact Reference 4-Icon Strip: 48px square boxes, NO text labels */}

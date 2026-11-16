@@ -14,7 +14,7 @@ export function TemplateGrid({
   onSelectForPurchase, 
   onOpenLivePreview 
 }: TemplateGridProps) {
-  const [sortBy, setSortBy] = useState<"featured" | "price-asc" | "price-desc" | "newest">("featured");
+  const [sortBy, setSortBy] = useState<"featured" | "newest">("featured");
 
   const filteredTemplates = useMemo(() => {
     return [...TEMPLATES_DATA].sort((a, b) => {
@@ -22,12 +22,6 @@ export function TemplateGrid({
         if (a.slug === "ccidcop") return -1;
         if (b.slug === "ccidcop") return 1;
         return 0;
-      }
-      if (sortBy === "price-asc") {
-        return a.price - b.price;
-      }
-      if (sortBy === "price-desc") {
-        return b.price - a.price;
       }
       if (sortBy === "newest") {
         return (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0);
@@ -45,10 +39,10 @@ export function TemplateGrid({
   return (
     <div id="templates" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 font-mono">
       
-      {/* Filter / Sort Controls Bar: Price Low to High / High to Low & Featured */}
+      {/* Filter / Sort Controls Bar */}
       <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-zinc-200 pb-4 dark:border-zinc-800">
         
-        {/* Sort Pills */}
+        {/* Sort Pills & Free Badge */}
         <div className="flex flex-wrap items-center gap-2">
           <span className="text-xs font-medium text-zinc-500 dark:text-zinc-400 mr-1 flex items-center gap-1.5">
             <ArrowUpDown className="h-3.5 w-3.5 text-[#ff6a00]" />
@@ -67,30 +61,6 @@ export function TemplateGrid({
           </button>
 
           <button
-            onClick={() => setSortBy("price-asc")}
-            className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium transition-all cursor-pointer ${
-              sortBy === "price-asc"
-                ? "bg-[#ff6a00] text-white shadow-sm font-semibold"
-                : "text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-200 border border-zinc-200 dark:border-zinc-800"
-            }`}
-          >
-            <span>Price: Low to High</span>
-            <span className="text-[10px] opacity-80">↑</span>
-          </button>
-
-          <button
-            onClick={() => setSortBy("price-desc")}
-            className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium transition-all cursor-pointer ${
-              sortBy === "price-desc"
-                ? "bg-[#ff6a00] text-white shadow-sm font-semibold"
-                : "text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-200 border border-zinc-200 dark:border-zinc-800"
-            }`}
-          >
-            <span>Price: High to Low</span>
-            <span className="text-[10px] opacity-80">↓</span>
-          </button>
-
-          <button
             onClick={() => setSortBy("newest")}
             className={`flex items-center gap-1 rounded-md px-3 py-1.5 text-xs font-medium transition-all cursor-pointer ${
               sortBy === "newest"
@@ -100,6 +70,11 @@ export function TemplateGrid({
           >
             <span>Newest</span>
           </button>
+
+          <span className="ml-1 inline-flex items-center gap-1.5 rounded-md bg-emerald-500/10 px-2.5 py-1 text-xs font-bold text-emerald-500 border border-emerald-500/20">
+            <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span>100% Free &amp; Open Source</span>
+          </span>
         </div>
 
         {/* Right Info: Count & Reset */}

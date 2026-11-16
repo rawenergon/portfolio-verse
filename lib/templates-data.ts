@@ -22,6 +22,8 @@ export interface TemplateItem {
   techStack: TechStackItem[];
   videoSrc?: string;
   imageUrl?: string;
+  githubUrl: string;
+  isFree?: boolean;
   previewUrl: string;
   demoUrl: string;
   features: string[];
@@ -40,10 +42,11 @@ export const TEMPLATES_DATA: TemplateItem[] = [
     title: "CCIDCOP",
     isNew: true,
     isFeatured: true,
-    price: 69, // Exactly 69 INR as requested by dj
+    price: 0,
     originalPrice: 199,
     currency: "INR",
     currencySymbol: "₹",
+    isFree: true,
     category: "Portfolio",
     subCategory: "Security & Systems",
     description: "The official security engineer & systems developer portfolio of Aditya Raj (@rawenergon). Minimalist dark UI with timeline, stack inspector, and technical blog.",
@@ -57,6 +60,7 @@ export const TEMPLATES_DATA: TemplateItem[] = [
     ],
     videoSrc: "",
     imageUrl: "/previews/ccidcop.png",
+    githubUrl: "https://github.com/AdityaKodez/adityaojha",
     previewUrl: "/templates/ccidcop",
     demoUrl: "https://ccidcop.in/",
     features: [
@@ -81,10 +85,11 @@ export const TEMPLATES_DATA: TemplateItem[] = [
     title: "Syntax Overlord",
     isNew: true,
     isFeatured: true,
-    price: 100, // Exactly 100 INR as requested by dj
+    price: 0,
     originalPrice: 249,
     currency: "INR",
     currencySymbol: "₹",
+    isFree: true,
     category: "Portfolio",
     subCategory: "Developer & Terminal",
     description: "An elite full-stack developer portfolio and interactive command center by Aditya Raj. Features GSAP smooth animations, Ctrl+K command palette, and dark/light modes.",
@@ -98,6 +103,7 @@ export const TEMPLATES_DATA: TemplateItem[] = [
     ],
     videoSrc: "",
     imageUrl: "/previews/syntax-overlord.png",
+    githubUrl: "https://github.com/rawenergon/portfolio",
     previewUrl: "/templates/syntax-overlord",
     demoUrl: "https://syntax-overlord.me/",
     features: [
@@ -123,10 +129,11 @@ export const TEMPLATES_DATA: TemplateItem[] = [
     title: "Vinod Jangid",
     isNew: true,
     isFeatured: true,
-    price: 100, // 100 INR / $2.49 USD
+    price: 0,
     originalPrice: 249,
     currency: "INR",
     currencySymbol: "₹",
+    isFree: true,
     category: "Portfolio",
     subCategory: "Design & Creative",
     description: "The tactile, high-craft frontend engineer portfolio of Vinod Jangid. Features 3D avatar hero, accessible product interfaces, interactive case studies, and micro-interactions.",
@@ -140,6 +147,7 @@ export const TEMPLATES_DATA: TemplateItem[] = [
     ],
     videoSrc: "",
     imageUrl: "/previews/vinodjangid.png",
+    githubUrl: "https://github.com/vinodjangid07/vinodjangid07.github.io",
     previewUrl: "/templates/vinod-jangid",
     demoUrl: "https://vinodjangid.site/",
     features: [

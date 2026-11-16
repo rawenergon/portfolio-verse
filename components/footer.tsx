@@ -50,9 +50,42 @@ export function Footer() {
           </span>
         </div>
 
+        {/* Inspirational Open Source Portfolios */}
+        <div className="mt-8 pt-6 border-t border-zinc-100 dark:border-zinc-800/80 text-xs text-zinc-500">
+          <p className="font-semibold text-zinc-700 dark:text-zinc-300 mb-2">Inspirational Open Source Portfolios:</p>
+          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 font-mono text-[11px]">
+            <a 
+              href="https://github.com/AdityaKodez/adityaojha" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="hover:text-[#ff6a00] transition-colors underline underline-offset-4"
+            >
+              CCIDCOP Repo
+            </a>
+            <span className="text-zinc-300 dark:text-zinc-700">•</span>
+            <a 
+              href="https://github.com/rawenergon/portfolio" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="hover:text-[#ff6a00] transition-colors underline underline-offset-4"
+            >
+              Syntax Overlord Repo
+            </a>
+            <span className="text-zinc-300 dark:text-zinc-700">•</span>
+            <a 
+              href="https://github.com/vinodjangid07/vinodjangid07.github.io" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="hover:text-[#ff6a00] transition-colors underline underline-offset-4"
+            >
+              Vinod Jangid Repo
+            </a>
+          </div>
+        </div>
+
         {/* Copyright */}
-        <div className="mt-8 pt-6 border-t border-zinc-100 dark:border-zinc-900 text-xs text-zinc-500">
-          <p>Copyright © 2026 CV.VERSE. All rights reserved.</p>
+        <div className="mt-6 pt-4 border-t border-zinc-100/60 dark:border-zinc-900/60 text-xs text-zinc-500">
+          <p>Copyright © 2026 CV.VERSE. 100% Free &amp; Open Source.</p>
         </div>
       </div>
     </footer>

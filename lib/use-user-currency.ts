@@ -56,6 +56,7 @@ export function useUserCurrency() {
   }, []);
 
   const formatPrice = (baseInrPrice: number, licenseType: "single" | "unlimited" = "single") => {
+    if (baseInrPrice === 0) return "FREE";
     const amount = calculateTemplatePrice(baseInrPrice, currency, licenseType);
     return formatCurrencyPrice(amount, currency);
   };

@@ -8,7 +8,8 @@ import {
   ExternalLink, 
   ShoppingCart, 
   Eye, 
-  Globe
+  Globe,
+  Github
 } from "lucide-react";
 import { TemplateItem } from "@/lib/templates-data";
 import { useUserCurrency } from "@/lib/use-user-currency";
@@ -70,11 +71,11 @@ export function TemplateCard({
             )}
           </div>
 
-          {/* Price formatted according to detected user region */}
+          {/* Price / Free Badge */}
           <div className="text-right shrink-0">
-            <div className="text-lg sm:text-xl font-bold font-mono text-zinc-900 dark:text-white leading-tight">
-              {formatPrice(template.price)}
-            </div>
+            <span className="inline-flex items-center rounded-md bg-emerald-500/10 px-2 py-0.5 text-xs font-mono font-bold text-emerald-500 border border-emerald-500/20">
+              FREE
+            </span>
           </div>
         </div>
 
@@ -154,13 +155,15 @@ export function TemplateCard({
               <span>View</span>
             </Link>
 
-            <button
-              onClick={() => onSelectForPurchase(template)}
+            <a
+              href={template.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 rounded-lg bg-[#ff6a00] px-3.5 py-2 text-xs font-bold text-white shadow-md shadow-orange-500/30 hover:bg-[#ff7a1a] transition-all hover:scale-105 cursor-pointer"
             >
-              <ShoppingCart className="h-3.5 w-3.5" />
-              <span>Buy - {formatPrice(template.price)}</span>
-            </button>
+              <Github className="h-3.5 w-3.5" />
+              <span>Get Code</span>
+            </a>
           </div>
 
           <Link
@@ -178,7 +181,7 @@ export function TemplateCard({
           href={`/templates/${template.slug}`}
           className="font-medium text-zinc-600 hover:text-[#ff6a00] dark:text-zinc-400 dark:hover:text-white transition-colors"
         >
-          View →
+          View Details →
         </Link>
 
         <div className="flex items-center gap-2.5">
@@ -192,12 +195,15 @@ export function TemplateCard({
             <ExternalLink className="h-3 w-3" />
           </a>
 
-          <button
-            onClick={() => onSelectForPurchase(template)}
-            className="rounded bg-zinc-900 px-3 py-1 font-semibold text-white shadow-sm hover:bg-[#ff6a00] dark:bg-zinc-800 dark:hover:bg-[#ff6a00] transition-colors cursor-pointer"
+          <a
+            href={template.githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 rounded bg-zinc-900 px-2.5 py-1 text-xs font-semibold text-white shadow-sm hover:bg-[#ff6a00] dark:bg-zinc-800 dark:hover:bg-[#ff6a00] transition-colors cursor-pointer"
           >
-            Buy - {formatPrice(template.price)}
-          </button>
+            <Github className="h-3 w-3" />
+            <span>GitHub</span>
+          </a>
         </div>
       </div>
     </article>

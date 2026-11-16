@@ -11,11 +11,13 @@ import { CommandPalette } from "@/components/command-palette";
 import { PurchaseModal } from "@/components/purchase-modal";
 import { LivePreviewModal } from "@/components/live-preview-modal";
 import { BookCallModal } from "@/components/book-call-modal";
+import { InspirationalModal } from "@/components/inspirational-modal";
 import { TemplateItem, TEMPLATES_DATA } from "@/lib/templates-data";
 
 export default function HomePage() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isBookCallOpen, setIsBookCallOpen] = useState(false);
+  const [isInspirationalOpen, setIsInspirationalOpen] = useState(false);
   const [purchaseTemplate, setPurchaseTemplate] = useState<TemplateItem | null>(null);
   const [previewTemplate, setPreviewTemplate] = useState<TemplateItem | null>(null);
 
@@ -43,11 +45,12 @@ export default function HomePage() {
         <Navbar 
           onOpenSearch={() => setIsSearchOpen(true)} 
           onOpenBookCall={() => setIsBookCallOpen(true)}
+          onOpenInspirational={() => setIsInspirationalOpen(true)}
         />
 
         {/* Hero Section matching exact reference */}
         <main className="flex-1">
-          <HeroSection />
+          <HeroSection onOpenInspirational={() => setIsInspirationalOpen(true)} />
 
           {/* Dedicated Portfolio Templates Catalog */}
           <TemplateGrid
@@ -62,6 +65,12 @@ export default function HomePage() {
         {/* Site Footer */}
         <Footer />
       </div>
+
+      {/* Inspirational Portfolios Modal with direct GitHub links */}
+      <InspirationalModal
+        isOpen={isInspirationalOpen}
+        onClose={() => setIsInspirationalOpen(false)}
+      />
 
       {/* Interactive Command Palette Modal (Ctrl + K) */}
       <CommandPalette

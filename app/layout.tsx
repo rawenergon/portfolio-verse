@@ -14,12 +14,16 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "CV.VERSE — Modern Portfolio & Developer Templates",
+    default: "CV.VERSE — Inspirational Developer Portfolios & Free Open Source Templates",
     template: "%s | CV.VERSE",
   },
   description:
-    "Why start from scratch when you can deploy in minutes? Our premium collection of Next.js, Tailwind CSS, and React templates is engineered specifically for developers, security professionals, and digital agencies.",
+    "100% Free & Open Source inspirational developer portfolios and Next.js, Tailwind CSS, and React templates. Clone the source code directly from GitHub and build your portfolio in minutes.",
   keywords: [
+    "inspirational portfolio",
+    "inspirational portfolios",
+    "free portfolio templates",
+    "open source developer portfolios",
     "portfolio templates",
     "nextjs templates",
     "tailwind templates",
@@ -30,11 +34,13 @@ export const metadata: Metadata = {
     "cv verse",
     "ccidcop",
     "syntax overlord",
+    "vinod jangid",
     "aditya raj",
     "rawenergon",
     "security portfolio",
     "shadcn portfolio",
     "react developer portfolio",
+    "github portfolio clone",
   ],
   authors: [{ name: "Aditya Raj", url: "https://ccidcop.in" }],
   creator: "Aditya Raj (@rawenergon)",
@@ -115,10 +121,42 @@ const organizationStructuredData = {
       url: siteUrl,
       name: "CV.VERSE",
       description:
-        "Why start from scratch when you can deploy in minutes? Our premium collection of Next.js, Tailwind CSS, and React templates is engineered specifically for developers, security professionals, and digital agencies.",
+        "100% Free & Open Source inspirational developer portfolios and Next.js, Tailwind CSS, and React templates. Clone the source code directly from GitHub and build your portfolio in minutes.",
       publisher: {
         "@id": `${siteUrl}/#organization`,
       },
+    },
+    {
+      "@type": "ItemList",
+      "@id": `${siteUrl}/#inspirational-portfolios`,
+      name: "Inspirational Developer Portfolios",
+      description: "Curated open source developer portfolios with direct GitHub source code links.",
+      itemListElement: [
+        {
+          "@type": "SoftwareSourceCode",
+          position: 1,
+          name: "CCIDCOP",
+          codeRepository: "https://github.com/AdityaKodez/adityaojha",
+          programmingLanguage: "TypeScript",
+          author: { "@type": "Person", name: "Aditya Raj" }
+        },
+        {
+          "@type": "SoftwareSourceCode",
+          position: 2,
+          name: "Syntax Overlord",
+          codeRepository: "https://github.com/rawenergon/portfolio",
+          programmingLanguage: "JavaScript",
+          author: { "@type": "Person", name: "Aditya Raj" }
+        },
+        {
+          "@type": "SoftwareSourceCode",
+          position: 3,
+          name: "Vinod Jangid",
+          codeRepository: "https://github.com/vinodjangid07/vinodjangid07.github.io",
+          programmingLanguage: "TypeScript",
+          author: { "@type": "Person", name: "Vinod Jangid" }
+        }
+      ]
     },
   ],
 };

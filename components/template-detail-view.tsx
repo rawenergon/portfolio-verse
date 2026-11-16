@@ -15,7 +15,8 @@ import {
   Cpu,
   FileCode,
   ShieldCheck,
-  ChevronRight
+  ChevronRight,
+  Github
 } from "lucide-react";
 import { TemplateItem } from "@/lib/templates-data";
 import { useUserCurrency } from "@/lib/use-user-currency";
@@ -140,16 +141,13 @@ export function TemplateDetailView({ template }: TemplateDetailViewProps) {
               </div>
             </div>
 
-            {/* Price formatted according to detected region */}
+            {/* Free & Open Source Badge & Actions */}
             <div className="flex flex-col sm:flex-row md:flex-col items-start sm:items-center md:items-end gap-3 shrink-0">
               <div className="flex items-baseline gap-2">
-                <span className="text-sm text-zinc-400 line-through font-mono">
-                  {formatPrice(template.originalPrice)}
+                <span className="text-3xl sm:text-4xl font-black text-emerald-500 font-mono">
+                  FREE
                 </span>
-                <span className="text-3xl sm:text-4xl font-black text-zinc-900 dark:text-white font-mono">
-                  {formatPrice(template.price)}
-                </span>
-                <span className="text-xs font-mono text-zinc-400">{currency}</span>
+                <span className="text-xs font-mono text-zinc-400">OPEN SOURCE</span>
               </div>
 
               <div className="flex items-center gap-3 w-full sm:w-auto">
@@ -163,13 +161,15 @@ export function TemplateDetailView({ template }: TemplateDetailViewProps) {
                   <ExternalLink className="h-4 w-4" />
                 </a>
 
-                <button
-                  onClick={() => setIsPurchaseOpen(true)}
+                <a
+                  href={template.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 rounded-xl bg-[#ff6a00] px-6 py-3 text-xs font-bold text-white shadow-lg shadow-orange-500/25 hover:bg-[#ff7a1a] transition-all hover:scale-[1.02] cursor-pointer"
                 >
-                  <ShoppingCart className="h-4 w-4" />
-                  <span>Purchase - {formatPrice(template.price)}</span>
-                </button>
+                  <Github className="h-4 w-4" />
+                  <span>Get Code (GitHub)</span>
+                </a>
               </div>
             </div>
           </div>
@@ -218,24 +218,27 @@ export function TemplateDetailView({ template }: TemplateDetailViewProps) {
               </div>
             </div>
 
-            {/* Ready to Deploy Purchase CTA Banner */}
+            {/* Ready to Deploy Free & Open Source Banner */}
             <div className="rounded-2xl border border-orange-500/30 bg-orange-500/5 p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
               <div className="space-y-1 text-center sm:text-left">
                 <h3 className="text-xl font-bold text-zinc-900 dark:text-white">
-                  Ready to deploy {template.title}?
+                  Ready to build with {template.title}?
                 </h3>
                 <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400">
-                  Instant source code download (.ZIP), full documentation, and lifetime commercial license for only {formatPrice(template.price)}.
+                  100% Free &amp; Open Source on GitHub. Clone the repository and customize your own portfolio today.
                 </p>
               </div>
 
               <div className="flex items-center gap-3 shrink-0">
-                <button
-                  onClick={() => setIsPurchaseOpen(true)}
-                  className="rounded-xl bg-[#ff6a00] px-6 py-3 text-xs font-bold text-white shadow-lg shadow-orange-500/25 hover:bg-[#ff7a1a] transition-all hover:scale-105 cursor-pointer"
+                <a
+                  href={template.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-xl bg-[#ff6a00] px-6 py-3 text-xs font-bold text-white shadow-lg shadow-orange-500/25 hover:bg-[#ff7a1a] transition-all hover:scale-105 cursor-pointer inline-flex items-center gap-2"
                 >
-                  Buy Now &bull; {formatPrice(template.price)}
-                </button>
+                  <Github className="h-4 w-4" />
+                  <span>Clone on GitHub</span>
+                </a>
               </div>
             </div>
 

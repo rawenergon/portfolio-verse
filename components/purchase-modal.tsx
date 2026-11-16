@@ -22,7 +22,8 @@ import {
   Terminal,
   ExternalLink,
   Globe,
-  ChevronDown
+  ChevronDown,
+  Github
 } from "lucide-react";
 import confetti from "canvas-confetti";
 import { TemplateItem } from "@/lib/templates-data";
@@ -79,6 +80,13 @@ export function PurchaseModal({ template, onClose }: PurchaseModalProps) {
     }
   }, []);
 
+  // Free template instant access
+  useEffect(() => {
+    if (template && (template.isFree || template.price === 0)) {
+      setIsSuccess(true);
+    }
+  }, [template]);
+
   // Dynamically load Razorpay SDK
   useEffect(() => {
     if (typeof window !== "undefined" && !(window as any).Razorpay) {
@@ -88,6 +96,13 @@ export function PurchaseModal({ template, onClose }: PurchaseModalProps) {
       document.body.appendChild(script);
     }
   }, []);
+
+  // Free template instant access
+  useEffect(() => {
+    if (template && (template.isFree || template.price === 0)) {
+      setIsSuccess(true);
+    }
+  }, [template]);
 
   // Lock body scroll and handle Escape key dismiss
   useEffect(() => {
@@ -668,59 +683,58 @@ export function PurchaseModal({ template, onClose }: PurchaseModalProps) {
 
               <div>
                 <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-bold text-emerald-500 font-mono">
-                  <ShieldCheck className="h-3.5 w-3.5" /> Payment Confirmed
+                  <ShieldCheck className="h-3.5 w-3.5" /> 100% Free &amp; Open Source
                 </span>
                 <h2 className="text-2xl font-black mt-2 text-zinc-900 dark:text-white uppercase tracking-tight">
-                  Template Sent to {email || "Your Email"}
+                  {template.title} Source Code
                 </h2>
                 <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1 max-w-sm mx-auto">
-                  A copy of the complete <strong>{template.title}</strong> template source code, documentation, and lifetime commercial license has been prepared.
+                  Clone the open source repository or download the production bundle to build your own portfolio.
                 </p>
-                <div className="mt-2 font-mono text-[11px] text-zinc-400">
-                  Razorpay Payment Ref: <span className="font-bold text-zinc-700 dark:text-zinc-300">{paymentId}</span>
-                </div>
               </div>
 
-              {/* Instant Source Code Download Card */}
-              <div className="p-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/60 text-left space-y-3 shadow-inner">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h4 className="font-bold text-sm text-zinc-900 dark:text-white flex items-center gap-1.5">
-                      <Download className="h-4 w-4 text-[#ff6a00]" />
-                      <span>{template.slug}-production-bundle.zip</span>
-                    </h4>
-                    <p className="text-[11px] text-zinc-500 mt-0.5">
-                      Complete Next.js App Router codebase with Tailwind, TS &amp; icons.
-                    </p>
-                  </div>
+              {/* Instant GitHub & Download Actions */}
+              <div className="flex flex-col sm:flex-row items-center gap-3">
+                <a
+                  href={template.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-zinc-900 px-4 py-3 text-xs font-bold text-white hover:bg-black dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-100 transition-all shadow-md cursor-pointer"
+                >
+                  <Github className="h-4 w-4" />
+                  <span>Open GitHub Repository</span>
+                  <ExternalLink className="h-3.5 w-3.5 opacity-60" />
+                </a>
 
-                  <button
-                    onClick={handleDownload}
-                    disabled={isDownloading}
-                    className="rounded-xl bg-[#ff6a00] px-4 py-2.5 text-xs font-bold text-white shadow-md hover:bg-[#ff7a1a] transition-all cursor-pointer"
-                  >
-                    {isDownloading ? (
-                      <span className="flex items-center gap-1.5">
-                        <Loader2 className="h-3.5 w-3.5 animate-spin" /> Packaging...
-                      </span>
-                    ) : downloaded ? (
-                      <span className="flex items-center gap-1.5">
-                        <Check className="h-3.5 w-3.5" /> Downloaded
-                      </span>
-                    ) : (
-                      "Download ZIP"
-                    )}
-                  </button>
-                </div>
+                <button
+                  onClick={handleDownload}
+                  disabled={isDownloading}
+                  className="w-full flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-[#ff6a00] px-4 py-3 text-xs font-bold text-white shadow-md hover:bg-[#ff7a1a] transition-all cursor-pointer"
+                >
+                  {isDownloading ? (
+                    <span className="flex items-center gap-1.5">
+                      <Loader2 className="h-3.5 w-3.5 animate-spin" /> Packaging...
+                    </span>
+                  ) : downloaded ? (
+                    <span className="flex items-center gap-1.5">
+                      <Check className="h-3.5 w-3.5" /> Downloaded ZIP
+                    </span>
+                  ) : (
+                    <>
+                      <Download className="h-4 w-4" />
+                      <span>Download .ZIP</span>
+                    </>
+                  )}
+                </button>
+              </div>
 
-                {/* CLI Setup Helper */}
-                <div className="rounded-xl bg-black p-3.5 font-mono text-[11px] text-zinc-300 space-y-1.5">
-                  <div className="text-zinc-500 text-[10px] flex items-center gap-1">
-                    <Terminal className="h-3 w-3" /> Quick Setup Commands:
-                  </div>
-                  <div className="text-emerald-400">unzip {template.slug}-production-bundle.zip</div>
-                  <div className="text-emerald-400">cd {template.slug} &amp;&amp; npm install &amp;&amp; npm run dev</div>
+              {/* CLI Setup Helper */}
+              <div className="rounded-xl bg-black p-3.5 font-mono text-[11px] text-zinc-300 space-y-1.5 text-left">
+                <div className="text-zinc-500 text-[10px] flex items-center gap-1">
+                  <Terminal className="h-3 w-3" /> Quick Clone &amp; Setup:
                 </div>
+                <div className="text-emerald-400 select-all">git clone {template.githubUrl}.git</div>
+                <div className="text-zinc-400">cd {template.slug} &amp;&amp; npm install &amp;&amp; npm run dev</div>
               </div>
 
               <button
