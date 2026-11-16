@@ -135,7 +135,7 @@ If you find a bug or have an idea for improvement:
 ## 💖 Support & Sponsoring
 
 If you find CV.VERSE helpful, consider sponsoring the project:
-- [GitHub Sponsors](https://github.com/sponsors/rawenergon)
+- [Sponsor via Razorpay](https://rzp.io/rzp/IawOzHQr)
 
 ---
 

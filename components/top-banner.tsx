@@ -4,7 +4,7 @@ import React from "react";
 import { Heart } from "lucide-react";
 
 export function TopBanner() {
-  const razorpaySponsorUrl = process.env.NEXT_PUBLIC_RAZORPAY_SPONSOR_URL || "https://pages.razorpay.com/cvverse";
+  const razorpaySponsorUrl = "https://rzp.io/rzp/IawOzHQr";
 
   return (
     <div className="relative isolate z-50 flex items-center justify-center overflow-hidden border-b border-zinc-200/80 bg-zinc-50/95 px-3 py-1.5 text-[11px] text-zinc-700 dark:border-zinc-800/80 dark:bg-[#0c0c0e]/95 dark:text-zinc-300">
