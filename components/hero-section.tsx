@@ -41,7 +41,7 @@ export function HeroSection() {
         </p>
 
         {/* 4-Icon Strip: TypeScript, Next.js, Tailwind CSS, React */}
-        <div className="mx-auto mt-6 flex w-fit items-center justify-center gap-2">
+        <div className="mx-auto mt-6 flex w-fit items-center justify-center gap-2.5 sm:gap-3">
           
           {/* 1. TypeScript */}
           <a
@@ -49,13 +49,18 @@ export function HeroSection() {
             target="_blank"
             rel="noopener noreferrer"
             title="TypeScript"
-            className="grid h-12 w-12 place-items-center rounded border border-[#e5e5e5] bg-[#f5f5f5] p-2.5 transition-all hover:bg-white hover:border-zinc-300 dark:border-neutral-700 dark:bg-neutral-800 dark:hover:bg-neutral-700 shadow-sm"
+            className="grid h-12 w-12 sm:h-13 sm:w-13 place-items-center rounded-xl border border-zinc-200/80 bg-zinc-100/90 p-2.5 transition-all hover:bg-white hover:border-zinc-300 hover:scale-105 dark:border-zinc-800 dark:bg-[#18181b] dark:hover:bg-[#27272a] dark:hover:border-zinc-700 shadow-xs group"
           >
             <svg 
               viewBox="0 0 24 24" 
-              className="h-6 w-6 fill-current text-[#3178C6]"
+              className="h-6 w-6 transition-transform group-hover:scale-110"
+              aria-label="TypeScript"
             >
-              <path d="M1.125 0C0.502 0 0 0.502 0 1.125v21.75C0 23.498 0.502 24 1.125 24h21.75c0.623 0 1.125-0.502 1.125-1.125V1.125C24 0.502 23.498 0 22.875 0H1.125zm17.363 9.75c0.612 0 1.154 0.037 1.627 0.111 0.474 0.074 0.874 0.198 1.2 0.372v2.536c-0.398-0.222-0.817-0.384-1.258-0.486-0.441-0.102-0.868-0.153-1.281-0.153-0.518 0-0.902 0.115-1.153 0.345-0.251 0.23-0.377 0.536-0.377 0.917 0 0.345 0.113 0.627 0.339 0.846 0.226 0.219 0.638 0.435 1.236 0.648 0.882 0.312 1.547 0.707 1.995 1.185 0.448 0.478 0.672 1.122 0.672 1.932 0 1.128-0.398 1.996-1.194 2.604-0.796 0.608-1.928 0.912-3.396 0.912-0.708 0-1.378-0.07-2.01-0.21-0.632-0.14-1.18-0.346-1.644-0.618v-2.694c0.474 0.318 1.01 0.564 1.608 0.738 0.598 0.174 1.168 0.261 1.71 0.261 0.534 0 0.936-0.112 1.206-0.336 0.27-0.224 0.405-0.536 0.405-0.936 0-0.378-0.126-0.684-0.378-0.918-0.252-0.234-0.678-0.468-1.278-0.702-0.846-0.324-1.488-0.723-1.926-1.197-0.438-0.474-0.657-1.113-0.657-1.917 0-1.08 0.39-1.932 1.17-2.556 0.78-0.624 1.872-0.936 3.276-0.936zm-8.214 0.222v2.304H7.071v9.234H4.077v-9.234H0.879V9.972h9.395z"/>
+              <rect width="24" height="24" rx="3.5" fill="#3178C6" />
+              <path
+                fill="#FFFFFF"
+                d="M14.7 18.5c-.566.12-1.163.18-1.79.18a9.916 9.916 0 0 1-1.84-.164 5.544 5.544 0 0 1-1.512-.493v-2.63a5.033 5.033 0 0 0 3.237 1.2c.333 0 .624-.03.872-.09.249-.06.456-.144.623-.25.166-.108.29-.234.373-.38a1.023 1.023 0 0 0-.074-1.089 2.12 2.12 0 0 0-.537-.5 5.597 5.597 0 0 0-.807-.444 27.72 27.72 0 0 0-1.007-.436c-.918-.383-1.602-.852-2.053-1.405-.45-.553-.676-1.222-.676-2.005 0-.614.123-1.141.369-1.582.246-.441.58-.804 1.004-1.089a4.494 4.494 0 0 1 1.47-.629 7.536 7.536 0 0 1 1.77-.201c.612 0 1.154.037 1.627.111a6.38 6.38 0 0 1 1.306.34v2.458a3.95 3.95 0 0 0-.643-.361 5.093 5.093 0 0 0-.717-.26 5.453 5.453 0 0 0-1.426-.2c-.3 0-.573.028-.819.086a2.1 2.1 0 0 0-.623.242c-.17.104-.3.229-.393.374a.888.888 0 0 0-.14.49c0 .196.053.373.156.529.104.156.252.304.443.444s.423.276.696.41c.273.135.582.274.926.416.47.197.892.407 1.266.628.374.222.695.473.963.753.268.279.472.598.614.957.142.359.214.776.214 1.253 0 .657-.125 1.21-.373 1.656a3.033 3.033 0 0 1-1.012 1.085 4.38 4.38 0 0 1-1.487.596zM3.375 9.938h9.563v2.166H9.506v9.646H6.789v-9.646H3.375z"
+              />
             </svg>
           </a>
 
@@ -65,11 +70,12 @@ export function HeroSection() {
             target="_blank"
             rel="noopener noreferrer"
             title="Next.js"
-            className="grid h-12 w-12 place-items-center rounded border border-[#e5e5e5] bg-[#f5f5f5] p-2.5 transition-all hover:bg-white hover:border-zinc-300 dark:border-neutral-700 dark:bg-neutral-800 dark:hover:bg-neutral-700 shadow-sm"
+            className="grid h-12 w-12 sm:h-13 sm:w-13 place-items-center rounded-xl border border-zinc-200/80 bg-zinc-100/90 p-2.5 transition-all hover:bg-white hover:border-zinc-300 hover:scale-105 dark:border-zinc-800 dark:bg-[#18181b] dark:hover:bg-[#27272a] dark:hover:border-zinc-700 shadow-xs group"
           >
             <svg 
               viewBox="0 0 24 24" 
-              className="h-6 w-6 fill-current text-zinc-900 dark:text-white"
+              className="h-6 w-6 fill-current text-zinc-950 dark:text-white transition-transform group-hover:scale-110"
+              aria-label="Next.js"
             >
               <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 16.03L9.77 6.94h2.24l7.15 9.42c-.7.62-1.47 1.18-2.24 1.67zM6.94 17.06V6.94h1.79v10.12H6.94z"/>
             </svg>
@@ -81,11 +87,12 @@ export function HeroSection() {
             target="_blank"
             rel="noopener noreferrer"
             title="Tailwind CSS"
-            className="grid h-12 w-12 place-items-center rounded border border-[#e5e5e5] bg-[#f5f5f5] p-2.5 transition-all hover:bg-white hover:border-zinc-300 dark:border-neutral-700 dark:bg-neutral-800 dark:hover:bg-neutral-700 shadow-sm"
+            className="grid h-12 w-12 sm:h-13 sm:w-13 place-items-center rounded-xl border border-zinc-200/80 bg-zinc-100/90 p-2.5 transition-all hover:bg-white hover:border-zinc-300 hover:scale-105 dark:border-zinc-800 dark:bg-[#18181b] dark:hover:bg-[#27272a] dark:hover:border-zinc-700 shadow-xs group"
           >
             <svg 
               viewBox="0 0 24 24" 
-              className="h-6 w-6 fill-current text-[#38BDF8]"
+              className="h-6 w-6 fill-current text-[#38BDF8] transition-transform group-hover:scale-110"
+              aria-label="Tailwind CSS"
             >
               <path d="M12.001 4.8c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C13.666 10.618 15.027 12 18.001 12c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C16.337 6.182 14.976 4.8 12.001 4.8zm-6 7.2c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624 1.177 1.194 2.538 2.576 5.512 2.576 3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C10.337 13.382 8.976 12 6.001 12z"/>
             </svg>
@@ -97,14 +104,19 @@ export function HeroSection() {
             target="_blank"
             rel="noopener noreferrer"
             title="React"
-            className="grid h-12 w-12 place-items-center rounded border border-[#e5e5e5] bg-[#f5f5f5] p-2.5 transition-all hover:bg-white hover:border-zinc-300 dark:border-neutral-700 dark:bg-neutral-800 dark:hover:bg-neutral-700 shadow-sm"
+            className="grid h-12 w-12 sm:h-13 sm:w-13 place-items-center rounded-xl border border-zinc-200/80 bg-zinc-100/90 p-2.5 transition-all hover:bg-white hover:border-zinc-300 hover:scale-105 dark:border-zinc-800 dark:bg-[#18181b] dark:hover:bg-[#27272a] dark:hover:border-zinc-700 shadow-xs group"
           >
             <svg 
-              viewBox="0 0 115.3 100" 
-              className="h-6 w-6 fill-current text-[#58C4DC]"
+              viewBox="-11.5 -10.23174 23 20.46348" 
+              className="h-6 w-6 text-[#00D8FF] dark:text-[#58C4DC] transition-transform group-hover:scale-110"
+              aria-label="React"
             >
-              <path d="M57.65 65.25c-8.4 0-15.25-6.85-15.25-15.25s6.85-15.25 15.25-15.25 15.25 6.85 15.25 15.25-6.85 15.25-15.25 15.25z"/>
-              <path d="M96.75 25.1c-13.6-7.85-30.85-8-44.5-.4-1.35.75-2.6 1.6-3.8 2.5-6.8-5.3-15.2-8.3-24.1-8.3-15.7 0-24.3 9.3-24.3 26.1 0 11.2 4.9 22.8 13.9 32.7 13.6 14.9 31.9 20.3 46.8 13.8 1.4-.6 2.7-1.3 3.9-2.1 6.8 4.9 15.1 7.6 23.8 7.6 15.7 0 24.3-9.3 24.3-26.1 0-11.2-4.9-22.8-13.9-32.7-5.9-6.5-12.7-10.7-18.7-13.1zM57.65 89.2c-15.9 0-32-11.9-40.4-29.8C10.7 45.4 12.1 34 20.7 28.9c3.8-2.2 8.7-2.6 13.8-1.2-5.4 7-8.3 14.8-8.3 22.3 0 10.3 5.4 20.4 15.1 28.5 5 4.2 10.9 7.3 16.35 10.7zm-22.7-39.2c0-8.9 4.3-17.6 12-24.7 9.4-8.6 22.6-11.2 33.1-6.5 10.6 4.7 15.9 14.7 13.3 25-2.2 8.6-8.9 16.3-18.9 21.6-8.5 4.6-17.7 6.4-25.1 4.2-8.4-2.5-14.4-9.9-14.4-19.6zm63.1 9.9c0 10.3-5.4 20.4-15.1 28.5-4.8 4-10.5 7-15.7 10.2 15.7.1 31.5-11.8 39.8-29.6 6.5-13.9 5.1-25.3-3.5-30.4-3.8-2.2-8.7-2.6-13.8-1.2 5.4 7.1 8.3 14.9 8.3 22.5z"/>
+              <circle cx="0" cy="0" r="2.05" fill="currentColor"/>
+              <g stroke="currentColor" strokeWidth="1" fill="none">
+                <ellipse rx="11" ry="4.2"/>
+                <ellipse rx="11" ry="4.2" transform="rotate(60)"/>
+                <ellipse rx="11" ry="4.2" transform="rotate(120)"/>
+              </g>
             </svg>
           </a>
 

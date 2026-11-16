@@ -62,7 +62,7 @@ export function TemplateCard({
           </a>
         </div>
 
-        {/* Tech Stack Icons Row: TS • N • ⚛ matching screenshot */}
+        {/* Tech Stack Icons Row */}
         <div className="mt-3 flex items-center gap-2 text-xs">
           {template.techStack.slice(0, 3).map((tech, i) => {
             const isTS = tech.name === "TypeScript";
@@ -72,19 +72,34 @@ export function TemplateCard({
             return (
               <React.Fragment key={tech.name}>
                 {isTS ? (
-                  <span className="inline-flex items-center rounded bg-[#71717a] dark:bg-[#3f3f46] px-1.5 py-0.5 font-mono text-[11px] font-bold text-white shadow-sm" title="TypeScript">
-                    TS
+                  <span className="inline-flex items-center gap-1 rounded bg-[#3178c6]/10 text-[#3178c6] border border-[#3178c6]/20 px-1.5 py-0.5 font-mono text-[11px] font-bold shadow-2xs" title="TypeScript">
+                    <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 shrink-0" aria-hidden="true">
+                      <rect width="24" height="24" rx="3.5" fill="#3178C6" />
+                      <path fill="#FFFFFF" d="M14.7 18.5c-.566.12-1.163.18-1.79.18a9.916 9.916 0 0 1-1.84-.164 5.544 5.544 0 0 1-1.512-.493v-2.63a5.033 5.033 0 0 0 3.237 1.2c.333 0 .624-.03.872-.09.249-.06.456-.144.623-.25.166-.108.29-.234.373-.38a1.023 1.023 0 0 0-.074-1.089 2.12 2.12 0 0 0-.537-.5 5.597 5.597 0 0 0-.807-.444 27.72 27.72 0 0 0-1.007-.436c-.918-.383-1.602-.852-2.053-1.405-.45-.553-.676-1.222-.676-2.005 0-.614.123-1.141.369-1.582.246-.441.58-.804 1.004-1.089a4.494 4.494 0 0 1 1.47-.629 7.536 7.536 0 0 1 1.77-.201c.612 0 1.154.037 1.627.111a6.38 6.38 0 0 1 1.306.34v2.458a3.95 3.95 0 0 0-.643-.361 5.093 5.093 0 0 0-.717-.26 5.453 5.453 0 0 0-1.426-.2c-.3 0-.573.028-.819.086a2.1 2.1 0 0 0-.623.242c-.17.104-.3.229-.393.374a.888.888 0 0 0-.14.49c0 .196.053.373.156.529.104.156.252.304.443.444s.423.276.696.41c.273.135.582.274.926.416.47.197.892.407 1.266.628.374.222.695.473.963.753.268.279.472.598.614.957.142.359.214.776.214 1.253 0 .657-.125 1.21-.373 1.656a3.033 3.033 0 0 1-1.012 1.085 4.38 4.38 0 0 1-1.487.596zM3.375 9.938h9.563v2.166H9.506v9.646H6.789v-9.646H3.375z" />
+                    </svg>
+                    <span>TS</span>
                   </span>
                 ) : isNext ? (
-                  <span className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-zinc-400/80 bg-zinc-100 dark:border-zinc-600 dark:bg-zinc-800 font-mono text-[10px] font-bold text-zinc-800 dark:text-zinc-200" title="Next.js">
-                    N
+                  <span className="inline-flex items-center gap-1 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 border border-zinc-200 dark:border-zinc-700 px-1.5 py-0.5 font-mono text-[11px] font-bold shadow-2xs" title="Next.js">
+                    <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 fill-current shrink-0" aria-hidden="true">
+                      <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 16.03L9.77 6.94h2.24l7.15 9.42c-.7.62-1.47 1.18-2.24 1.67zM6.94 17.06V6.94h1.79v10.12H6.94z"/>
+                    </svg>
+                    <span>Next</span>
                   </span>
                 ) : isReact ? (
-                  <span className="inline-flex h-5 w-5 items-center justify-center rounded border border-zinc-300 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-800/80 text-[12px] font-bold text-zinc-700 dark:text-zinc-300" title="React">
-                    ⚛
+                  <span className="inline-flex items-center gap-1 rounded bg-[#00d8ff]/10 text-[#00d8ff] border border-[#00d8ff]/20 px-1.5 py-0.5 font-mono text-[11px] font-bold shadow-2xs" title="React">
+                    <svg viewBox="-11.5 -10.23174 23 20.46348" className="h-3.5 w-3.5 text-[#00D8FF] shrink-0" aria-hidden="true">
+                      <circle cx="0" cy="0" r="2.05" fill="currentColor"/>
+                      <g stroke="currentColor" strokeWidth="1" fill="none">
+                        <ellipse rx="11" ry="4.2"/>
+                        <ellipse rx="11" ry="4.2" transform="rotate(60)"/>
+                        <ellipse rx="11" ry="4.2" transform="rotate(120)"/>
+                      </g>
+                    </svg>
+                    <span>React</span>
                   </span>
                 ) : (
-                  <span className="inline-flex items-center rounded bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 font-mono text-[11px] font-semibold text-zinc-700 dark:text-zinc-300 border border-zinc-300 dark:border-zinc-700" title={tech.name}>
+                  <span className="inline-flex items-center rounded bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 font-mono text-[11px] font-semibold text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700" title={tech.name}>
                     {tech.badge}
                   </span>
                 )}
