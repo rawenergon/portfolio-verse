@@ -135,7 +135,7 @@ If you find a bug or have an idea for improvement:
 ## 💖 Support & Sponsoring
 
 If you find CV.VERSE helpful, consider sponsoring the project:
-- [Sponsor via Razorpay](https://rzp.io/rzp/IawOzHQr)
+- [Sponsor via Razorpay](https://rzp.io/rzp/eTtCTKo)
 
 ---
 
