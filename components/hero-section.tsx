@@ -30,10 +30,15 @@ export function HeroSection() {
         </div>
 
         {/* Clean Headline */}
-        <h1 className="mx-auto max-w-2xl text-center text-3xl sm:text-5xl md:text-6xl font-normal font-serif tracking-tight text-zinc-900 dark:text-white leading-[1.1]">
+        <h1 className="mx-auto max-w-3xl text-center text-3xl sm:text-5xl md:text-6xl font-normal font-serif tracking-tight text-zinc-900 dark:text-white leading-[1.1]">
           <span className="block">Stop Wasting Time on Boilerplate</span>
           <span className="block mt-1 italic text-zinc-700 dark:text-zinc-300">Build Faster with CV.VERSE Templates.</span>
         </h1>
+
+        {/* Tagline */}
+        <p className="mx-auto mt-4 max-w-xl text-center text-sm sm:text-base text-zinc-600 dark:text-zinc-400 font-sans leading-relaxed">
+          Production-grade Next.js &amp; Tailwind CSS portfolios built for developers who ship. Clone clean architecture, skip the repetitive grind, and launch your site today.
+        </p>
 
         {/* Exact Reference 4-Icon Strip: 48px square boxes, NO text labels */}
         <div className="mx-auto mt-6 flex w-fit items-center justify-center gap-2">
