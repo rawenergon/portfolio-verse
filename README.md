@@ -1,28 +1,31 @@
-# Portfolio Verse ⚡
+# CV.VERSE ⚡
 
-A modern, high-conversion marketplace for premium SaaS, Portfolio, and Agency templates built with **Next.js 14**, **Tailwind CSS**, and **Framer Motion**, matching the exact UI and layout architecture of [ui-layouts pro](https://pro.ui-layouts.com/templates).
+A modern, high-performance catalog of developer portfolios and templates built with **Next.js 14**, **Tailwind CSS**, and **TypeScript**.
 
-![Portfolio Verse Banner](https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1200&q=80)
+100% Free & Open Source on GitHub.
 
-## Features
+---
 
-- 🎨 **Pixel-Perfect UI**: Tactile noise SVG backgrounds, glowing radial spotlights, and fine diagonal hatch patterns.
-- 🚀 **11 Production-Ready Templates**: Including Certific, MVP Studio, NextCodez, Jenv, BuildSprint, Cortext Labs, UploadThing, Profitables, Laynite, Layoutic, and TalentFlow.
-- ⚡ **Interactive Video Previews**: Smooth autoplaying, looping HTML5 previews of every template with responsive viewport toggles (Desktop, Tablet, Mobile).
-- 🔍 **Command Palette (`Ctrl+K` / `⌘K`)**: Instant search across all templates and component blocks with live split preview.
-- 💳 **Integrated Purchase & Checkout Simulator**: Dynamic 20% discount coupon code application (`PORTFOLIO20`), license tier selector, and celebratory confetti effects.
-- 🌓 **Seamless Light & Dark Theme**: Full system theme synchronization with custom color tokens.
-- 📱 **100% Responsive**: Tailored from mobile screens to 4K displays.
+## 🚀 Features
 
-## Tech Stack
+- 🎨 **Minimal & Fast UI**: Clean aesthetic, dark mode support, and responsive grid layouts.
+- 📂 **Curated Developer Portfolios**: Featuring real production portfolios with live demos and direct source code repositories.
+- ⚡ **Zero Bloat**: Fast build times, statically pre-rendered pages, sub-second transitions.
+- 🔍 **Command Palette (`Ctrl+K` / `⌘K`)**: Instant search across templates, frameworks, and stacks.
+- 📱 **Fully Responsive**: Tailored from mobile screens to desktop viewports.
+
+---
+
+## 🛠️ Tech Stack
 
 - **Framework**: [Next.js 14](https://nextjs.org/) (App Router)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
 - **Icons**: [Lucide React](https://lucide.dev/)
-- **Animations**: [Framer Motion](https://motion.dev/) & Canvas Confetti
 - **Language**: TypeScript
 
-## Getting Started
+---
+
+## 💻 Getting Started
 
 First, install the dependencies:
 
@@ -36,11 +39,106 @@ Run the development server:
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Build & Deploy
+To build for production:
 
 ```bash
 npm run build
 npm start
 ```
+
+---
+
+## 🤝 How to Contribute
+
+We welcome contributions from developers, designers, and open-source enthusiasts! Whether you want to add your own developer portfolio template, improve existing features, or fix a bug, here is how you can contribute:
+
+### 1. Add Your Portfolio Template
+
+To showcase your open-source portfolio on CV.VERSE:
+
+1. **Fork the Repository**:
+   Click the **Fork** button at the top right of this repository to create your own copy.
+
+2. **Clone your Fork**:
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/portfolio-verse.git
+   cd portfolio-verse
+   ```
+
+3. **Create a New Branch**:
+   ```bash
+   git checkout -b add-portfolio/your-portfolio-name
+   ```
+
+4. **Add Your Template Data**:
+   Open `lib/templates-data.ts` and add your portfolio object to `TEMPLATES_DATA`:
+   ```typescript
+   {
+     id: "your-slug",
+     title: "Your Portfolio Name",
+     slug: "your-slug",
+     description: "A concise 1-2 sentence description of your portfolio.",
+     longDescription: "Detailed breakdown of features, architecture, and design.",
+     subCategory: "Developer & Terminal", // or Agency, Minimalist, etc.
+     price: 0,
+     originalPrice: 0,
+     isFree: true,
+     isNew: true,
+     demoUrl: "https://your-live-portfolio.com",
+     githubUrl: "https://github.com/your-username/your-repo",
+     imageUrl: "https://your-portfolio.com/preview.png", // or leave empty for auto-generated preview
+     techStack: [
+       { name: "Next.js", badge: "Next.js" },
+       { name: "TypeScript", badge: "TS" },
+       { name: "TailwindCSS", badge: "Tailwind" },
+     ],
+     features: [
+       "Fully Responsive Layout",
+       "Dark Mode Support",
+       "Clean Component Architecture",
+     ]
+   }
+   ```
+
+5. **Test Your Changes**:
+   ```bash
+   npm run build
+   ```
+   Ensure the build passes with 0 errors and test locally with `npm run dev`.
+
+6. **Submit a Pull Request (PR)**:
+   - Push your branch to GitHub: `git push origin add-portfolio/your-portfolio-name`
+   - Open a Pull Request against the `master` branch.
+   - Include a link to your live portfolio and repository in the PR description.
+
+---
+
+### 2. Submission Guidelines
+
+- **Open Source**: The portfolio template source code must be public on GitHub.
+- **Tech Stack**: Built with modern web technologies (Next.js, React, Tailwind CSS, TypeScript, etc.).
+- **Live Deployment**: Must have a working live URL (Vercel, Netlify, GitHub Pages, or custom domain).
+- **Code Quality**: Clean code, descriptive component names, and responsive design.
+
+---
+
+### 3. Reporting Issues & Feedback
+
+If you find a bug or have an idea for improvement:
+- Open an issue on GitHub describing the bug or feature request.
+- Or email directly at: `devadibxr@gmail.com`
+
+---
+
+## 💖 Support & Sponsoring
+
+If you find CV.VERSE helpful, consider sponsoring the project:
+- [GitHub Sponsors](https://github.com/sponsors/rawenergon)
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License — feel free to customize and use it for your own projects.
