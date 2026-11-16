@@ -2,17 +2,13 @@
 
 import React from "react";
 
-interface HeroSectionProps {
-  onOpenInspirational?: () => void;
-}
-
-export function HeroSection({ onOpenInspirational }: HeroSectionProps) {
+export function HeroSection() {
   return (
     <section className="relative overflow-hidden pt-7 pb-4 md:pt-9 md:pb-6">
       <div className="relative mx-auto max-w-4xl px-4 text-center">
         
         {/* CV.VERSE GitHub Badge */}
-        <div className="mx-auto mb-4 flex flex-wrap items-center justify-center gap-2">
+        <div className="mx-auto mb-4 flex w-fit items-center justify-center">
           <a
             href="https://github.com/rawenergon"
             target="_blank"
@@ -31,21 +27,12 @@ export function HeroSection({ onOpenInspirational }: HeroSectionProps) {
             </svg>
             <span className="text-xs font-bold tracking-tight text-zinc-900 dark:text-zinc-100">CV.VERSE</span>
           </a>
-
-          {onOpenInspirational && (
-            <button
-              onClick={onOpenInspirational}
-              className="flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-semibold border border-orange-500/30 bg-orange-500/10 text-[#ff6a00] hover:bg-orange-500/20 transition-all cursor-pointer"
-            >
-              <span>Inspirational Portfolios →</span>
-            </button>
-          )}
         </div>
 
-        {/* Clean Headline with CV.VERSE */}
+        {/* Clean Headline */}
         <h1 className="mx-auto max-w-2xl text-center text-3xl sm:text-5xl md:text-6xl font-normal font-serif tracking-tight text-zinc-900 dark:text-white leading-[1.1]">
-          <span className="block">Inspirational Developer Portfolios</span>
-          <span className="block mt-1 italic text-zinc-700 dark:text-zinc-300">Open Source on GitHub.</span>
+          <span className="block">Stop Wasting Time on Boilerplate</span>
+          <span className="block mt-1 italic text-zinc-700 dark:text-zinc-300">Build Faster with CV.VERSE Templates.</span>
         </h1>
 
         {/* Exact Reference 4-Icon Strip: 48px square boxes, NO text labels */}

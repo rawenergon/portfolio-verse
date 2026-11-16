@@ -9,12 +9,10 @@ import { NewsletterSection } from "@/components/newsletter-section";
 import { Footer } from "@/components/footer";
 import { CommandPalette } from "@/components/command-palette";
 import { PurchaseModal } from "@/components/purchase-modal";
-import { InspirationalModal } from "@/components/inspirational-modal";
 import { TemplateItem } from "@/lib/templates-data";
 
 export default function HomePage() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [isInspirationalOpen, setIsInspirationalOpen] = useState(false);
   const [purchaseTemplate, setPurchaseTemplate] = useState<TemplateItem | null>(null);
 
   // Global Ctrl+K / Cmd+K listener to toggle command palette
@@ -40,12 +38,11 @@ export default function HomePage() {
         {/* Navigation Header */}
         <Navbar 
           onOpenSearch={() => setIsSearchOpen(true)} 
-          onOpenInspirational={() => setIsInspirationalOpen(true)}
         />
 
         {/* Hero Section */}
         <main className="flex-1">
-          <HeroSection onOpenInspirational={() => setIsInspirationalOpen(true)} />
+          <HeroSection />
 
           {/* Dedicated Portfolio Templates Catalog */}
           <TemplateGrid
@@ -59,12 +56,6 @@ export default function HomePage() {
         {/* Site Footer */}
         <Footer />
       </div>
-
-      {/* Inspirational Portfolios Modal with direct GitHub links */}
-      <InspirationalModal
-        isOpen={isInspirationalOpen}
-        onClose={() => setIsInspirationalOpen(false)}
-      />
 
       {/* Interactive Command Palette Modal (Ctrl + K) */}
       <CommandPalette

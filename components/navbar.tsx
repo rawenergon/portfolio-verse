@@ -14,10 +14,9 @@ import { Logo } from "./logo";
 
 interface NavbarProps {
   onOpenSearch: () => void;
-  onOpenInspirational?: () => void;
 }
 
-export function Navbar({ onOpenSearch, onOpenInspirational }: NavbarProps) {
+export function Navbar({ onOpenSearch }: NavbarProps) {
   const pathname = usePathname();
   const [isDark, setIsDark] = useState(false); // Can toggle between light and dark
 
@@ -50,18 +49,6 @@ export function Navbar({ onOpenSearch, onOpenInspirational }: NavbarProps) {
 
         {/* Right Actions */}
         <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
-          {/* Inspirational Portfolios Trigger */}
-          {onOpenInspirational && (
-            <button
-              onClick={onOpenInspirational}
-              className="inline-flex h-7.5 sm:h-8 items-center gap-1.5 rounded-md border border-orange-500/30 bg-orange-500/10 px-2 sm:px-2.5 py-1 text-xs font-semibold text-[#ff6a00] hover:bg-orange-500/20 transition-all cursor-pointer"
-              title="View Inspirational Portfolios & GitHub Repos"
-            >
-              <Sparkles className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
-              <span className="text-[11px] sm:text-xs">Inspirational</span>
-            </button>
-          )}
-
           {/* GitHub Icon Link */}
           <a
             href="https://github.com/rawenergon"
