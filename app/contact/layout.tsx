@@ -2,20 +2,20 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Contact Aditya Raj",
-  description: "Get in touch with Aditya Raj (@rawenergon) for custom portfolio design, full-stack systems engineering, or 1:1 strategy calls (₹100). Direct phone, WhatsApp, and email options available.",
+  description: "Get in touch with Aditya Raj (@rawenergon) for portfolio design, full-stack systems engineering, and open-source template support. Direct email: devadibxr@gmail.com.",
   alternates: {
     canonical: "/contact",
   },
   openGraph: {
     title: "Contact Aditya Raj | CV.VERSE",
-    description: "Get in touch with Aditya Raj (@rawenergon) for custom portfolio design, full-stack systems engineering, or 1:1 strategy calls.",
+    description: "Get in touch with Aditya Raj (@rawenergon) for portfolio design, full-stack systems engineering, and open-source template support.",
     url: "https://portfolio-verse-bice.vercel.app/contact",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "Contact Aditya Raj | CV.VERSE",
-    description: "Connect with Aditya Raj for custom portfolio builds or 1:1 consultation calls.",
+    description: "Connect with Aditya Raj for developer portfolio builds and open-source template support.",
     creator: "@adibxr",
   },
 };

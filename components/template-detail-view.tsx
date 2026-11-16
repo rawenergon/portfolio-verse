@@ -25,7 +25,6 @@ import { Navbar } from "@/components/navbar";
 import { NewsletterSection } from "@/components/newsletter-section";
 import { Footer } from "@/components/footer";
 import { PurchaseModal } from "@/components/purchase-modal";
-import { BookCallModal } from "@/components/book-call-modal";
 
 interface TemplateDetailViewProps {
   template: TemplateItem;
@@ -34,7 +33,6 @@ interface TemplateDetailViewProps {
 export function TemplateDetailView({ template }: TemplateDetailViewProps) {
   const { formatPrice, currency } = useUserCurrency();
   const [isPurchaseOpen, setIsPurchaseOpen] = useState(false);
-  const [isBookCallOpen, setIsBookCallOpen] = useState(false);
 
   const isCcidcop = template.slug === "ccidcop";
   const liveTargetUrl = template.demoUrl || (isCcidcop ? "https://ccidcop.in" : `https://${template.slug}.ui-layouts.com`);
@@ -94,7 +92,7 @@ export function TemplateDetailView({ template }: TemplateDetailViewProps) {
   return (
     <div className="flex min-h-screen flex-col bg-white dark:bg-[#09090b] text-zinc-900 dark:text-zinc-100 font-sans">
       <TopBanner />
-      <Navbar onOpenSearch={() => {}} onOpenBookCall={() => setIsBookCallOpen(true)} />
+      <Navbar onOpenSearch={() => {}} />
 
       <main className="flex-1 pb-16">
         {/* Floating Breadcrumb / Back Bar */}
@@ -247,7 +245,7 @@ export function TemplateDetailView({ template }: TemplateDetailViewProps) {
         </div>
 
         {/* Newsletter Section */}
-        <NewsletterSection onOpenBookCall={() => setIsBookCallOpen(true)} />
+        <NewsletterSection />
       </main>
 
       {/* Footer */}
@@ -257,12 +255,6 @@ export function TemplateDetailView({ template }: TemplateDetailViewProps) {
       <PurchaseModal
         template={isPurchaseOpen ? template : null}
         onClose={() => setIsPurchaseOpen(false)}
-      />
-
-      {/* 1:1 Consultation / Strategy Call Booking Modal (₹100 INR) */}
-      <BookCallModal
-        isOpen={isBookCallOpen}
-        onClose={() => setIsBookCallOpen(false)}
       />
     </div>
   );

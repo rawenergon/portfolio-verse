@@ -6,7 +6,6 @@ import { TopBanner } from "@/components/top-banner";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { CommandPalette } from "@/components/command-palette";
-import { BookCallModal } from "@/components/book-call-modal";
 import { 
   FileText, 
   ArrowLeft, 
@@ -14,13 +13,11 @@ import {
   Download, 
   CreditCard, 
   AlertCircle,
-  MessageCircle,
   Mail
 } from "lucide-react";
 
 export default function TermsPage() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [isBookCallOpen, setIsBookCallOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-[repeating-linear-gradient(45deg,#f0f0f0_0_1px,#0000_1px_8px)] dark:bg-[repeating-linear-gradient(45deg,#161616_0_1px,#0000_1px_8px)] text-zinc-900 dark:text-zinc-100 transition-colors">
@@ -29,7 +26,6 @@ export default function TermsPage() {
       <div className="mx-auto max-w-[1440px] border-x border-[#e5e5e5] bg-white dark:border-[#262626] dark:bg-[#09090b] shadow-2xl">
         <Navbar 
           onOpenSearch={() => setIsSearchOpen(true)} 
-          onOpenBookCall={() => setIsBookCallOpen(true)}
         />
 
         <main className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
@@ -132,17 +128,8 @@ export default function TermsPage() {
               </p>
               <div className="flex flex-wrap gap-4 text-xs font-mono">
                 <a 
-                  href="https://wa.me/918766207219"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-600 px-3 py-2 text-white font-sans hover:bg-emerald-500 transition-colors"
-                >
-                  <MessageCircle className="h-3.5 w-3.5" />
-                  <span>WhatsApp: +91 87662 07219</span>
-                </a>
-                <a 
                   href="mailto:devadibxr@gmail.com"
-                  className="inline-flex items-center gap-1.5 rounded-lg bg-zinc-900 px-3 py-2 text-white font-sans hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-white transition-colors"
+                  className="inline-flex items-center gap-1.5 rounded-lg bg-zinc-900 px-4 py-2.5 text-white font-sans hover:bg-[#ff6a00] dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-[#ff6a00] dark:hover:text-white transition-colors"
                 >
                   <Mail className="h-3.5 w-3.5" />
                   <span>Email: devadibxr@gmail.com</span>
@@ -161,11 +148,6 @@ export default function TermsPage() {
         isOpen={isSearchOpen}
         onClose={() => setIsSearchOpen(false)}
         onSelectTemplate={() => {}}
-      />
-
-      <BookCallModal
-        isOpen={isBookCallOpen}
-        onClose={() => setIsBookCallOpen(false)}
       />
     </div>
   );

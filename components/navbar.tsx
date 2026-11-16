@@ -7,17 +7,17 @@ import {
   Search, 
   Moon, 
   Sun,
-  Sparkles
+  Sparkles,
+  Github
 } from "lucide-react";
 import { Logo } from "./logo";
 
 interface NavbarProps {
   onOpenSearch: () => void;
-  onOpenBookCall?: () => void;
   onOpenInspirational?: () => void;
 }
 
-export function Navbar({ onOpenSearch, onOpenBookCall, onOpenInspirational }: NavbarProps) {
+export function Navbar({ onOpenSearch, onOpenInspirational }: NavbarProps) {
   const pathname = usePathname();
   const [isDark, setIsDark] = useState(false); // Can toggle between light and dark
 

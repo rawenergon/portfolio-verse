@@ -6,13 +6,11 @@ import { TEMPLATES_DATA, TemplateItem } from "@/lib/templates-data";
 import { TemplateCard } from "./template-card";
 
 interface TemplateGridProps {
-  onSelectForPurchase: (template: TemplateItem) => void;
-  onOpenLivePreview: (template: TemplateItem) => void;
+  onSelectForPurchase?: (template: TemplateItem) => void;
 }
 
 export function TemplateGrid({ 
-  onSelectForPurchase, 
-  onOpenLivePreview 
+  onSelectForPurchase 
 }: TemplateGridProps) {
   const [sortBy, setSortBy] = useState<"featured" | "newest">("featured");
 
@@ -122,7 +120,6 @@ export function TemplateGrid({
               key={template.id}
               template={template}
               onSelectForPurchase={onSelectForPurchase}
-              onOpenLivePreview={onOpenLivePreview}
             />
           ))}
         </div>

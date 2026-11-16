@@ -15,7 +15,6 @@ import {
   Shield,
   Zap,
   Mail,
-  Phone,
   Tag,
   CheckCircle2,
   FileCode,
@@ -472,18 +471,6 @@ export function PurchaseModal({ template, onClose }: PurchaseModalProps) {
                       <span>⚠</span> {emailError}
                     </p>
                   )}
-
-                  {/* Optional Phone / WhatsApp */}
-                  <div className="relative">
-                    <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-zinc-400" />
-                    <input
-                      type="tel"
-                      placeholder={isInternational ? "Phone with country code (e.g. +1 555-0199)" : "Phone / WhatsApp (Optional)"}
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      className="w-full rounded-xl border border-zinc-300 bg-white pl-9 pr-3.5 py-2.5 text-xs text-zinc-900 placeholder:text-zinc-400 focus:border-[#ff6a00] focus:outline-none focus:ring-2 focus:ring-[#ff6a00]/20 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100"
-                    />
-                  </div>
                 </div>
               </div>
 

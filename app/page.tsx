@@ -9,17 +9,13 @@ import { NewsletterSection } from "@/components/newsletter-section";
 import { Footer } from "@/components/footer";
 import { CommandPalette } from "@/components/command-palette";
 import { PurchaseModal } from "@/components/purchase-modal";
-import { LivePreviewModal } from "@/components/live-preview-modal";
-import { BookCallModal } from "@/components/book-call-modal";
 import { InspirationalModal } from "@/components/inspirational-modal";
-import { TemplateItem, TEMPLATES_DATA } from "@/lib/templates-data";
+import { TemplateItem } from "@/lib/templates-data";
 
 export default function HomePage() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [isBookCallOpen, setIsBookCallOpen] = useState(false);
   const [isInspirationalOpen, setIsInspirationalOpen] = useState(false);
   const [purchaseTemplate, setPurchaseTemplate] = useState<TemplateItem | null>(null);
-  const [previewTemplate, setPreviewTemplate] = useState<TemplateItem | null>(null);
 
   // Global Ctrl+K / Cmd+K listener to toggle command palette
   useEffect(() => {
@@ -44,22 +40,20 @@ export default function HomePage() {
         {/* Navigation Header */}
         <Navbar 
           onOpenSearch={() => setIsSearchOpen(true)} 
-          onOpenBookCall={() => setIsBookCallOpen(true)}
           onOpenInspirational={() => setIsInspirationalOpen(true)}
         />
 
-        {/* Hero Section matching exact reference */}
+        {/* Hero Section */}
         <main className="flex-1">
           <HeroSection onOpenInspirational={() => setIsInspirationalOpen(true)} />
 
           {/* Dedicated Portfolio Templates Catalog */}
           <TemplateGrid
             onSelectForPurchase={(template) => setPurchaseTemplate(template)}
-            onOpenLivePreview={(template) => setPreviewTemplate(template)}
           />
 
           {/* Newsletter Callout */}
-          <NewsletterSection onOpenBookCall={() => setIsBookCallOpen(true)} />
+          <NewsletterSection />
         </main>
 
         {/* Site Footer */}
@@ -83,19 +77,6 @@ export default function HomePage() {
       <PurchaseModal
         template={purchaseTemplate}
         onClose={() => setPurchaseTemplate(null)}
-      />
-
-      {/* Fullscreen Interactive Live Preview Modal */}
-      <LivePreviewModal
-        template={previewTemplate}
-        onClose={() => setPreviewTemplate(null)}
-        onSelectForPurchase={(template) => setPurchaseTemplate(template)}
-      />
-
-      {/* 1:1 Consultation / Strategy Call Booking Modal (₹100 INR) */}
-      <BookCallModal
-        isOpen={isBookCallOpen}
-        onClose={() => setIsBookCallOpen(false)}
       />
     </div>
   );

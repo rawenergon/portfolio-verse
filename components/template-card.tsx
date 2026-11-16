@@ -1,14 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { 
-  Lock, 
   ExternalLink, 
-  ShoppingCart, 
-  Eye, 
-  Globe,
+  Info,
   Github
 } from "lucide-react";
 import { TemplateItem } from "@/lib/templates-data";
@@ -16,14 +13,12 @@ import { useUserCurrency } from "@/lib/use-user-currency";
 
 interface TemplateCardProps {
   template: TemplateItem;
-  onSelectForPurchase: (template: TemplateItem) => void;
-  onOpenLivePreview: (template: TemplateItem) => void;
+  onSelectForPurchase?: (template: TemplateItem) => void;
 }
 
 export function TemplateCard({ 
   template, 
-  onSelectForPurchase, 
-  onOpenLivePreview 
+  onSelectForPurchase 
 }: TemplateCardProps) {
   const { formatPrice } = useUserCurrency();
   const isCcidcop = template.slug === "ccidcop";
@@ -54,28 +49,12 @@ export function TemplateCard({
               </Link>
             </h2>
 
-            {/* Lock / Live Icon in gray rounded box */}
-            <span className="flex h-5 w-5 items-center justify-center rounded bg-[#f4f4f5] text-zinc-600 dark:bg-[#27272a] dark:text-zinc-400">
-              {template.demoUrl ? (
-                <Globe className="h-3 w-3 text-[#ff6a00]" />
-              ) : (
-                <Lock className="h-3 w-3" />
-              )}
-            </span>
-
             {/* (New) Badge in Green Italic matching reference */}
             {template.isNew && (
               <span className="text-xs font-semibold italic text-[#22c55e] tracking-tight">
                 (New)
               </span>
             )}
-          </div>
-
-          {/* Price / Free Badge */}
-          <div className="text-right shrink-0">
-            <span className="inline-flex items-center rounded-md bg-emerald-500/10 px-2 py-0.5 text-xs font-mono font-bold text-emerald-500 border border-emerald-500/20">
-              FREE
-            </span>
           </div>
         </div>
 
@@ -134,43 +113,24 @@ export function TemplateCard({
           />
         </div>
 
-        {/* Live URL Pill in corner of card sandbox */}
-        <div className="absolute top-2.5 left-2.5 z-10 flex items-center gap-1.5 rounded-md bg-black/80 px-2 py-0.5 font-mono text-[10px] text-zinc-300 border border-white/10 backdrop-blur-sm pointer-events-none">
-          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-          <span>
-            {template.demoUrl 
-              ? template.demoUrl.replace(/^https?:\/\//, '').replace(/\/$/, '') 
-              : `${template.slug}.ui-layouts.com`}
-          </span>
-        </div>
-
-        {/* Hover Quick Action Buttons */}
-        <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex flex-col items-center justify-center gap-3 p-4 z-20">
-          <div className="flex items-center gap-2.5">
-            <Link
-              href={`/templates/${template.slug}`}
-              className="inline-flex items-center gap-1.5 rounded-lg bg-white px-3.5 py-2 text-xs font-bold text-zinc-900 shadow-md hover:bg-zinc-100 transition-all hover:scale-105 cursor-pointer"
-            >
-              <Eye className="h-3.5 w-3.5 text-[#ff6a00]" />
-              <span>View</span>
-            </Link>
-
-            <a
-              href={template.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-lg bg-[#ff6a00] px-3.5 py-2 text-xs font-bold text-white shadow-md shadow-orange-500/30 hover:bg-[#ff7a1a] transition-all hover:scale-105 cursor-pointer"
-            >
-              <Github className="h-3.5 w-3.5" />
-              <span>Get Code</span>
-            </a>
-          </div>
+        {/* Hover Quick Action Buttons: Visit and Info */}
+        <div className="absolute inset-0 bg-black/65 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center gap-3 p-4 z-20">
+          <a
+            href={targetUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 rounded-lg bg-[#ff6a00] px-4 py-2 text-xs font-bold text-white shadow-lg shadow-orange-500/30 hover:bg-[#ff7a1a] transition-all hover:scale-105 cursor-pointer"
+          >
+            <ExternalLink className="h-3.5 w-3.5" />
+            <span>Visit</span>
+          </a>
 
           <Link
             href={`/templates/${template.slug}`}
-            className="text-[11px] font-medium text-white/90 underline-offset-4 hover:underline hover:text-white"
+            className="inline-flex items-center gap-1.5 rounded-lg bg-white px-4 py-2 text-xs font-bold text-zinc-900 shadow-lg hover:bg-zinc-100 transition-all hover:scale-105 cursor-pointer"
           >
-            View Details &amp; Live Site →
+            <Info className="h-3.5 w-3.5 text-[#ff6a00]" />
+            <span>Info</span>
           </Link>
         </div>
       </div>
