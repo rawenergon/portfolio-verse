@@ -24,9 +24,7 @@ import { Navbar } from "@/components/navbar";
 import { NewsletterSection } from "@/components/newsletter-section";
 import { Footer } from "@/components/footer";
 import { PurchaseModal } from "@/components/purchase-modal";
-import { LivePreviewModal } from "@/components/live-preview-modal";
 import { BookCallModal } from "@/components/book-call-modal";
-import { ResponsiveTabBrowser } from "@/components/responsive-tab-browser";
 
 interface TemplateDetailViewProps {
   template: TemplateItem;
@@ -35,7 +33,6 @@ interface TemplateDetailViewProps {
 export function TemplateDetailView({ template }: TemplateDetailViewProps) {
   const { formatPrice, currency } = useUserCurrency();
   const [isPurchaseOpen, setIsPurchaseOpen] = useState(false);
-  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [isBookCallOpen, setIsBookCallOpen] = useState(false);
 
   const isCcidcop = template.slug === "ccidcop";
@@ -122,25 +119,6 @@ export function TemplateDetailView({ template }: TemplateDetailViewProps) {
         <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-10 pb-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-zinc-200 dark:border-zinc-800">
             <div className="space-y-3 max-w-2xl">
-              <div className="flex items-center gap-2.5">
-                <span className="rounded-md bg-orange-500/10 px-2.5 py-1 text-xs font-bold text-[#ff6a00] border border-orange-500/20">
-                  {template.subCategory}
-                </span>
-                {template.isNew && (
-                  <span className="text-xs font-bold italic text-emerald-500">
-                    (New Release)
-                  </span>
-                )}
-                {template.demoUrl && (
-                  <span className="text-xs font-bold text-[#ff6a00] bg-orange-500/10 px-2 py-0.5 rounded border border-orange-500/20 font-mono">
-                    {template.demoUrl.replace(/^https?:\/\//, '').replace(/\/$/, '')}
-                  </span>
-                )}
-                <span className="text-xs text-zinc-400 font-mono">
-                  Updated {template.updatedAt}
-                </span>
-              </div>
-
               <h1 className="text-3xl sm:text-5xl font-black tracking-tight uppercase text-zinc-900 dark:text-white">
                 {template.title}
               </h1>
@@ -181,7 +159,7 @@ export function TemplateDetailView({ template }: TemplateDetailViewProps) {
                   rel="noopener noreferrer"
                   className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 rounded-xl border border-zinc-300 bg-white px-5 py-3 text-xs font-bold text-zinc-900 shadow-sm hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white dark:hover:bg-zinc-700 transition-all cursor-pointer"
                 >
-                  <span>Live Preview</span>
+                  <span>Visit Site</span>
                   <ExternalLink className="h-4 w-4" />
                 </a>
 
@@ -194,14 +172,6 @@ export function TemplateDetailView({ template }: TemplateDetailViewProps) {
                 </button>
               </div>
             </div>
-          </div>
-
-          {/* Dedicated Live Embedded Responsive Browser on Page */}
-          <div className="mt-8">
-            <ResponsiveTabBrowser
-              initialSlug={template.slug}
-              onSelectForPurchase={() => setIsPurchaseOpen(true)}
-            />
           </div>
 
           {/* UI Layouts Pro "Details" Section */}
@@ -255,7 +225,7 @@ export function TemplateDetailView({ template }: TemplateDetailViewProps) {
                   Ready to deploy {template.title}?
                 </h3>
                 <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400">
-                  Instant source code download (.ZIP), full documentation, and lifetime commercial license for only ₹{template.price} INR.
+                  Instant source code download (.ZIP), full documentation, and lifetime commercial license for only {formatPrice(template.price)}.
                 </p>
               </div>
 
@@ -264,7 +234,7 @@ export function TemplateDetailView({ template }: TemplateDetailViewProps) {
                   onClick={() => setIsPurchaseOpen(true)}
                   className="rounded-xl bg-[#ff6a00] px-6 py-3 text-xs font-bold text-white shadow-lg shadow-orange-500/25 hover:bg-[#ff7a1a] transition-all hover:scale-105 cursor-pointer"
                 >
-                  Buy Now &bull; ₹{template.price} INR
+                  Buy Now &bull; {formatPrice(template.price)}
                 </button>
               </div>
             </div>
@@ -279,16 +249,6 @@ export function TemplateDetailView({ template }: TemplateDetailViewProps) {
 
       {/* Footer */}
       <Footer />
-
-      {/* Fullscreen Interactive Live Preview Modal */}
-      <LivePreviewModal
-        template={isPreviewOpen ? template : null}
-        onClose={() => setIsPreviewOpen(false)}
-        onSelectForPurchase={() => {
-          setIsPreviewOpen(false);
-          setIsPurchaseOpen(true);
-        }}
-      />
 
       {/* Purchase Modal with UPI / Cards in INR */}
       <PurchaseModal
