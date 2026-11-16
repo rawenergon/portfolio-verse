@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Contact Aditya Raj",
-  description: "Get in touch with Aditya Raj (@rawenergon) for portfolio design, full-stack systems engineering, and open-source template support. Direct email: devadibxr@gmail.com.",
+  description: "Get in touch with Aditya Raj (@rawenergon) for portfolio design, full-stack systems engineering, and open-source template support. Direct email: devadibxr@gmail.com and Instagram: @adibxr.",
   alternates: {
     canonical: "/contact",
   },

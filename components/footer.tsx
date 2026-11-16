@@ -7,7 +7,6 @@ import { Logo } from "./logo";
 export function Footer() {
   const footerLinks = [
     { name: "Templates", href: "/" },
-    { name: "Live Preview", href: "/templates/ccidcop" },
     { name: "License", href: "/license" },
     { name: "Terms of Service", href: "/terms" },
     { name: "Contact & Support", href: "/contact" },
