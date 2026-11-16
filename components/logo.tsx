@@ -13,7 +13,7 @@ export function Logo({ className = "" }: LogoProps) {
       className={`inline-flex items-center gap-2 sm:gap-2.5 group transition-opacity hover:opacity-90 ${className}`}
     >
       {/* Official Provided Logo Image - Compact & Sharp */}
-      <div className="relative flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center overflow-hidden rounded-lg bg-black border border-zinc-200/80 dark:border-zinc-800 shadow-sm shrink-0">
+      <div className="relative flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center overflow-hidden rounded-lg bg-black shrink-0">
         <Image
           src="/logo.png"
           alt="CV.VERSE Logo"

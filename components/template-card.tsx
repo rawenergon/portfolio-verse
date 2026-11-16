@@ -50,12 +50,12 @@ export function TemplateCard({
             )}
           </div>
 
-          {/* GitHub Logo Icon in Orange (No text name, direct link) */}
+          {/* GitHub Logo Icon in Orange (No border, direct link) */}
           <a
             href={template.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex h-7 w-7 items-center justify-center rounded-lg bg-orange-500/10 text-[#ff6a00] border border-orange-500/20 hover:bg-[#ff6a00] hover:text-white transition-all cursor-pointer shrink-0"
+            className="flex h-7 w-7 items-center justify-center rounded-lg text-[#ff6a00] hover:bg-orange-500/10 hover:scale-110 transition-all cursor-pointer shrink-0"
             title={`View ${template.title} on GitHub`}
           >
             <Github className="h-4 w-4" />
