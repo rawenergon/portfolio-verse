@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { NoiseOverlay } from "@/components/noise-overlay";
+import { Analytics } from "@vercel/analytics/next";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://portfolio-verse-bice.vercel.app";
 
@@ -187,6 +188,7 @@ export default function RootLayout({
       >
         <NoiseOverlay />
         {children}
+        <Analytics />
       </body>
     </html>
   );
