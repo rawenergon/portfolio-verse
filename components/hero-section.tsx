@@ -11,27 +11,26 @@ export function HeroSection({ onOpenInspirational }: HeroSectionProps) {
     <section className="relative overflow-hidden pt-7 pb-4 md:pt-9 md:pb-6">
       <div className="relative mx-auto max-w-4xl px-4 text-center">
         
-        {/* CV.VERSE Free Badge */}
+        {/* CV.VERSE GitHub Badge */}
         <div className="mx-auto mb-4 flex flex-wrap items-center justify-center gap-2">
-          <div className="flex items-center justify-center gap-2 rounded-md px-3 py-1 text-sm font-medium border shadow-sm bg-zinc-50 border-zinc-200 text-zinc-900 dark:bg-zinc-900 dark:border-zinc-800 dark:text-zinc-100">
+          <a
+            href="https://github.com/rawenergon"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="GitHub Profile"
+            className="flex items-center justify-center gap-2 rounded-md px-3 py-1 text-sm font-medium border shadow-xs bg-zinc-50 border-zinc-200 hover:border-orange-500/50 hover:bg-orange-500/5 dark:bg-zinc-900 dark:border-zinc-800 dark:hover:border-orange-500/50 transition-all cursor-pointer group"
+          >
             <svg 
-              xmlns="http://www.w3.org/2000/svg" 
-              width="15" 
-              height="15" 
               viewBox="0 0 24 24" 
-              fill="none" 
-              stroke="currentColor" 
-              strokeWidth="2" 
-              strokeLinecap="round" 
-              strokeLinejoin="round" 
-              className="text-[#ff6a00]"
+              width="16" 
+              height="16" 
+              fill="currentColor" 
+              className="text-[#ff6a00] group-hover:scale-110 transition-transform"
             >
-              <rect width="18" height="18" x="3" y="3" rx="2"></rect>
-              <path d="M3 9h18"></path>
-              <path d="M9 21V9"></path>
+              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
             </svg>
-            <span className="text-xs font-bold tracking-tight">CV.VERSE · 100% FREE</span>
-          </div>
+            <span className="text-xs font-bold tracking-tight text-zinc-900 dark:text-zinc-100">CV.VERSE</span>
+          </a>
 
           {onOpenInspirational && (
             <button
@@ -46,7 +45,7 @@ export function HeroSection({ onOpenInspirational }: HeroSectionProps) {
         {/* Clean Headline with CV.VERSE */}
         <h1 className="mx-auto max-w-2xl text-center text-3xl sm:text-5xl md:text-6xl font-normal font-serif tracking-tight text-zinc-900 dark:text-white leading-[1.1]">
           <span className="block">Inspirational Developer Portfolios</span>
-          <span className="block mt-1 italic text-zinc-700 dark:text-zinc-300">100% Free &amp; Open Source on GitHub.</span>
+          <span className="block mt-1 italic text-zinc-700 dark:text-zinc-300">Open Source on GitHub.</span>
         </h1>
 
         {/* Exact Reference 4-Icon Strip: 48px square boxes, NO text labels */}

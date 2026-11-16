@@ -3,13 +3,8 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { 
-  ExternalLink, 
-  Info,
-  Github
-} from "lucide-react";
+import { Github } from "lucide-react";
 import { TemplateItem } from "@/lib/templates-data";
-import { useUserCurrency } from "@/lib/use-user-currency";
 
 interface TemplateCardProps {
   template: TemplateItem;
@@ -17,10 +12,8 @@ interface TemplateCardProps {
 }
 
 export function TemplateCard({ 
-  template, 
-  onSelectForPurchase 
+  template 
 }: TemplateCardProps) {
-  const { formatPrice } = useUserCurrency();
   const isCcidcop = template.slug === "ccidcop";
   const targetUrl = template.demoUrl || (isCcidcop ? "https://ccidcop.in" : `https://${template.slug}.ui-layouts.com`);
   const previewImgSrc = template.imageUrl || `https://api.microlink.io/?url=${encodeURIComponent(targetUrl)}&screenshot=true&embed=screenshot.url`;
@@ -38,7 +31,7 @@ export function TemplateCard({
 
       <div className="relative z-10">
         {/* Header Row */}
-        <div className="flex items-start justify-between gap-3">
+        <div className="flex items-center justify-between gap-3">
           <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
             <h2 className="text-lg sm:text-xl font-serif font-normal tracking-tight text-zinc-900 dark:text-white uppercase">
               <Link 
@@ -56,6 +49,17 @@ export function TemplateCard({
               </span>
             )}
           </div>
+
+          {/* GitHub Logo Icon in Orange (No text name, direct link) */}
+          <a
+            href={template.githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex h-7 w-7 items-center justify-center rounded-lg bg-orange-500/10 text-[#ff6a00] border border-orange-500/20 hover:bg-[#ff6a00] hover:text-white transition-all cursor-pointer shrink-0"
+            title={`View ${template.title} on GitHub`}
+          >
+            <Github className="h-4 w-4" />
+          </a>
         </div>
 
         {/* Tech Stack Icons Row: TS • N • ⚛ matching screenshot */}
@@ -119,18 +123,16 @@ export function TemplateCard({
             href={targetUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 rounded-lg bg-[#ff6a00] px-4 py-2 text-xs font-bold text-white shadow-lg shadow-orange-500/30 hover:bg-[#ff7a1a] transition-all hover:scale-105 cursor-pointer"
+            className="inline-flex items-center justify-center rounded-lg bg-[#ff6a00] px-5 py-2 text-xs font-bold text-white shadow-lg shadow-orange-500/30 hover:bg-[#ff7a1a] transition-all hover:scale-105 cursor-pointer"
           >
-            <ExternalLink className="h-3.5 w-3.5" />
-            <span>Visit</span>
+            Visit
           </a>
 
           <Link
             href={`/templates/${template.slug}`}
-            className="inline-flex items-center gap-1.5 rounded-lg bg-white px-4 py-2 text-xs font-bold text-zinc-900 shadow-lg hover:bg-zinc-100 transition-all hover:scale-105 cursor-pointer"
+            className="inline-flex items-center justify-center rounded-lg bg-white px-5 py-2 text-xs font-bold text-zinc-900 shadow-lg hover:bg-zinc-100 transition-all hover:scale-105 cursor-pointer"
           >
-            <Info className="h-3.5 w-3.5 text-[#ff6a00]" />
-            <span>Info</span>
+            Info
           </Link>
         </div>
       </div>
@@ -144,27 +146,14 @@ export function TemplateCard({
           View Details →
         </Link>
 
-        <div className="flex items-center gap-2.5">
-          <a
-            href={targetUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1 font-medium text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-200 cursor-pointer"
-          >
-            <span>Live Site</span>
-            <ExternalLink className="h-3 w-3" />
-          </a>
-
-          <a
-            href={template.githubUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 rounded bg-zinc-900 px-2.5 py-1 text-xs font-semibold text-white shadow-sm hover:bg-[#ff6a00] dark:bg-zinc-800 dark:hover:bg-[#ff6a00] transition-colors cursor-pointer"
-          >
-            <Github className="h-3 w-3" />
-            <span>GitHub</span>
-          </a>
-        </div>
+        <a
+          href={targetUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-medium text-zinc-600 hover:text-[#ff6a00] dark:text-zinc-400 dark:hover:text-[#ff6a00] transition-colors cursor-pointer"
+        >
+          Live Site →
+        </a>
       </div>
     </article>
   );

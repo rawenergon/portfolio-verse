@@ -62,6 +62,18 @@ export function Navbar({ onOpenSearch, onOpenInspirational }: NavbarProps) {
             </button>
           )}
 
+          {/* GitHub Icon Link */}
+          <a
+            href="https://github.com/rawenergon"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex h-7.5 w-7.5 sm:h-8 sm:w-8 items-center justify-center rounded-md border border-orange-500/30 bg-orange-500/10 text-[#ff6a00] hover:bg-orange-500/20 hover:scale-105 transition-all cursor-pointer shadow-xs"
+            title="GitHub Profile"
+            aria-label="GitHub Profile"
+          >
+            <Github className="h-4 w-4 fill-current text-[#ff6a00]" />
+          </a>
+
           {/* Search Trigger Button matching reference Ctrl+K */}
           <button
             onClick={onOpenSearch}

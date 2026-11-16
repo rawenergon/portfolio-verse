@@ -68,11 +68,6 @@ export function TemplateGrid({
           >
             <span>Newest</span>
           </button>
-
-          <span className="ml-1 inline-flex items-center gap-1.5 rounded-md bg-emerald-500/10 px-2.5 py-1 text-xs font-bold text-emerald-500 border border-emerald-500/20">
-            <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            <span>100% Free &amp; Open Source</span>
-          </span>
         </div>
 
         {/* Right Info: Count & Reset */}
