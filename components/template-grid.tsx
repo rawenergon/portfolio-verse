@@ -140,8 +140,8 @@ export function TemplateGrid({
           </button>
         </div>
       ) : (
-        /* Template Cards Grid: 2 Columns on desktop matching reference layout */
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+        /* Template Cards Grid: 3 Columns on desktop */
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
           {filteredTemplates.map((template) => (
             <TemplateCard
               key={template.id}

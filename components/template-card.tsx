@@ -30,7 +30,7 @@ export function TemplateCard({
   const previewImgSrc = template.imageUrl || `https://api.microlink.io/?url=${encodeURIComponent(targetUrl)}&screenshot=true&embed=screenshot.url`;
 
   return (
-    <article className="group relative flex flex-col justify-between rounded-xl border border-[#e5e5e5] bg-white p-5 sm:p-6 shadow-sm transition-all duration-300 hover:shadow-lg dark:border-[#27272a] dark:bg-[#121214]">
+    <article className="group relative flex flex-col justify-between rounded-xl border border-[#e5e5e5] bg-white p-4 sm:p-5 shadow-sm transition-all duration-300 hover:shadow-lg dark:border-[#27272a] dark:bg-[#121214]">
       
       {/* SVG Noise Texture overlay */}
       <svg className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.03] dark:opacity-[0.06]">
@@ -42,9 +42,9 @@ export function TemplateCard({
 
       <div className="relative z-10">
         {/* Header Row */}
-        <div className="flex items-start justify-between gap-4">
-          <div className="flex flex-wrap items-center gap-2">
-            <h2 className="text-xl sm:text-2xl font-serif font-normal tracking-tight text-zinc-900 dark:text-white uppercase">
+        <div className="flex items-start justify-between gap-3">
+          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+            <h2 className="text-lg sm:text-xl font-serif font-normal tracking-tight text-zinc-900 dark:text-white uppercase">
               <Link 
                 href={`/templates/${template.slug}`}
                 className="hover:text-[#ff6a00] dark:hover:text-[#ff6a00] transition-colors"
@@ -64,7 +64,7 @@ export function TemplateCard({
 
             {/* (New) Badge in Green Italic matching reference */}
             {template.isNew && (
-              <span className="text-sm font-semibold italic text-[#22c55e] tracking-tight">
+              <span className="text-xs font-semibold italic text-[#22c55e] tracking-tight">
                 (New)
               </span>
             )}
@@ -72,7 +72,7 @@ export function TemplateCard({
 
           {/* Price formatted according to detected user region */}
           <div className="text-right shrink-0">
-            <div className="text-xl sm:text-2xl font-bold font-mono text-zinc-900 dark:text-white leading-tight">
+            <div className="text-lg sm:text-xl font-bold font-mono text-zinc-900 dark:text-white leading-tight">
               {formatPrice(template.price)}
             </div>
           </div>

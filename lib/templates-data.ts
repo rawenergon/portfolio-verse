@@ -116,5 +116,46 @@ export const TEMPLATES_DATA: TemplateItem[] = [
     salesCount: 230,
     previewGradient: "from-emerald-500/25 via-zinc-900 to-black",
     previewAccent: "#10b981"
+  },
+  {
+    id: "3",
+    slug: "vinod-jangid",
+    title: "Vinod Jangid",
+    isNew: true,
+    isFeatured: true,
+    price: 100, // 100 INR / $2.49 USD
+    originalPrice: 249,
+    currency: "INR",
+    currencySymbol: "₹",
+    category: "Portfolio",
+    subCategory: "Design & Creative",
+    description: "The tactile, high-craft frontend engineer portfolio of Vinod Jangid. Features 3D avatar hero, accessible product interfaces, interactive case studies, and micro-interactions.",
+    longDescription: "Vinod Jangid (vinodjangid.site) is a benchmark frontend & UI engineer portfolio. Built with Next.js, React, Tailwind CSS, TypeScript, and Turbopack, it features a tactile aesthetic, 3D interactive avatar, curated client case studies, accessible typography pairing (Bricolage Grotesque & Plus Jakarta Sans), and production-grade responsive architecture.",
+    techStack: [
+      { name: "TypeScript", badge: "TS", icon: "ts", color: "bg-blue-500/20 text-blue-400 border-blue-500/30" },
+      { name: "Next.js", badge: "Next", icon: "next", color: "bg-zinc-800 text-zinc-200 border-zinc-700" },
+      { name: "React", badge: "React", icon: "react", color: "bg-cyan-500/20 text-cyan-400 border-cyan-500/30" },
+      { name: "Tailwind CSS", badge: "Tailwind", icon: "tailwind", color: "bg-sky-500/20 text-sky-400 border-sky-500/30" },
+      { name: "Turbopack", badge: "Turbo", icon: "turbo", color: "bg-indigo-500/20 text-indigo-400 border-indigo-500/30" },
+    ],
+    videoSrc: "",
+    imageUrl: "/previews/vinodjangid.png",
+    previewUrl: "/templates/vinod-jangid",
+    demoUrl: "https://vinodjangid.site/",
+    features: [
+      "Official live portfolio of Vinod Jangid at vinodjangid.site",
+      "Tactile UI with interactive 3D hero avatar",
+      "Curated client case studies & deep-dive product showcases",
+      "Typographic pairing of Bricolage Grotesque and Plus Jakarta Sans",
+      "Engineered with Next.js App Router, React 19, and Tailwind CSS",
+      "Accessible dark/light color palette with smooth micro-interactions",
+      "Direct social contact integrations (GitHub, X, LinkedIn, Email)"
+    ],
+    pages: ["Hero & Bio", "Selected Work", "Case Studies", "Skills & Experience", "Contact & Socials"],
+    updatedAt: "Live on vinodjangid.site",
+    rating: 5.0,
+    salesCount: 145,
+    previewGradient: "from-blue-500/25 via-zinc-900 to-black",
+    previewAccent: "#3b82f6"
   }
 ];
