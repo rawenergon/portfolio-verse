@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Search, X, Layout, ArrowRight, Globe, Eye } from "lucide-react";
 import { TEMPLATES_DATA, TemplateItem } from "@/lib/templates-data";
 import { useUserCurrency } from "@/lib/use-user-currency";
@@ -115,20 +116,31 @@ export function CommandPalette({ isOpen, onClose, onSelectTemplate }: CommandPal
           <div className="hidden md:flex md:col-span-5 flex-col justify-between p-5 bg-zinc-50/50 dark:bg-zinc-900/30">
             {activeItem ? (
               <div className="space-y-4">
-                <div className="aspect-[16/10] w-full rounded-xl bg-zinc-950 p-4 border border-zinc-200 dark:border-zinc-800 flex flex-col justify-between relative overflow-hidden">
-                  <div className="flex items-center justify-between text-[10px] text-zinc-400 border-b border-white/10 pb-1.5">
-                    <span>{activeItem.subCategory}</span>
-                    <span className="text-emerald-400 font-semibold font-mono">₹{activeItem.price} INR</span>
-                  </div>
-                  <div className="text-center my-auto">
-                    <h4 className="text-lg font-bold text-white uppercase">{activeItem.title}</h4>
-                    <p className="text-[11px] text-zinc-400 mt-1 line-clamp-2">{activeItem.description}</p>
-                  </div>
-                  <div className="flex gap-1 text-[9px] text-zinc-400">
-                    {activeItem.techStack.map(t => (
-                      <span key={t.name} className="bg-white/10 px-1.5 py-0.5 rounded">{t.name}</span>
-                    ))}
-                  </div>
+                <div className="aspect-[16/10] w-full rounded-xl bg-zinc-950 border border-zinc-200 dark:border-zinc-800 relative overflow-hidden">
+                  {activeItem.imageUrl ? (
+                    <Image
+                      src={activeItem.imageUrl}
+                      alt={activeItem.title}
+                      fill
+                      className="object-cover object-top"
+                    />
+                  ) : (
+                    <div className="p-4 flex flex-col justify-between h-full">
+                      <div className="flex items-center justify-between text-[10px] text-zinc-400 border-b border-white/10 pb-1.5">
+                        <span>{activeItem.subCategory}</span>
+                        <span className="text-emerald-400 font-semibold font-mono">₹{activeItem.price} INR</span>
+                      </div>
+                      <div className="text-center my-auto">
+                        <h4 className="text-lg font-bold text-white uppercase">{activeItem.title}</h4>
+                        <p className="text-[11px] text-zinc-400 mt-1 line-clamp-2">{activeItem.description}</p>
+                      </div>
+                      <div className="flex gap-1 text-[9px] text-zinc-400">
+                        {activeItem.techStack.map(t => (
+                          <span key={t.name} className="bg-white/10 px-1.5 py-0.5 rounded">{t.name}</span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 <div>

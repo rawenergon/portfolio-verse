@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { 
   Lock, 
   ExternalLink, 
@@ -26,6 +27,7 @@ export function TemplateCard({
   const { formatPrice } = useUserCurrency();
   const isCcidcop = template.slug === "ccidcop";
   const targetUrl = template.demoUrl || (isCcidcop ? "https://ccidcop.in" : `https://${template.slug}.ui-layouts.com`);
+  const previewImgSrc = template.imageUrl || `https://api.microlink.io/?url=${encodeURIComponent(targetUrl)}&screenshot=true&embed=screenshot.url`;
 
   return (
     <article className="group relative flex flex-col justify-between rounded-xl border border-[#e5e5e5] bg-white p-5 sm:p-6 shadow-sm transition-all duration-300 hover:shadow-lg dark:border-[#27272a] dark:bg-[#121214]">
@@ -116,17 +118,18 @@ export function TemplateCard({
         </p>
       </div>
 
-      {/* Media Preview Container directly embedding the live site */}
-      <div className="relative mt-5 aspect-[16/10] w-full overflow-hidden rounded-lg border border-[#e5e5e5] bg-zinc-950 dark:border-zinc-800 shadow-inner">
+      {/* Media Preview Container with Website Image */}
+      <div className="relative mt-5 aspect-[16/10] w-full overflow-hidden rounded-lg border border-[#e5e5e5] bg-zinc-950 dark:border-zinc-800 shadow-inner group/preview">
         
-        {/* Direct Live Embed Iframe scaled to 50% for high-DPI desktop view */}
-        <div className="h-full w-full pointer-events-none select-none overflow-hidden bg-black">
-          <iframe
-            src={targetUrl.startsWith("/") ? targetUrl : `/api/proxy?url=${encodeURIComponent(targetUrl)}`}
-            title={`Live Embedded Preview of ${template.title}`}
-            className="h-[200%] w-[200%] origin-top-left scale-50 border-0 bg-black"
+        {/* Crisp Website Preview Image with subtle hover zoom */}
+        <div className="relative h-full w-full overflow-hidden bg-zinc-900">
+          <Image
+            src={previewImgSrc}
+            alt={`${template.title} Website Preview`}
+            fill
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
             loading="lazy"
-            sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals allow-downloads"
           />
         </div>
 
@@ -164,7 +167,7 @@ export function TemplateCard({
             href={`/templates/${template.slug}`}
             className="text-[11px] font-medium text-white/90 underline-offset-4 hover:underline hover:text-white"
           >
-            View Full Specs &amp; Responsive Preview →
+            View Details &amp; Live Site →
           </Link>
         </div>
       </div>

@@ -21,6 +21,7 @@ export interface TemplateItem {
   longDescription: string;
   techStack: TechStackItem[];
   videoSrc?: string;
+  imageUrl?: string;
   previewUrl: string;
   demoUrl: string;
   features: string[];
@@ -55,6 +56,7 @@ export const TEMPLATES_DATA: TemplateItem[] = [
       { name: "shadcn/ui", badge: "shadcn", icon: "shadcn", color: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30" },
     ],
     videoSrc: "",
+    imageUrl: "/previews/ccidcop.png",
     previewUrl: "/templates/ccidcop",
     demoUrl: "https://ccidcop.in/",
     features: [
@@ -95,6 +97,7 @@ export const TEMPLATES_DATA: TemplateItem[] = [
       { name: "CSS3 Variables", badge: "CSS", icon: "css", color: "bg-blue-500/20 text-blue-400 border-blue-500/30" },
     ],
     videoSrc: "",
+    imageUrl: "/previews/syntax-overlord.png",
     previewUrl: "/templates/syntax-overlord",
     demoUrl: "https://syntax-overlord.me/",
     features: [
@@ -113,44 +116,5 @@ export const TEMPLATES_DATA: TemplateItem[] = [
     salesCount: 230,
     previewGradient: "from-emerald-500/25 via-zinc-900 to-black",
     previewAccent: "#10b981"
-  },
-  {
-    id: "3",
-    slug: "system-spec",
-    title: "System Spec",
-    isNew: true,
-    isFeatured: true,
-    price: 100, // 100 INR / $2.49 USD
-    originalPrice: 249,
-    currency: "INR",
-    currencySymbol: "₹",
-    category: "Portfolio",
-    subCategory: "Minimalist",
-    description: "An ultra-minimalist, architectural editorial portfolio system. Built with DM Sans, serif italic headlines, dashed structural borders, and monospace metadata.",
-    longDescription: "System Spec is a disciplined, hyper-clean editorial design system and portfolio template. Engineered at a strict 48rem max-width, it pairs DM Sans typography with italic serif titles, micro-interaction scale feedback (0.992x), structural dashed dividers, monospace data chips, and full prefers-reduced-motion accessibility guards.",
-    techStack: [
-      { name: "TypeScript", badge: "TS", icon: "ts", color: "bg-blue-500/20 text-blue-400 border-blue-500/30" },
-      { name: "Next.js", badge: "Next", icon: "next", color: "bg-zinc-800 text-zinc-200 border-zinc-700" },
-      { name: "Tailwind CSS", badge: "Tailwind", icon: "tailwind", color: "bg-sky-500/20 text-sky-400 border-sky-500/30" },
-      { name: "DM Sans", badge: "DM", icon: "dm", color: "bg-purple-500/20 text-purple-400 border-purple-500/30" },
-      { name: "Dashed UI", badge: "Dash", icon: "dash", color: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30" },
-    ],
-    videoSrc: "",
-    previewUrl: "/templates/system-spec",
-    demoUrl: "/preview/system-spec",
-    features: [
-      "Strict 48rem editorial centered canvas with architectural dashed borders",
-      "DM Sans body paired with classical italic serif headline accents",
-      "Interactive 0.992x active press micro-interactions with reduced motion guards",
-      "Precision monospace system spec badges and curated item grids",
-      "Complete App Router production codebase with dark & light mode support",
-      "Zero bloat, instant 100/100 Lighthouse performance metrics"
-    ],
-    pages: ["Overview · System Spec", "Curated Items", "Engineering Matrix", "Experience & Research", "Contact Terminal"],
-    updatedAt: "Just Released",
-    rating: 5.0,
-    salesCount: 88,
-    previewGradient: "from-zinc-500/20 via-zinc-900 to-black",
-    previewAccent: "#a1a1aa"
   }
 ];
